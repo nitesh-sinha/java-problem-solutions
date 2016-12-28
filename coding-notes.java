@@ -275,7 +275,7 @@ You may assume that each input would have exactly one solution.
 
 
 public int[] twoSum(int[] nums, int target) {
-    Map<Integer, Integer> map = new HashMap<>();
+    Map<Integer, Integer> map = new HashMap<>(); // Stores number and its corresponding index
     for (int i = 0; i < nums.length; i++) {
         int complement = target - nums[i];
         if (map.containsKey(complement)) {
@@ -286,6 +286,7 @@ public int[] twoSum(int[] nums, int target) {
     throw new IllegalArgumentException("No two sum solution");
 }
 
+// Time complexity: O(n) where n is length of nums
 
 
 ===============================
@@ -305,7 +306,7 @@ Algo: Keep comparing needle in haystack until there is a mismatch in character.
 
       Next match is starting 5th char of haystack until 10th char i.e. "abcdab" with that of needle. Mismatch is at "x" and "c"
       The substr in needle before the mismatch is "abcdab" which has a sufix "ab" which is also a prefix.
-      So, continue comparing 3rd character onwards of needle whcih is "c" with "x". Now no suffix in prefix in substring "ab".
+      So, continue comparing 3rd character onwards of needle which is "c" with "x". Now no suffix in prefix in substring "ab".
 
 
 To achieve this, we need to pre-process the needle.
@@ -352,6 +353,23 @@ https://discuss.leetcode.com/topic/3576/accepted-kmp-solution-in-java-for-refere
 =================================
 10. Longest common prefix in array of strings:
 https://leetcode.com/articles/longest-common-prefix/
+
+// Algo: Horizontal scanning. Idea is LCP(S1, ....., Sn) = LCP(LCP(....LCP(S1, S2),S3)...Sn)
+
+    public String longestCommonPrefix(String[] strs) {
+        if (strs.length == 0) return "";
+        String prefix = strs[0];
+        for (int i = 1; i < strs.length; i++) {
+            while (strs[i].indexOf(prefix) != 0) {
+                // continue until prefix string doesn't appear in current string
+                prefix = prefix.substring(0, prefix.length() - 1); // Remove last char from prefix string
+                if (prefix.isEmpty()) return "";
+            }
+        }
+        return prefix;
+    }
+
+    // Time complexity: Worst case O(S) where S is sum of all chars in all strings.
 
 =================================
 11. Palindrome linked list -> O(n) time complexity and O(1) space complexity solution.
@@ -427,7 +445,7 @@ Given "paper", "title", return true.
     }
 
     private boolean isCorrectlyReplaced(String a, String b) {
-        // Checks if a is correctly replaced in b
+        // Checks if a is correctly replaced by b
         Map<Character, Character> replacementMap = new HashMap<>();
         boolean isCorrect = true;
         for(int i=0;i<a.length();i++) {
@@ -444,6 +462,8 @@ Given "paper", "title", return true.
         return isCorrect;
     }
 
+    // Time complexity: O(n) where n=length of string(assuming both strings are of same length)
+
 ==============================================
 
 14. Number of set bits: (faster method. loop runs as many times as the number of set bits)
@@ -457,9 +477,12 @@ Given "paper", "title", return true.
         return count;
  }
 
+ // Time complexity: O(k) where k=no.of set bits in n. Worst case: All bits are set. O(32)
+
  =============================================
 
- 15. Find the min depth of a binary tree.
+ 15. Find the min depth of a binary tree: The minimum depth is the number of nodes along the shortest path from the root node
+     down to the nearest leaf node.
 
   public int minDepth(TreeNode root) {
         if (root==null)
@@ -468,7 +491,9 @@ Given "paper", "title", return true.
         int leftDepth = minDepth(root.left);
         int rightDepth = minDepth(root.right);
 
-        // Check if any one depth is zero
+        // Dont consider the path whose depth is zero
+        // Eg: root=1, leftchild=2, no rightchild.
+        // Output should be 2 and not 1.
         if (leftDepth==0)
             return 1+rightDepth;
 
@@ -481,9 +506,12 @@ Given "paper", "title", return true.
         return 1 + rightDepth;
     }
 
+    // Time complexity: O(n) where n=no. of nodes in the tree since each node is visited exactly once.
+
 
 ================================================
 16. Remove duplicates from sorted array. Return the final length of the array after removing duplicates.
+// Check next solution
 
     public int removeDuplicates(int[] nums) {
         int insertIndex, iteratorIndex, len=nums.length;
@@ -533,11 +561,14 @@ It doesnt matter what you leave beyond the final length.
 
     NOTE: If we replace 2 by 1 in the above code at both places, solution is for Remove Duplicates(with no repetition).
 
+    // Time complexity: O(n) where n=size of array nums
+
 ==================================================
 17. Print all root to leaf paths:
 
 public class Solution {
     private List<String> paths = new ArrayList<>();
+
     public List<String> binaryTreePaths(TreeNode root) {
         String s = "";
         getPaths(root, s);
@@ -561,8 +592,10 @@ public class Solution {
     }
 }
 
+// Time complexity: O(n) where n=no. of nodes in tree since each node is visited once.
+
 ==================================================
-18. Swap nodes in pairs:
+18. Swap nodes of a linked list in pairs:
 
     public ListNode swapPairs(ListNode head) {
         // 0 or 1 node list
@@ -593,8 +626,9 @@ public class Solution {
         }
 
         return h.next;
-
     }
+
+    // Time complexity: O(n) where n=no.of nodes in linked list.
 
 ================================================
 19. Merge two sorted lists:
@@ -603,7 +637,7 @@ public class Solution {
 public class Solution {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         ListNode dummy = new ListNode(0);
-        ListNode prev=dummy;
+        ListNode prev = dummy;
 
         while(l1!=null && l2!=null) {
             if(l1.val<=l2.val) {
@@ -625,16 +659,18 @@ public class Solution {
     }
 }
 
+// Time cimplexity: O(n1+n2) where n1=no. of nodes in l1, n2=no. of nodes in l2.
+
 ================================================
-20. Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements that appear only once.
+20. Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice.
+    Find the two elements that appear only once.
 
      public int[] singleNumber(int[] nums) {
         int xor=0, oneGrp=0, otherGrp=0;
-        for (int num : nums) {
+        for (int num : nums)
             xor = xor ^ num;
-        }
 
-        // Get a number with only 1 bit(rightmost bit) set in xor
+        // Nullify all bits except the rightmost bit in xor number
         xor = xor & ~(xor-1);
 
         // Bitwise AND "xor" with all nums
@@ -651,6 +687,8 @@ public class Solution {
         return result;
     }
 
+    // Time complexity: O(n) where n=no. fo elements in nums
+
 ================================================
 21. Find the minimum number of squares whose sum gives a certain number.
     // For more info: http://www.geeksforgeeks.org/minimum-number-of-squares-whose-sum-equals-to-given-number-n/
@@ -663,7 +701,7 @@ public class Solution {
             return n;
 
         // For n>=4
-        int[] dp = new int[n+1];
+        int[] dp = new int[n+1]; // dp[i] is the no. of squares which gives i.
         // For n<=3, result=n
         dp[0]=0;
         dp[1]=1;
@@ -671,13 +709,15 @@ public class Solution {
         dp[3]=3;
 
         for(int j=4;j<=n;j++) {
-            dp[j]=j; // Assuming worst case scenario(addition of all 1's)
+            dp[j]=j; // Assuming worst case scenario(addition of all 1*1)
             for (int i=1;i*i<=j;i++) {
                 dp[j] = Math.min(dp[j], 1 + dp[j-i*i]); // Adding 1 here to consider i*i that we are subtracting from j here
             }
         }
         return dp[n];
     }
+
+    // Time complexity: O(nk) where n= input number; k=no. of squares below n
 
 =================================================
 
@@ -692,7 +732,7 @@ public class Solution {
         if (amount==0)
             return 0;
 
-        int[] dp = new int[amount+1];
+        int[] dp = new int[amount+1]; // dp[i] is the min. no. of coins to obtain amount i
         dp[0]=0;
         for(int j=1;j<=amount;j++) {
             dp[j]=Integer.MAX_VALUE;
@@ -714,12 +754,14 @@ public class Solution {
         return dp[amount];
     }
 
+    // Time complexity: O(nk) where n=no. of coins in input array; k=amount
+
 ============================================
 
 23. Given an array S of n integers, are there elements a, b, c, and d in S such that a + b + c + d = target?
-Find all unique quadruplets in the array which gives the sum of target.
+    Find all unique quadruplets in the array which gives the sum of target.
 
-Note: The solution set must not contain duplicate quadruplets.
+    Note: The solution set must not contain duplicate quadruplets.
 
 
     public List<List<Integer>> fourSum(int[] nums, int target) {
@@ -731,9 +773,8 @@ Note: The solution set must not contain duplicate quadruplets.
         Arrays.sort(nums);
 
         // Array is now sorted, so add a guard
-        if (nums[0] * 4 > target || nums[len-1] * 4 < target) {
+        if (nums[0] * 4 > target || nums[len-1] * 4 < target)
             return fourSumList;
-        }
 
         for(int i=0;i<len-3;i++) {
             // Additional guards for faster completion
@@ -758,12 +799,11 @@ Note: The solution set must not contain duplicate quadruplets.
                 if(j>(i+1)&& nums[j]==nums[j-1]) {
                     continue;
                 }
-                // Find other 2 nos. in O(n) time
+                // Find other 2 nos. in O(n) time using linear search
                 k=j+1;
                 l=len-1;
                 while (k<l) {
                     sum=nums[i]+nums[j]+nums[k]+nums[l];
-                    //System.out.printf("i=%d,j=%d,k=%d,l=%d, sum=%d \n", i,j,k,l,sum);
                     if(sum==target) {
                         fourSumList.add(Arrays.asList(nums[i],nums[j],nums[k],nums[l]));
 
@@ -788,6 +828,8 @@ Note: The solution set must not contain duplicate quadruplets.
         return fourSumList;
     }
 
+    // Time complexity: O(n^3) where n=no. of elements in input array
+
 ========================================
 
 24. Top K Frequent numbers in an array. Solution should have time complexity better than O(NlogN).
@@ -808,6 +850,11 @@ Check my solution for using various methods of iterating over Map etc.
             countMap.put(num, count+1);
         }
 
+
+        // Alternate logic: Create a maxHeap of number to its count
+        // Arrange maxHeap based on count values
+        // Pick k elements from maxheap
+        // Time complexity of alternate solution: O(k * log(n)) where n=length of nums in maxHeap; k=input k.
         while(cur<k) {
             Map.Entry<Integer, Integer> maxEntry = null;
             for(Map.Entry<Integer, Integer> entry : countMap.entrySet()) {
@@ -821,6 +868,7 @@ Check my solution for using various methods of iterating over Map etc.
         return result;
     }
 
+    // Time complexity: O(kn) where n=length of nums in maxHeap; k=input k.
 ========================================
 
 25. Break an integer N into two or more positive integers such that they sum upto N.
@@ -840,12 +888,15 @@ Check my solution for using various methods of iterating over Map etc.
             dp[i]=Integer.MIN_VALUE; // Start with MIN_VALUE since we've to find the max product
             for(int j=1;j<=i/2;j++) {
                 // Inner Math.max() needed so that we pick max of either the number or the parts which make up that number.
-                // Eg: If number=2 then dp[2]=1. If 2 is one of the +ve integers that makes up N, then we should select 2 i.e. (i-j) when considering the parts of N and not dp[2]=1 i.e.dp[i-j]
+                // Eg: If number=2 then dp[2]=1. If 2 is one of the +ve integers that makes up N, then we should select 2
+                // i.e. (i-j) when considering the parts of N and not dp[i-j] i.e.dp[2]=1
                 dp[i]=Math.max(dp[i], j*Math.max(i-j, dp[i-j]));
             }
         }
         return dp[n];
     }
+
+    // Time complexity: O(n^2)
 
 =======================================
 
