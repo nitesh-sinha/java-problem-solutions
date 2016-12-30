@@ -922,6 +922,8 @@ Check my solution for using various methods of iterating over Map etc.
         return maxMoney[len-1];
     }
 
+    // Time complexity: O(n) where n=no. of houses
+
 ========================================
 
 27. Given a string array words, find the maximum value of length(word[i]) * length(word[j]) where the two words do not share common letters.
@@ -960,9 +962,12 @@ You may assume that each word will contain only lower case letters. If no such t
         return maxProduct;
     }
 
+    // Time complexity: O(n) + O(k^2) where n=no. of all chars in all words; k=no. of words
+
 ========================================
 
-28.  Given an integer array with all positive numbers and no duplicates, find the number of possible combinations that add up to a positive integer target.
+28.  Given an integer array with all positive numbers and no duplicates, find the number of possible combinations that add
+     up to a positive integer target.
 
 Example:
 
@@ -1002,9 +1007,13 @@ Therefore the output is 7.
         return result[target];
     }
 
+    // Time complexity: O(nk) where n=length of nums; k=target
+
 ===============================================
 
 29. Generate n pairs of balanced parantheses.
+
+    // Check this out for a DP solution to this problem: https://rekinyz.wordpress.com/2015/02/13/generate-parentheses/
 
     public List<String> generateParenthesis(int n) {
         List<String> result = new ArrayList<>();
@@ -1025,6 +1034,7 @@ Therefore the output is 7.
     }
 
 ===============================================
+
 30. Given n, how many structurally unique BSTs (binary search trees) that store values 1...n?
 
     public int numTrees(int n) {
@@ -1032,16 +1042,16 @@ Therefore the output is 7.
          * To build a tree that contains {1,2,3,4,5}. First we pick 1 as root; for the left sub tree,
          * there are no numbers; for the right sub tree, we need to count how many possible trees can be
          * constructed from {2,3,4,5}, apparently it's the same number as {1,2,3,4}. So the total number
-         * of trees under "1" picked as root is dp[0] * dp[4] = 14. (assume dp[0] =1). Similarly, root 2
+         * of trees under "1" picked as root is dp[0] * dp[4] = 14. (assume dp[0]=1). Similarly, root 2
          * has dp[1]*dp[3] = 5 trees. root 3 has dp[2]*dp[2] = 4, root 4 has dp[3]*dp[1]= 5 and root 5 has
-         * dp[0]*dp[4] = 14. Finally sum them up and it's done.
+         * dp[4]*dp[0] = 14. Finally sum them up and it's done.
          **/
 
-        int[] dp=new int[n+1]; // dp[i] is the number of unique BST's possible with i nodes
+        int[] dp = new int[n+1]; // dp[i] is the number of unique BST's possible with i nodes
         dp[0]=1;
         for(int i=1;i<=n;i++) {
             for(int j=0;j<=i-1;j++) {
-                dp[i] += dp[j]*dp[i-j-1];
+                dp[i] += dp[j] * dp[i-j-1];
             }
         }
         return dp[n];
@@ -1099,18 +1109,19 @@ Therefore the output is 7.
 
 ==============================================
 
-32. A robot is located at the top-left corner of a m x n grid. The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid.(1<=m,n<=100)
+32. A robot is located at the top-left corner of a m x n grid. The robot can only move either down or right at any point in time.
+    The robot is trying to reach the bottom-right corner of the grid.(1<=m,n<=100)
 
 How many possible unique paths are there?
 
 Note: Simple question although the logic involves the use of BigInteger since we are working on very large integers.
       Basically the robot has to go down "m-1" steps and go right "n-1" steps to go from top-left grid to bottom-right grid.
-      So the questions asks the number of possible ways in which we can arrange m M's and n N's.
+      So the questions asks the number of possible ways in which we can arrange (m-1) M's and (n-1) N's.
 
     import java.math.BigInteger;
 
     public int uniquePaths(int m, int n) {
-        // Result = (m-1+n-1)!/((m-1)!*(n-1)!)
+        // Result = (m-1+n-1)! / ((m-1)! * (n-1)!)
         BigInteger[] fact = new BigInteger[m+n+1];
         fact[0]=BigInteger.ONE;
         factorial(m+n, fact);
@@ -1124,6 +1135,8 @@ Note: Simple question although the logic involves the use of BigInteger since we
         for(int i=2;i<x;i++)
             fact[i]=fact[i-1].multiply(BigInteger.valueOf(i));
     }
+
+    // Time complexity: O(m+n)
 
 ============================================
 
@@ -1140,7 +1153,6 @@ Given the following binary tree,
   5     4       <---
 
 You should return [1, 3, 4]
-
 
 
     public class Solution {
@@ -1175,6 +1187,8 @@ You should return [1, 3, 4]
         }
     }
 
+    // Time complexity: O(n) where n=no. of nodes in the tree
+
 ==============================================
 
 34.  Given a binary tree:
@@ -1204,34 +1218,36 @@ After calling your function, the tree should look like:
 Very elegant solution(If you consider the list in one level as a linked list while iterating it, the solution is very obvious).
 
 
-/**
- * Definition for binary tree with next pointer.
- * public class TreeLinkNode {
- *     int val;
- *     TreeLinkNode left, right, next;
- *     TreeLinkNode(int x) { val = x; }
- * }
- */
-public class Solution {
-    public void connect(TreeLinkNode root) {
-        if(root==null)
-            return;
+    /**
+     * Definition for binary tree with next pointer.
+     * public class TreeLinkNode {
+     *     int val;
+     *     TreeLinkNode left, right, next;
+     *     TreeLinkNode(int x) { val = x; }
+     * }
+     */
+    public class Solution {
+        public void connect(TreeLinkNode root) {
+            if(root==null)
+                return;
 
-        TreeLinkNode depth=root, level=null;
-        while(depth.left!=null) {
-            // depth ptr to iterate from top to bottom
-            level=depth;
-            while(level!=null) {
-                // level ptr to iterate over all nodes at same level
-                level.left.next=level.right;
-                if(level.next!=null)
-                    level.right.next=level.next.left;
-                level=level.next;
+            TreeLinkNode depth=root, level=null;
+            while(depth.left!=null) {
+                // depth ptr to iterate from top to bottom
+                level=depth;
+                while(level!=null) {
+                    // level ptr to iterate over all nodes at same level
+                    level.left.next=level.right;
+                    if(level.next!=null)
+                        level.right.next=level.next.left;
+                    level=level.next;
+                }
+                depth=depth.left;
             }
-            depth=depth.left;
         }
     }
-}
+
+    // Time complexity: O(n) where n=no. of nodes in the tree
 
 ================================================
 35.  Given an unsorted array return whether an increasing subsequence of length 3 exists in the array or not.
@@ -1242,7 +1258,6 @@ Formally the function should:
     such that arr[i] < arr[j] < arr[k] given 0 ≤ i < j < k ≤ n-1 else return false.
 
 Your algorithm should run in O(n) time complexity and O(1) space complexity. Very clever solution!!
-
 
 
     public boolean increasingTriplet(int[] nums) {
@@ -1263,13 +1278,16 @@ Your algorithm should run in O(n) time complexity and O(1) space complexity. Ver
         return false;
     }
 
+    // Time complexity: O(n) where n=length of nums
+
 =================================================
 36. Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:
 
     Integers in each row are sorted in ascending from left to right.
     Integers in each column are sorted in ascending from top to bottom.
 
-    NOTE: Solution involves searching from top right corner(almost searching like binary search => deciding the direction of search based on the value of the current number)
+    NOTE: Solution involves searching from top right corner(almost searching like binary search => deciding the direction of
+        search based on the value of the current number)
 
     public boolean searchMatrix(int[][] matrix, int target) {
         // O(m+n) solution
@@ -1285,14 +1303,14 @@ Your algorithm should run in O(n) time complexity and O(1) space complexity. Ver
                 col--;
         }
         return false;
-
     }
 
+    // Time complexity: O(m+n); m=no. of rows; n=no. of cols
+
 =============================================
-37. Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right which minimizes the sum of all numbers along its path.
+37. Given a mxn grid filled with non-negative numbers, find a path from top left to bottom right which minimizes the sum of all numbers along its path.
 
-Note: You can only move either down or right at any point in time.
-
+    Note: You can only move either down or right at any point in time.
 
     public int minPathSum(int[][] grid) {
         int numRows = grid.length, numCols=grid[0].length;
@@ -1317,6 +1335,8 @@ Note: You can only move either down or right at any point in time.
         return grid[numRows-1][numCols-1];
     }
 
+    // Time complexity: O(mn); m=no.of rows, n=no. of cols
+
 ==============================================
 
 38. Longest Increasing Subsequence(Very important question):
@@ -1328,8 +1348,6 @@ Given [10, 9, 2, 5, 3, 7, 101, 18],
 The longest increasing subsequence is [2, 3, 7, 101], therefore the length is 4.
 Note that there may be more than one LIS combination, it is only necessary for you to return the length.
 
-Your algorithm should run in O(n^2) complexity.
-
 
     public int lengthOfLIS(int[] nums) {
         int len=nums.length, max;
@@ -1338,7 +1356,7 @@ Your algorithm should run in O(n^2) complexity.
 
         int[] lis = new int[len]; // lis[i] is the length of LIS with num[i] as the last number in LIS
 
-        // prepopulate lis with all 1's
+        // prepopulate lis with all 1's(Assuming input in decreasing order)
         for(int i=0;i<len;i++)
             lis[i]=1;
 
@@ -1358,8 +1376,9 @@ Your algorithm should run in O(n^2) complexity.
                 max=lis[i];
 
         return max;
-
     }
+
+    // Time complexity: O(n^2)
 
 ===================================================
 
@@ -1395,37 +1414,37 @@ By calling next repeatedly until hasNext returns false, the order of elements re
  *     public List<NestedInteger> getList();
  * }
  */
-public class NestedIterator implements Iterator<Integer> {
-    NestedInteger nextElem;
-    Stack<Iterator<NestedInteger>> stack;
-    public NestedIterator(List<NestedInteger> nestedList) {
-        stack = new Stack<>();
-        stack.push(nestedList.iterator());
-    }
-
-    @Override
-    public Integer next() {
-        if(nextElem!=null)
-            return nextElem.getInteger();
-        return null;
-    }
-
-    @Override
-    public boolean hasNext() {
-        while(!stack.isEmpty()) {
-            if(!stack.peek().hasNext())
-                // end of list reached
-                stack.pop();
-            else if((nextElem = stack.peek().next()).isInteger())
-                // ensures nextElem is an Integer object
-                return true;
-            else
-                // nextElem is a NestedInteger; so push the iterator of the inner list
-                stack.push(nextElem.getList().iterator());
+    public class NestedIterator implements Iterator<Integer> {
+        NestedInteger nextElem;
+        Stack<Iterator<NestedInteger>> stack;
+        public NestedIterator(List<NestedInteger> nestedList) {
+            stack = new Stack<>();
+            stack.push(nestedList.iterator());
         }
-        return false;
+
+        @Override
+        public Integer next() {
+            if(nextElem!=null)
+                return nextElem.getInteger();
+            return null;
+        }
+
+        @Override
+        public boolean hasNext() {
+            while(!stack.isEmpty()) {
+                if(!stack.peek().hasNext())
+                    // end of list reached
+                    stack.pop();
+                else if((nextElem = stack.peek().next()).isInteger())
+                    // ensures nextElem is an Integer object
+                    return true;
+                else
+                    // nextElem is a NestedInteger; so push the iterator of the inner list
+                    stack.push(nextElem.getList().iterator());
+            }
+            return false;
+        }
     }
-}
 
 /**
  * Your NestedIterator object will be instantiated and called as such:
@@ -1435,19 +1454,25 @@ public class NestedIterator implements Iterator<Integer> {
 
 =====================================
 
-40. Peeking iterator: Given an Iterator 'class' interface with methods: next() and hasNext(), design and
+40. Peeking iterator: Given an Iterator 'class' intrface with methods: next() and hasNext(), design and
     implement a PeekingIterator that support the peek() operation -- it essentially peek() at the element
     that will be returned by the next call to next().
 
     /** My solution: https://leetcode.com/problems/peeking-iterator/
-    **/{}
+    **/
 =======================================
 
-41. Wiggle Subsequence: A sequence of numbers is called a wiggle sequence if the differences between successive numbers strictly alternate between positive and negative. The first difference (if one exists) may be either positive or negative. A sequence with fewer than two elements is trivially a wiggle sequence.
+41. Wiggle Subsequence: A sequence of numbers is called a wiggle sequence if the differences between successive numbers strictly
+    alternate between positive and negative. The first difference (if one exists) may be either positive or negative. A sequence with
+    fewer than two elements is trivially a wiggle sequence.
 
-For example, [1,7,4,9,2,5] is a wiggle sequence because the differences (6,-3,5,-7,3) are alternately positive and negative. In contrast, [1,4,7,2,5] and [1,7,4,5,5] are not wiggle sequences, the first because its first two differences are positive and the second because its last difference is zero.
+For example, [1,7,4,9,2,5] is a wiggle sequence because the differences (6,-3,5,-7,3) are alternately positive and negative.
+In contrast, [1,4,7,2,5] and [1,7,4,5,5] are not wiggle sequences, the first because its first two differences are positive and
+the second because its last difference is zero.
 
-Given a sequence of integers, return the length of the longest subsequence that is a wiggle sequence. A subsequence is obtained by deleting some number of elements (eventually, also zero) from the original sequence, leaving the remaining elements in their original order.
+Given a sequence of integers, return the length of the longest subsequence that is a wiggle sequence. A subsequence is obtained by
+deleting some number of elements (eventually, also zero) from the original sequence, leaving the remaining elements in their original
+order.
 
 Examples:
 
@@ -1499,15 +1524,19 @@ Output: 2
         return maxLength;
     }
 
+    // Time complexity: O(n) where n= no. of elements in num
+
  ================================================
  42. A general approach to backtracking questions in Java (Subsets, Permutations, Combination Sum, Palindrome Partitioning)
 
  https://discuss.leetcode.com/topic/46159/a-general-approach-to-backtracking-questions-in-java-subsets-permutations-combination-sum-palindrome-partitioning
 
 =================================================
-43. H-index:  Given an array of citations (each citation is a non-negative integer) of a researcher, write a function to compute the researchers h-index.
+43. H-index:  Given an array of citations (each citation is a non-negative integer) of a researcher, write a function to compute the
+    researchers h-index.
 
-According to the definition of h-index on Wikipedia: "A scientist has index h if h of his/her N papers have at least h citations each, and the other N − h papers have no more than h citations each."
+According to the definition of h-index on Wikipedia: "A scientist has index h if h of his/her N papers have at least h citations each,
+and the other N−h papers have no more than h citations each."
 
 For example, given citations = [3, 0, 6, 1, 5], which means the researcher has 5 papers in total and each of them had received 3, 0, 6, 1, 5 citations respectively.
 Since the researcher has 3 papers with at least 3 citations each and the remaining two with no more than 3 citations each, his h-index is 3.
@@ -1536,6 +1565,8 @@ Note: If there are several possible values for h, the maximum one is taken as th
         return 0;
     }
 
+    // Time complexity: O(n) where n=length of citations[]
+
 ==================================================
 44. Search in rotated sorted array with no duplicates:
 
@@ -1546,9 +1577,9 @@ Suppose a sorted array is rotated at some pivot unknown to you beforehand.
 You are given a target value to search. If found in the array return its index, otherwise return -1.
 
 
-    NOTE: The solution involves two algos:
-        1. Search for pivot index
-        2. Search for the target value in the sorted array
+    // NOTE: The solution involves two algos:
+    //     1. Search for pivot index
+    //     2. Search for the target value in the sorted array
 
 
     public int search(int[] nums, int target) {
@@ -1556,12 +1587,12 @@ You are given a target value to search. If found in the array return its index, 
 
         // Search for pivot index
         // For pivot index i, nums[i]<nums[i-1]
-        while(nums[low]>nums[high]) {
+        while(nums[low] > nums[high]) {
             mid=low+(high-low)/2;
-            if(nums[mid]>nums[high])
-                low=mid+1;
+            if(nums[mid] > nums[high])
+                low = mid+1;
             else
-                high=mid; // Not (mid-1) since mid can also be the pivot
+                high = mid; // Not (mid-1) since mid can also be the pivot
         }
 
         // "low" has the pivot index
@@ -1569,7 +1600,6 @@ You are given a target value to search. If found in the array return its index, 
         // Sorted array 2: [pivot...len-1]
         // Binary search in one of the two sorted arrays
         pivot=low;
-        //System.out.println(pivot);
         if(pivot!=0 && target>=nums[0]) {
             // target might be in sorted array 1
             low=0;
@@ -1593,6 +1623,8 @@ You are given a target value to search. If found in the array return its index, 
         return -1;
     }
 
+    // Time complexity: O(log n) where n=no. of elements in nums[]
+
 =======================================================
 
 45. Bitwise AND of number range: Given a range [m, n] where 0 <= m <= n <= 2147483647, return the
@@ -1613,6 +1645,8 @@ bitwise AND of all numbers in this range, inclusive.
         // Shift m left by number of times it was shifted right before
         return m * (int)Math.pow(2, numRightShifts);
     }
+
+    // Time complexity: O(32) or O(64) in worst case scenario for 32/64 bit int size.
 
 ================================================
 46. Longest Substring with At Least K Repeating Characters: Find the length of the longest substring T of a
@@ -1679,7 +1713,7 @@ The longest substring is "ababb", as 'a' is repeated 2 times and 'b' is repeated
     }
 
 ==========================================
-47. Convert Sorted List to Binary Search Tree:
+47. Convert Sorted List to Binary Search Tree(Remember inorder traversal??):
 
 Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
 
@@ -1723,8 +1757,10 @@ Given a singly linked list where elements are sorted in ascending order, convert
         }
     }
 
+    // Time complexity: O(n) where n=size of the linked list since each node is visited exactly once.
+
 ===========================================
- 48. Convert Sorted Array to Binary Search Tree
+ 48. Convert Sorted Array to Binary Search Tree(Remember preorder Traversal??)
 Given an array where elements are sorted in ascending order, convert it to a height balanced BST.
 
     // Very similar to a binary search solution
@@ -1737,14 +1773,18 @@ Given an array where elements are sorted in ascending order, convert it to a hei
             if (start>end)
                 return null;
             int mid = start + (end-start)/2;
+            // ROOT
             TreeNode node = new TreeNode(nums[mid]);
+            // LEFT
             node.left = createBST(nums, start, mid-1);
+            // RIGHT
             node.right = createBST(nums, mid+1, end);
 
             return node;
         }
-
     }
+
+    // Time complexity: O(n) where n=size of the input array since each element is visited exactly once.
 
 =============================================
 49. Letter Combinations of a Phone Number: Given a digit string, return all possible letter combinations that the number could represent.
@@ -1776,6 +1816,9 @@ Given an array where elements are sorted in ascending order, convert it to a hei
 
         return res;
     }
+
+    // Time complexity: 3^N or 4^N depending on whether the digit maps to 3 char string or 4 char string.
+    // Worst case=4^N where N=length of input "digit" string
 
 =================================================
 50. Follow up for "Unique Paths":
@@ -1837,17 +1880,17 @@ Note: m and n will be at most 100.
                 if(obstacleGrid[i][j]==1)
                     dp[i][j] = 0;
                 else
-                    dp[i][j]=dp[i-1][j] + dp[i][j-1];
+                    dp[i][j]=dp[i-1][j] + dp[i][j-1]; // We can reach this from one of the two neighboring cells(top or left)
             }
         }
 
         return dp[rows-1][cols-1];
     }
 
+    // Time complexity: O(mn) where m=no. of rows; n=no. of cols.
+
 ========================================
 51. Given a sorted array of integers, find the starting and ending position of a given target value.
-
-Your algorithm runtime complexity must be in the order of O(log n).
 
 If the target is not found in the array, return [-1, -1].
 
@@ -1873,6 +1916,8 @@ return [3, 4].
         }
         return new int[]{-1, -1};
     }
+
+    // Time complexity: O(log n)
 
 ============================================
 
@@ -1907,7 +1952,7 @@ return [3, 4].
                 buff[buffIndex] = nums[lptr++];
             } else {
                 // Either lptr is beyond left subarray length(so copy remaining nums from right subarray to buff) or num is inverted.
-                count=count+(mid-lptr); // since left subarray is sorted, all numbers beyond lptr in left subarray will be greater than nums[hptr]
+                count=count+(mid-lptr); // since left subarray is sorted, all numbers beyond lptr in left subarray is greater than nums[hptr]
                 buff[buffIndex] = nums[hptr++];
             }
         }
@@ -1915,6 +1960,8 @@ return [3, 4].
         System.arraycopy(buff, lo, nums, lo, hi-lo+1); // arraycopy(src, srcIndex, dest, destIndex, length)
         return count;
     }
+
+    // Time complexity: O(n*log n)
 
 =================================================
 
@@ -1931,31 +1978,33 @@ Return:
 
 
     public class Solution {
-    // Idea is to sort each string and check if it exists as key in HashMap
-    // If it exists, then add the current string as value in hashmap
-    // Else add current string as value in a new entry in hashmap
-    public List<List<String>> groupAnagrams(String[] strs) {
-        int numStrings=strs.length;
-        Map<String, List<String>> sortedStrAnagrams = new HashMap<>(); // Key=sorted string, value=anagrams
+        // Idea is to sort each string and check if it exists as key in HashMap
+        // If it exists, then add the current string as value in hashmap
+        // Else add current string as value in a new entry in hashmap
+        public List<List<String>> groupAnagrams(String[] strs) {
+            int numStrings=strs.length;
+            Map<String, List<String>> sortedStrAnagrams = new HashMap<>(); // Key=sorted string, value=anagrams
 
-        for(String str : strs) {
-           char[] eachStr = str.toCharArray();
-           Arrays.sort(eachStr);
-           String sortedStr = new String(eachStr);
-           if(sortedStrAnagrams.containsKey(sortedStr)) {
-               List<String> existingList = sortedStrAnagrams.get(sortedStr);
-               existingList.add(str);
-               sortedStrAnagrams.put(sortedStr, existingList);
-           } else {
-               List<String> newList = new ArrayList<String>();
-               newList.add(str);
-               sortedStrAnagrams.put(sortedStr, newList);
-           }
+            for(String str : strs) {
+               char[] eachStr = str.toCharArray();
+               Arrays.sort(eachStr);
+               String sortedStr = new String(eachStr);
+               if(sortedStrAnagrams.containsKey(sortedStr)) {
+                   List<String> existingList = sortedStrAnagrams.get(sortedStr);
+                   existingList.add(str);
+                   sortedStrAnagrams.put(sortedStr, existingList);
+               } else {
+                   List<String> newList = new ArrayList<String>();
+                   newList.add(str);
+                   sortedStrAnagrams.put(sortedStr, newList);
+               }
+            }
+
+            return new ArrayList<>(sortedStrAnagrams.values());
         }
-
-        return new ArrayList<>(sortedStrAnagrams.values());
     }
-}
+
+    // Time complexity: nklog(k) where n=length of input strs[]; k=length of each string
 
 =============================================
 
@@ -2063,7 +2112,7 @@ A = [2,3,1,1,4], return true.
 A = [3,2,1,0,4], return false.
 
     /* Starting from the second to last element in the array we
-    continue to decrement towards the start of the array. Only stopping if we hit an element with a value of 0; in this
+    continue to iterate towards the start of the array. Only stopping if we hit an element with a value of 0; in this
     case we evaluate if there exist an element somewhere at the start of the array which has a jump value large enough
     to jump over this 0 value element.
     */
@@ -2083,6 +2132,8 @@ A = [3,2,1,0,4], return false.
        }
        return true;
     }
+
+    // Time complexity: O(n) since each element in the array in traversed exactly once.
 
 ================================================
 
@@ -2110,7 +2161,7 @@ The input prerequisites is a graph represented by a list of edges, not adjacency
 
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         int[][] adjMatrix = new int[numCourses][numCourses]; // numCourses = num of vertices in the graph
-        int[] indegree = new int[numCourses];
+        int[] indegree = new int[numCourses]; // stores the no. of incoming edges for every vertex in the graph
         int src, dst, visitedCount=0;
         Queue<Integer> queue = new LinkedList<>();
 
@@ -2145,7 +2196,7 @@ The input prerequisites is a graph represented by a list of edges, not adjacency
             }
         }
 
-        return (visitedCount==numCourses); // No loop as per Kahn's algo
+        return (visitedCount==numCourses); // No loop in graph as per Kahn's algo
     }
 
 ===============================================
@@ -2165,39 +2216,42 @@ Return 4.
 
 
     public class Solution {
-    // Logic: dp[i][j] is the length of the side of the square with bottom-right corner at cell (i,j)
-    // If current element in original matrix is zero, no square possible with bottom-right corner at current element. So Skip
-    // Else check if top,left and top-left of current element are all 1's(i.e. a square is formed with bottom-right corner ar current element). Side of square formed is 1 + min(top,left,top-left values).
-    public int maximalSquare(char[][] matrix) {
-        if(matrix==null || matrix.length==0)
-            return 0;
-        int rows=matrix.length, cols=matrix[0].length, squareSide=0;
-        int[][] dp = new int[rows+1][cols+1];
+        // Logic: dp[i][j] is the length of the side of the square with bottom-right corner at cell (i,j)
+        // If current element in original matrix is zero, no square possible with bottom-right corner at current element. So Skip
+        // Else check if top,left and top-left of current element are all 1's(i.e. a square is formed with bottom-right corner ar current element).
+        // Side of square formed is 1 + min(top,left,top-left values).
+        public int maximalSquare(char[][] matrix) {
+            if(matrix==null || matrix.length==0)
+                return 0;
+            int rows=matrix.length, cols=matrix[0].length, squareSide=0;
+            int[][] dp = new int[rows+1][cols+1];
 
-        for(int i=1;i<=rows;i++) {
-            for(int j=1;j<=cols;j++) {
-                if(matrix[i-1][j-1]=='1') {
-                    // Find min of top, left and top-left cells of dp and add 1
-                    dp[i][j] = Math.min(Math.min(dp[i-1][j-1], dp[i-1][j]), dp[i][j-1]) + 1;
-                    squareSide = Math.max(squareSide, dp[i][j]);
+            for(int i=1;i<=rows;i++) {
+                for(int j=1;j<=cols;j++) {
+                    if(matrix[i-1][j-1]=='1') {
+                        // Find min of top, left and top-left cells of dp and add 1
+                        dp[i][j] = Math.min(Math.min(dp[i-1][j-1], dp[i-1][j]), dp[i][j-1]) + 1;
+                        squareSide = Math.max(squareSide, dp[i][j]);
+                    }
                 }
             }
-        }
 
-        return squareSide * squareSide;
+            return squareSide * squareSide;
+        }
     }
-}
+
+    // Time complexity: O(mn) where m=no. of rows; n=no. of cols
 
 ====================================================
 59. Implement trie data structure(Assuming input is only lowercase letters).
 
-    // Checkout a related add/search words in dictionary question(where words can be regexp containing a '.' which signifies any lowercae letter)
+    // Checkout a related add/search words in dictionary question(where words can be regexp containing a '.' which signifies any lowercase letter)
     // https://leetcode.com/problems/add-and-search-word-data-structure-design/
 
     class TrieNode {
-        // Initialize your data structure here.
         TrieNode[] arr;
-        boolean isEnd; // to check for overlapping strings(eg: door vs do)
+        // to check for overlapping strings(eg: door vs do)
+        boolean isEnd;
 
         public TrieNode() {
             arr = new TrieNode[26]; // 26 lowercase letters
@@ -2272,6 +2326,8 @@ Return 4.
     // trie.insert("somestring");
     // trie.search("key");
 
+    // Time complexity: All operations implemented here take O(n) time where n=length fo input word
+
 ==========================================
 
 60. Largest number: Given a list of non negative integers, arrange them such that they form the largest number.
@@ -2280,7 +2336,7 @@ For example, given [3, 30, 34, 5, 9], the largest formed number is 9534330.
 
 Note: The result may be very large, so you need to return a string instead of an integer.
 
-    Note: Solution overrides comparator used during sorting of strings thereby achieveing the goal.
+    // Note: Solution overrides comparator used during sorting of strings thereby achieveing the goal.
 
     public String largestNumber(int[] nums) {
         boolean allZero=true;
@@ -2316,9 +2372,11 @@ Note: The result may be very large, so you need to return a string instead of an
         return sb.toString();
     }
 
+    // Time complexity: O(nlogn) where n=length of input array
+
 =====================================
 
-61. Given a 2D matrix matrix, find the sum of the elements inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
+61. Given a 2D matrix, find the sum of the elements inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
 
 Example:
 
@@ -2359,7 +2417,7 @@ Note:
 
         public int sumRegion(int row1, int col1, int row2, int col2) {
             // Assuming row1<=rows and col1<=col2
-            return dp[1+row2][1+col2] - dp[1+row2][col1] - dp[row1][1+col2] + dp[row1][col1]; // adding the intersection of two areas which were subtracted
+            return dp[1+row2][1+col2] - dp[1+row2][col1] - dp[row1][1+col2] + dp[row1][col1]; // adding the intersection of two areas which were subtracted twice
         }
     }
 
@@ -2368,7 +2426,9 @@ Note:
     // numMatrix.sumRegion(0, 1, 2, 3);
     // numMatrix.sumRegion(1, 2, 3, 4);
 
-==============================
+    // Time complexity: O(1) for sumRegion()
+
+======================================================
 
 62. Longest Substring Without Repeating Characters:
 
