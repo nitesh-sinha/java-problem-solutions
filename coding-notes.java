@@ -2436,7 +2436,7 @@ Note:
 
     Examples:
 
-    Given "abcabcbb", the answer is "abc", which the length is 3.
+    Given "abcabcbb", the answer is "abc", with the length of 3.
 
     Given "bbbbb", the answer is "b", with the length of 1.
 
@@ -2474,6 +2474,8 @@ Note:
         return maxLen;
     }
 
+    // Time complexity: O(n) where n=length of String s.
+
 ======================================================
 63. Maximum Product Subarray:  Find the contiguous subarray within an array (containing at least one number) which has the largest product.
 
@@ -2501,6 +2503,8 @@ the contiguous subarray [2,3] has the largest product = 6.
         }
         return globalMax;
     }
+
+    // Time complexity: O(n) where n=length of input array
 
 
 ============================================
@@ -2538,7 +2542,7 @@ return ["255.255.11.135", "255.255.111.35"]. (Order does not matter)
         // i,j and k divide the input into 4 substrings - (0,i),(i,j),(j,k),(k,len)
         // (0,i) covers first 3 chars or less(if input size < 12)
         // (i,j) covers next 3 characters or less(if input size < 12)
-        // (j,k) covers the next 4 chars or less(if input size < 12)
+        // (j,k) covers the next 3 chars or less(if input size < 12)
         // (k,len) covers the remaining chars in input
         for(int i=1;i<4 && i<len-2;i++) {
             for(int j=i+1; j<i+4 && j<len-1;j++) {
@@ -2560,6 +2564,8 @@ return ["255.255.11.135", "255.255.111.35"]. (Order does not matter)
             return false;
         return true;
     }
+
+    // Time complexity: Worst case: Inner most loop runs 3*3*3=27 times.
 =====================================================
 
 66. Word Search:  Given a 2D board and a word, find if the word exists in the grid.
@@ -2587,6 +2593,7 @@ word = "ABCB", -> returns false.
             visited = new boolean[rows][cols];
             for(int i=0;i<rows;i++) {
                 for(int j=0;j<cols;j++) {
+                    // loop used to change the starting search position on the board
                     if (exist(board, word, i, j, 0))
                         return true;
                 }
@@ -2618,6 +2625,9 @@ word = "ABCB", -> returns false.
             return isPresent;
         }
     }
+
+    // Time complexity: O(m*n*4*k) where m=no. of rows in board, n=no. of cols in board, k=length of word. 4 b'coz we search for
+    // that word in all 4 neighboring directions.
 
 ========================================
 67. Remove K Digits: Given a non-negative integer num represented as a string, remove k digits from the number so that the "new" number is the smallest possible.
@@ -2691,13 +2701,14 @@ Explanation: Remove all the digits from the number and it is left with nothing w
 Given a complete binary tree, count the number of nodes.
 
 Definition of a complete binary tree from Wikipedia:
-In a complete binary tree every level, except possibly the last, is completely filled, and all nodes in
+In a complete binary tree, every level, except possibly the last, is completely filled, and all nodes in
 the last level are as far left as possible. It can have between 1 and 2^h nodes inclusive at the last level h.
 
 
     Explanation:
 
-The height of a tree can be found by just going left. Let a single node tree have height 0. Find the height h of the whole tree. If the whole tree is empty, i.e., has height -1, there are 0 nodes.
+The height of a tree can be found by just going left. Let a single node tree have height 0. Find the height "h" of the whole tree.
+If the whole tree is empty, i.e., has height -1, there are 0 nodes.
 
 Otherwise check whether the height of the right subtree is just one less than that of the whole tree, meaning left and right subtree have the same height.
 
@@ -2745,11 +2756,13 @@ Since I halve the tree in every recursive step, I have O(log(n)) steps. Finding 
 ===================================================
 
 69. Reconstruct Itinerary:
-    Given a list of airline tickets represented by pairs of departure and arrival airports [from, to], reconstruct the itinerary in order. All of the tickets belong to a man who departs from JFK. Thus, the itinerary must begin with JFK.
+    Given a list of airline tickets represented by pairs of departure and arrival airports [from, to], reconstruct the itinerary in order.
+    All of the tickets belong to a man who departs from JFK. Thus, the itinerary must begin with JFK.
 
 Note:
 
-    If there are multiple valid itineraries, you should return the itinerary that has the smallest lexical order when read as a single string. For example, the itinerary ["JFK", "LGA"] has a smaller lexical order than ["JFK", "LGB"].
+    If there are multiple valid itineraries, you should return the itinerary that has the smallest lexical order when read as a single string.
+    For example, the itinerary ["JFK", "LGA"] has a smaller lexical order than ["JFK", "LGB"].
     All airports are represented by three capital letters (IATA code).
     You may assume all tickets form at least one valid itinerary.
 
@@ -2794,6 +2807,8 @@ Return ["JFK","NRT","JFK","KUL"]
         return route;
     }
 
+    // Time complexity: O(V+E) where V=no. of vertices; E=no. of edges
+
 ==============================================
 
 70. Word Break:  Given a string s and a dictionary of words dict, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
@@ -2825,7 +2840,7 @@ Return true because "leetcode" can be segmented as "leet code".
     }
 
 ============================================
-71. Given a non-empty string check if it can be constructed by taking a substring of it and appending multiple copies of the substring together.
+71. Given a non-empty string, check if it can be constructed by taking a substring of it and appending multiple copies of the substring together.
 You may assume the given string consists of lowercase English letters only and its length will not exceed 10000.
 
 Example 1:
@@ -2888,9 +2903,9 @@ Explanation: Its the substring "ab" twice.
         }
 
         return noOfCircles;
-
     }
 
+    // This function is just used to update visited[]
     public static void findFriends(char[][] friends, boolean[] visited, int id) {
 
         for (int i = 0; i < friends.length; i++) {
@@ -2899,8 +2914,9 @@ Explanation: Its the substring "ab" twice.
                 findFriends(friends, visited, i);
             }
         }
-
     }
+
+    // Worst case time complexity: O(N^2) where N=no. of friends
 
 ======================================
 
@@ -2918,7 +2934,7 @@ Explanation: Its the substring "ab" twice.
 
 
     public class LRUCache {
-        Map<Integer,CacheNode> cache = new HashMap<Integer, CacheNode>();
+        Map<Integer,CacheNode> cache = new HashMap<Integer, CacheNode>(); // key to cahce entry mapping
         int curCount, maxSize;
         CacheNode front, rear;
 
@@ -2928,13 +2944,13 @@ Explanation: Its the substring "ab" twice.
             front=rear=null;
         }
 
-        // Moves a node to front of linked list
+        // Moves an existing node to front of linked list
         private void moveToFront(CacheNode node);
 
         // Delete a node from end of linked list(LRU policy)
         private void removeFromRear();
 
-        // Adds a node to front of linked list
+        // Adds a new node to front of linked list
         private void addToFront(CacheNode node);
 
         // Lookup cache using a key value
@@ -3002,10 +3018,10 @@ Note: Do not use class member/global/static variables to store states. Your seri
         public String serialize(TreeNode root) {
             StringBuilder sb = new StringBuilder();
             serializeHelper(root, sb);
-            //System.out.println(sb.toString());
             return sb.toString();
         }
 
+        // Pre-order traversal is encoded in the form of string
         private void serializeHelper(TreeNode root, StringBuilder sb) {
             if(root==null) {
                 sb.append("N");
@@ -3021,7 +3037,7 @@ Note: Do not use class member/global/static variables to store states. Your seri
         // Decodes your encoded data to tree.
         public TreeNode deserialize(String data) {
             String[] dataParts = data.split(",");
-            int[] index = new int[]{0}; // an integer on the heap acting like a global variable to retain value across recursive calls of deserializeHelper()
+            int[] index = new int[]{0}; // an integer on JVM's heap acting like a global variable to retain value across recursive calls of deserializeHelper()
             return deserializeHelper(dataParts, index);
         }
 
@@ -3041,6 +3057,8 @@ Note: Do not use class member/global/static variables to store states. Your seri
     // Your Codec object will be instantiated and called as such:
     // Codec codec = new Codec();
     // codec.deserialize(codec.serialize(root));
+
+    // Time complexity of both serialize() and deserialize() is O(n) where n=no. of nodes in tree
 
 ==========================================
 
@@ -3071,8 +3089,7 @@ Note: Do not use class member/global/static variables to store states. Your seri
         dist[src] = 0;
 
         // Find shortest path for all vertices
-        for (int count = 0; count < V-1; count++)
-        {
+        for (int count = 0; count < V-1; count++) {
             // Pick the minimum distance vertex from the set of vertices
             // not yet processed. u is always equal to src in first
             // iteration.
@@ -3097,6 +3114,8 @@ Note: Do not use class member/global/static variables to store states. Your seri
         // print the constructed distance array
         printSolution(dist, V);
     }
+
+    // Time complexity: O(V^2) but using a priority queue(to replace outer for loop and minDistance() fn) it can be brought down to O(E*logV)
 
 =========================================
 
@@ -3154,7 +3173,6 @@ Note: Do not use class member/global/static variables to store states. Your seri
         /** Get a random element from the set. */
         public int getRandom() {
             int randIndex = rand.nextInt(nums.size());
-            //System.out.println("randIndex="+randIndex);
             return nums.get(randIndex);
         }
     }
@@ -3220,18 +3238,18 @@ Note: Do not use class member/global/static variables to store states. Your seri
     // Based on this question, a followup question is: how do we get a random number from a list of numbers based on the
     // probability of their occurence. e.g.
 
-    // Generate random integers from within [1;3] with the following probabilities:
+    // Generate random integers from within [1,3] with the following probabilities:
 
     // P(1) = 0.2
     // P(2) = 0.3
     // P(3) = 0.5
 
     // OPTION 1:
-    // Generate a random integer within [0;100] and do the following:
+    // Generate a random integer within [0,100] and do the following:
 
-    // If it is within [0;20] --> return 1.
-    // If it is within [21;50] --> return 2.
-    // If it is within [51;100] --> return 3.
+    // If it is within [0,20] --> return 1.
+    // If it is within [21,50] --> return 2.
+    // If it is within [51,100] --> return 3.
 
     // OPTION 2:
     // Get relative probabilities of the numbers. Given
@@ -3240,18 +3258,19 @@ Note: Do not use class member/global/static variables to store states. Your seri
     // P(2) = 0.3
     // P(3) = 0.5
 
-    // Their relative probabilities are 2,3 and 5. Add then to get 10.
+    // Their relative probabilities are 2,3 and 5. Add them to get 10.
     // Arrange numbers as [1,1,2,2,2,3,3,3,3,3]
     // Choose index=rand.nextInt(10). Return the number at "index" position.
 
 ==================================================
 
-78. All O`one Data Structure:
+78. All O(1) Data Structure:
 
 Implement a data structure supporting the following operations:
 
     Inc(Key) - Inserts a new key with value 1. Or increments an existing key by 1. Key is guaranteed to be a non-empty string.
-    Dec(Key) - If Key value is 1, remove it from the data structure. Otherwise decrements an existing key by 1. If the key does not exist, this function does nothing. Key is guaranteed to be a non-empty string.
+    Dec(Key) - If Key value is 1, remove it from the data structure. Otherwise decrements an existing key by 1.
+               If the key does not exist, this function does nothing. Key is guaranteed to be a non-empty string.
     GetMaxKey() - Returns one of the keys with maximal value. If no element exists, return an empty string "".
     GetMinKey() - Returns one of the keys with minimal value. If no element exists, return an empty string "".
 
@@ -3388,7 +3407,7 @@ Challenge: Perform all these in O(1) time complexity.
                 } else if(keyCount>1) {
                     // Add a new node in between keyNode and prevToKeyNode
                     Node newNode = new Node(keyCount-1, key);
-                    list.insert(newNode, prevToKeyNode.next); // don't use the second arg as "keyNode" bcoz it might have got deleted from the list is its keySet became empty after removing the key.
+                    list.insert(newNode, prevToKeyNode.next); // don't use the second arg as "keyNode" bcoz it might have got deleted from the list if its keySet became empty after removing the key.
                     strNodeMap.put(key, newNode);
                 } else {
                     strNodeMap.remove(key); // key value was 1. So decrementing it by 1 would evict the key
@@ -3400,8 +3419,8 @@ Challenge: Perform all these in O(1) time complexity.
         public String getMaxKey() {
             if(list.listLen!=0) {
                 Node maxNode = list.last.prev;
-                System.out.println("maxCount="+maxNode.count);
-                System.out.println("listLen="+list.listLen);
+                //System.out.println("maxCount="+maxNode.count);
+                //System.out.println("listLen="+list.listLen);
                 return maxNode.strSet.iterator().next();
             }
             return "";
@@ -3411,7 +3430,7 @@ Challenge: Perform all these in O(1) time complexity.
         public String getMinKey() {
             if(list.listLen!=0) {
                 Node minNode = list.first.next;
-                System.out.println("minCount="+minNode.count);
+                //System.out.println("minCount="+minNode.count);
                 return minNode.strSet.iterator().next();
             }
             return "";
@@ -3428,8 +3447,6 @@ Basically, the deletion can be divided into two stages:
 
     Search for a node to remove.
     If the node is found, delete the node.
-
-Note: Time complexity should be O(height of tree).
 
 Example:
 
@@ -3499,6 +3516,8 @@ Another valid answer is [5,2,6,null,4,null,7].
             return res;
         }
     }
+
+    // Time complexity: O(height of tree).
 
 ===========================================
 
@@ -3607,7 +3626,7 @@ connects vertices of same set.
 
 ==============================================
 
-82. Iterative solution of preorder traversal of binary tree:
+82. Iterative solution of preorder traversal(ROOT->LEFT->RIGHT) of binary tree:
 
     public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
@@ -3630,7 +3649,11 @@ connects vertices of same set.
 
 ==============================================
 
-83. Iterative solution of postorder traversal of binary tree:
+83. Iterative solution of postorder traversal(LEFT->RIGHT->ROOT) of binary tree:
+
+    // Algo is a little tricky in that we store left->right in stack
+    // and then pop them in right->left order and add them to head of list
+    // thereby making it root->left->right
 
     public List<Integer> postorderTraversal(TreeNode root) {
         LinkedList<Integer> res = new LinkedList<>();
