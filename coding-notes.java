@@ -2004,7 +2004,7 @@ Return:
         }
     }
 
-    // Time complexity: nklog(k) where n=length of input strs[]; k=length of each string
+    // Time complexity: nklog(k) where n=no. of strings in input; k=length of each string
 
 =============================================
 
@@ -3593,7 +3593,7 @@ connects vertices of same set.
 
 ===========================================
 
-81. Iterative solution of inorder traversal of binary tree:
+81. Iterative solution of inorder traversal(Left->ROOT->Right) of binary tree:
 
     // Similar to a recursive solution, store all left nodes in a user-stack
     // When left node becomes null, store the current node in result list
@@ -3651,7 +3651,7 @@ connects vertices of same set.
 
 83. Iterative solution of postorder traversal(LEFT->RIGHT->ROOT) of binary tree:
 
-    // Algo is a little tricky in that we store left->right in stack
+    // Algo is a little tricky because we store left->right in stack
     // and then pop them in right->left order and add them to head of list
     // thereby making it root->left->right
 
@@ -3766,7 +3766,7 @@ node can be a descendant of itself according to the LCA definition.
         if(p==q)
             return p;
 
-        // either one or both p and 1 not found in the tree
+        // either one or both p and q not found in the tree
         if(!isFound(root, p, listP) || !isFound(root, q, listQ))
             return null;
 
@@ -3794,9 +3794,11 @@ node can be a descendant of itself according to the LCA definition.
         return false;
     }
 
+    // Time complexity(worst case): O(n) where n=no. of nodes in tree
+
 ============================================
 
-86. Recover Binary Search Tree:
+86**. Recover Binary Search Tree:
      Two elements of a binary search tree (BST) are swapped by mistake.
 
     Recover the tree without changing its structure.
@@ -3841,7 +3843,8 @@ node can be a descendant of itself according to the LCA definition.
 
 =======================================
 
-87. Facebook Interview: Design a circular buffer of a given size. Design two of its interfaces namely
+87. Design a circular buffer of a given size. Design two of its interfaces:
+
     write(input, len) -> Attempts to write the input of length "len" to buffer. Returns the actual length of chars written.
     read(dest, len) -> Attempts to read len chars from buffer and copies it to dest. Returns the actual length of chars read.
 
@@ -3907,6 +3910,7 @@ node can be a descendant of itself according to the LCA definition.
                 // Read first, then increment front
                 dest[countRead] = buffer[front];
                 countRead++;
+                // Check if this was last char in buffer
                 if(front==rear) {
                     front = rear = -1;
                     break;
@@ -3923,11 +3927,13 @@ node can be a descendant of itself according to the LCA definition.
 88. Decode String:
      Given an encoded string, return its decoded string.
 
-The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times. Note that k is guaranteed to be a positive integer.
+The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times.
+Note that k is guaranteed to be a positive integer.
 
 You may assume that the input string is always valid; No extra white spaces, square brackets are well-formed, etc.
 
-Furthermore, you may assume that the original data does not contain any digits and that digits are only for those repeat numbers, k. For example, there wont be input like 3a or 2[4].
+Furthermore, you may assume that the original data does not contain any digits and that digits are only for those repeat numbers, k.
+For example, there wont be input like 3a or 2[4].
 
 Examples:
 
@@ -3943,7 +3949,7 @@ s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
         String res = "";
         int index=0, num=0, repeatCount;
 
-        while(index<s.length()) {
+        while(index < s.length()) {
             if(Character.isDigit(s.charAt(index))) {
                 while(Character.isDigit(s.charAt(index))) {
                     num = num*10 + (s.charAt(index) - '0');
@@ -3975,12 +3981,10 @@ s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 
 ==========================================
 
-89. Oracle interview:
+89. Find all possible interpretations of an array of digits
 
-
-Find all possible interpretations of an array of digits
-
-Consider a coding system for alphabets to integers where ‘a’ is represented as 1, ‘b’ as 2, .. ‘z’ as 26. Given an array of digits (1 to 9) as input, write a function that prints all valid interpretations of input array.
+Consider a coding system for alphabets to integers where ‘a’ is represented as 1, ‘b’ as 2, .. ‘z’ as 26. Given an array of digits
+(1 to 9) as input, write a function that prints all valid interpretations of input array.
 
 Examples
 
@@ -4068,33 +4072,35 @@ You may assume k is always valid, 1 ≤ k ≤ n^2.
 
     You are given two integer arrays nums1 and nums2 sorted in ascending order and an integer k.
 
-Define a pair (u,v) which consists of one element from the first array and one element from the second array.
+    Define a pair (u,v) which consists of one element from the first array and one element from the second array.
 
-Find the k pairs (u1,v1),(u2,v2) ...(uk,vk) with the smallest sums.
+    Find the k pairs (u1,v1),(u2,v2) ...(uk,vk) with the smallest sums.
 
-Example 1:
-Given nums1 = [1,7,11], nums2 = [2,4,6],  k = 3
+    Example 1:
+    Given nums1 = [1,7,11], nums2 = [2,4,6],  k = 3
 
-Return: [1,2],[1,4],[1,6]
+    Return: [1,2],[1,4],[1,6]
 
-The first 3 pairs are returned from the sequence:
-[1,2],[1,4],[1,6],[7,2],[7,4],[11,2],[7,6],[11,4],[11,6]
-Example 2:
-Given nums1 = [1,1,2], nums2 = [1,2,3],  k = 2
-
-Return: [1,1],[1,1]
-
-The first 2 pairs are returned from the sequence:
-[1,1],[1,1],[1,2],[2,1],[1,2],[2,2],[1,3],[1,3],[2,3]
-Example 3:
-Given nums1 = [1,2], nums2 = [3],  k = 3
-
-Return: [1,3],[2,3]
-
-All possible pairs are returned from the sequence:
-[1,3],[2,3]
+    The first 3 pairs are returned from the sequence:
+    [1,2],[1,4],[1,6],[7,2],[7,4],[11,2],[7,6],[11,4],[11,6]
 
 
+    Example 2:
+    Given nums1 = [1,1,2], nums2 = [1,2,3],  k = 2
+
+    Return: [1,1],[1,1]
+
+    The first 2 pairs are returned from the sequence:
+    [1,1],[1,1],[1,2],[2,1],[1,2],[2,2],[1,3],[1,3],[2,3]
+
+
+    Example 3:
+    Given nums1 = [1,2], nums2 = [3],  k = 3
+
+    Return: [1,3],[2,3]
+
+    All possible pairs are returned from the sequence:
+    [1,3],[2,3]
 
 
     public class Solution {
@@ -4116,6 +4122,7 @@ All possible pairs are returned from the sequence:
             }
         }
 
+
         public List<int[]> kSmallestPairs(int[] nums1, int[] nums2, int k) {
             int len1=nums1.length, len2=nums2.length;
             List<int[]> res = new ArrayList<>();
@@ -4125,7 +4132,7 @@ All possible pairs are returned from the sequence:
             if(nums1==null || len1==0 || nums2==null || len2==0)
                 return res;
 
-            // Add k(or less) pairs by always taking first element from nums2[] and all elements from nums1[]
+            // Add k(or len1 whichever is smaller) pairs by always taking first element from nums2[] and all elements from nums1[]
             for(int i=0; i<k && i<len1; i++) {
                 pq.add(new Pair(nums1[i], nums2[0], 0));
             }
@@ -4142,3 +4149,198 @@ All possible pairs are returned from the sequence:
             return res;
         }
     }
+
+====================================================
+
+92. Implement a method to count the number of unival subtrees. A unival subtree is a subtree within a tree with root node and all its
+    children nodes(upto the leaf node) have the same value. NOte that all leaf nodes are considered unival subtrees.
+
+
+    Eg:
+            5
+           / \
+          5   5
+            /  \
+           5    4
+
+    The above binary tree has five unival subtrees namely:
+    1. Three leaf nodes
+    2. The right subtree with root at 5(at level 1) and its two child leaf nodes as 5
+    3. Entire binary tree rooted at 5(at level 0)
+
+
+
+    public class Solution {
+        private int count = 0;
+
+        public int countUnivalSubtrees(TreeNode root) {
+            countUnivalSubtreesHelper(root);
+            return count;
+        }
+
+        private boolean countUnivalSubtreesHelper(TreeNode root) {
+            if(root==null)
+                return true;
+
+            boolean isLeftUnival = countUnivalSubtreesHelper(root.left);
+            boolean isRightUnival = countUnivalSubtreesHelper(root.right);
+
+            if(isLeftUnival && isRightUnival) {
+                if(root.right!=null && root.val != root.right.val)
+                    return false;
+
+                if(root.left!=null && root.val != root.left.val)
+                    return false;
+
+                count++;
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    Time complexity: O(n) where n = no. of nodes of the input tree
+
+============================================
+
+Some more questions:
+1. If there are objects(in a HashSet) whose hashCode is made up of all the attributes of that object. Suppose some attributes of an object
+   changes after it has been inserted in the HashSet. What happens? Eg:
+
+   class Person {
+        String firstName;
+        String lastName;
+        Date DOB;
+   }
+
+Ans: Its hashCode is not recomputed automatically in Java. The setter method(used to change the attributes) needs to call the hashCode()
+     method explicitly so that the new hashCode is recomputed and the updated object is rehashed into a different hash bucket.
+
+     Followup: Is it possible to change an object without recomputing its hashCode(assuming that setter methods for each attribute calls
+        hashCode() method to recalculate the hashcode.)
+     Ans: Yes its possible. Eg:
+            Person p1 = new Person(....);
+            p1.DOB.setMonth("Feb"); // since this doesn't call the setter of Person class, hashcode is not recomputed.
+
+    Followup: Is it possible to change one of the String type attributes and does hashcode of object change then?
+    Ans: String is immutable data type. So, changing String attribute will not change the hashcode of the object.
+
+    Followup: Is it possible to call a setter method to change an attribute of an object with its hashcode still being the original one?
+    Ans: Yes. Call getter method before calling setter method. Modify getter method to return a copy of the original object.
+         And then pass this copy to setter method to change the attribute. Thus the original object attribute remains the same
+         and so does its hashcode.
+
+
+2. Design a ticket system which contain Person type objects, where each Person has firstName, lastName and DOB.
+    Functionalities to be supported are - insert(), delete() and findRandomPerson(). Perform these in the most optimal manner.
+
+3. Given the root to a binary tree, design an algo to return the first seen local minimum in the tree. A local minimum is a node which
+   is smaller than its parent node(if there is any) and both its children(if there are any).
+
+   Discussion involved proving(by sorta mathematical induction) that a binary tree will always have a local minimum.
+
+   Ans: Trivial solution - O(n) where n=no. of nodes in the tree. Iterate over all nodes to check local minimum.
+        Improvement: Starting from the root, traverse down only on the path where the child node is smaller in value than the parent root node.
+
+
+        Eg:     70
+              /    \
+            77      60
+          /   \    /   \
+         1    8    9    14
+        / \  / \  / \   / \
+       3   4 5 6  2 7  15 13
+
+       Starting from 70, traverse through 60, 9 and 2. At every node, we are already guaranteed that it is smaller than its parent node.
+       So, check whether it is smaller than its children or not. If yes, then we found our local minima.
+       If not, continue traversing on the path which has the smaller/smallest child until we hit a leaf node.
+       Eventually the leaf node(here 2) will be the local minima.
+
+       Complexity: O(log n).
+
+
+4. Given N sorted lists, design a solution to return a final sorted list containing all the numbers from the input list.
+
+Ans: Use PriorityQueue to store k elements if there are k sorted lists in input. If there are a total of N elements in input, then
+     time complexity of the solution is O(N logk)
+
+
+5. Given a list of pointers as input where each pointer points to one of the nodes in a doubly linked list, return the no. of connected
+   components. A connected component is a list of pointers which are pointing to nodes adjacent to each other. Note that a single node pointer
+   pointing to a node which is not adjacent to any other node is still considered a connected component. Note that the doubly linked list
+   can be almost a million nodes long.
+
+   Ans: Similar to no. of friend circles given a group of friends and their friendships. Graph problem.
+
+6. Given a list of Runnable tasks which take very less time to execute(~1msec) and a frequency after which each of those tasks need to be
+   rescheduled, design a single threaded solution which takes these tasks as they become available to execute and executes them.
+
+   Ans: Use a PriorityQueue<RunTask> to hold the tasks as they are added to the system. The comparator for PriorityQueue should place tasks
+        in the increasing order of wait times i.e. frequencyMillis
+
+   class RunTask {
+        Runnable task;
+        long frequencyMillis;
+        long nextSchedTime;
+   }
+
+
+   public void schedule() {
+        // adds task to the PriorityQueue
+        // with next scheduled time = current time + frequencyMillis
+   }
+
+   public void run() {
+        // dequeue a RunTask from queue
+        // check if it is scheduled to run now
+        // if yes, run it and call reschedule
+        // if not, then add it back to end of priorityQueue w/o updating the nextSchedTime
+   }
+
+
+7. Design a garage system with the following specifications:
+
+    Type of cars it can park:
+        Minivan
+        SUV
+        Sedan
+
+    Types of parking spots available:
+        Compact
+        Regular
+        High Clearance
+
+
+    There are a certain no. of spots available of each type. And the cars can fit in the following way:
+        Minivan - can fit in all three types of spots
+        SUV - can fit only in High Clearance spots
+        Sedan - can fit in both High Clearance and Regular spots.
+
+    Note that a valet guy knows the location of the parking spots, so we dont have to solve the geography problem of the garage.
+
+
+    Public APIs expected out of the system are:
+    1. Given a type of car, get an available parking spot ID so that the valet guy can park the car in that spot.
+        Note that every spot has some form of String ID which need not be sequential.
+    2. After the person is done using the garage, he shows the valet guy a ticket which contains his car ID. Given this car ID,
+        determine the spot where this car is parked so that the valet guy can bring the car back.
+
+
+    Improvements needed: Move the car to the most optimal spot(eg: a minivan should move to the compact location) if one becomes available
+                         even after the car is parked.
+
+
+===================================
+
+A few more to think about:
+
+++ Elevator design question - 50 floors, 4 elevators
+++ Solve is-X-prime at high-scale
+++ Given an array of integers, how would you remove all duplicates in linear time, i.e. O(n)?
+    - Easy to do if its sorted array
+    - Algo exists for O(n) if array of size>n contains numbers from [0,n] -> http://stackoverflow.com/questions/5414854/remove-duplicates-from-array-in-linear-time-and-without-extra-arrays
+
+
+
+
