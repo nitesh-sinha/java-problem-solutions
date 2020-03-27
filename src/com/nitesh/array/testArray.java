@@ -21,6 +21,17 @@ public class testArray {
         System.out.println("size = " + l1.size());
         System.out.println(l1.peek());
 
+
+
+        Integer[] i = {1,2,3,4};
+        List<Integer> l2 = Arrays.asList(i);
+        System.out.println("l2 size = " + l2.size());
+        Integer[] i2 = new Integer[l2.size()];
+        l2.toArray(i2);
+        System.out.println("Lets print the integers obtained back");
+        for(Integer elem : i2)
+            System.out.println(elem);
+
     }
 
 }
