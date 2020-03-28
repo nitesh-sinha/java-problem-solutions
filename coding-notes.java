@@ -34,49 +34,6 @@ a=10111 -> result
 ===================================================
 
 
-2. Move zeroes to the end of the array:
-
-public class Solution {
-    public void moveZeroes(int[] nums) {
-        int holeIndex=0, numIndex=0, temp, numLength = nums.length;
-        while (numIndex < numLength) {
-            holeIndex = getHoleIndex(nums, holeIndex);
-            numIndex = getNumIndex(nums, numIndex);
-
-            // swap hole with number and increment hole index by 1
-            if (holeIndex < numIndex && numIndex < numLength) {
-                temp = nums[holeIndex];
-                nums[holeIndex] = nums[numIndex];
-                nums[numIndex] = temp;
-                holeIndex++;
-            }
-            // increment numIndex always by 1
-            numIndex++;
-        }
-    }
-
-    private int getHoleIndex(int[] nums, int holeIndex) {
-        while(holeIndex < nums.length && nums[holeIndex] != 0) {
-            holeIndex++;
-        }
-        return holeIndex;
-    }
-
-    private int getNumIndex(int[] nums, int numIndex) {
-        while(numIndex < nums.length && nums[numIndex] == 0) {
-            numIndex++;
-        }
-        return numIndex;
-    }
-}
-
-/*
-[]nums = {1,0,0,3,0,4,5,0} -> {1,3,4,5,0,0,0,0}
-
-*/
-
-// Time complexity: O(n) where n=length of nums
-
 
 ===================================================
 
@@ -269,24 +226,10 @@ class MyQueue {
 // empty: O(1)
 
 ==========================================
-8. Given an array of integers, return indices of the two numbers such that they add up to a specific target.
-
-You may assume that each input would have exactly one solution.
+8.
 
 
-public int[] twoSum(int[] nums, int target) {
-    Map<Integer, Integer> map = new HashMap<>(); // Stores number and its corresponding index
-    for (int i = 0; i < nums.length; i++) {
-        int complement = target - nums[i];
-        if (map.containsKey(complement)) {
-            return new int[] { map.get(complement), i };
-        }
-        map.put(nums[i], i);
-    }
-    throw new IllegalArgumentException("No two sum solution");
-}
 
-// Time complexity: O(n) where n is length of nums
 
 
 ===============================
