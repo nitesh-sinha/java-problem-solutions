@@ -453,58 +453,10 @@ Given "paper", "title", return true.
 
 
 ================================================
-16. Remove duplicates from sorted array. Return the final length of the array after removing duplicates.
-// Check next solution
-
-    public int removeDuplicates(int[] nums) {
-        int insertIndex, iteratorIndex, len=nums.length;
-
-        if(len<2)
-            return len;
-
-        for(insertIndex=0,iteratorIndex=1; iteratorIndex<len; iteratorIndex++) {
-            while(iteratorIndex<len && nums[iteratorIndex]==nums[insertIndex]) {
-                iteratorIndex++;
-            }
-
-            if (iteratorIndex<len) {
-                if (nums[iteratorIndex]!=nums[insertIndex]) {
-                    // first new element seen
-                    // copy it to insertIndex+1 position
-                    nums[++insertIndex] = nums[iteratorIndex];
-                }
-            } else if(insertIndex==0){
-                // only 1 element was repeated throughout the array
-                return 1;
-            }
-        }
-
-        return insertIndex+1;
-    }
-
+16. 
 
 ===================================================
-16.5  Follow up for "Remove Duplicates":
-What if duplicates are allowed at most twice?
 
-For example,
-Given sorted array nums = [1,1,1,2,2,3],
-
-Your function should return length = 5, with the first five elements of nums being 1, 1, 2, 2, 3.
-It doesnt matter what you leave beyond the final length.
-
-    // Smart and elegant solution
-    public int removeDuplicates(int[] nums) {
-        int insertIndex=0;
-        for(int n : nums)
-            if(insertIndex<2 || n>nums[insertIndex-2])
-                nums[insertIndex++] = n;
-        return insertIndex;
-    }
-
-    NOTE: If we replace 2 by 1 in the above code at both places, solution is for Remove Duplicates(with no repetition).
-
-    // Time complexity: O(n) where n=size of array nums
 
 ==================================================
 17. Print all root to leaf paths:
@@ -1052,34 +1004,8 @@ Therefore the output is 7.
 
 ==============================================
 
-32. A robot is located at the top-left corner of a m x n grid. The robot can only move either down or right at any point in time.
-    The robot is trying to reach the bottom-right corner of the grid.(1<=m,n<=100)
+32.
 
-How many possible unique paths are there?
-
-Note: Simple question although the logic involves the use of BigInteger since we are working on very large integers.
-      Basically the robot has to go down "m-1" steps and go right "n-1" steps to go from top-left grid to bottom-right grid.
-      So the questions asks the number of possible ways in which we can arrange (m-1) M's and (n-1) N's.
-
-    import java.math.BigInteger;
-
-    public int uniquePaths(int m, int n) {
-        // Result = (m-1+n-1)! / ((m-1)! * (n-1)!)
-        BigInteger[] fact = new BigInteger[m+n+1];
-        fact[0]=BigInteger.ONE;
-        factorial(m+n, fact);
-        BigInteger res = fact[m+n-2].divide(fact[m-1].multiply(fact[n-1]));
-        return res.intValue();
-
-    }
-
-    private void factorial(int x, BigInteger[] fact) {
-        fact[1]=BigInteger.ONE;
-        for(int i=2;i<x;i++)
-            fact[i]=fact[i-1].multiply(BigInteger.valueOf(i));
-    }
-
-    // Time complexity: O(m+n)
 
 ============================================
 
@@ -1251,34 +1177,11 @@ Your algorithm should run in O(n) time complexity and O(1) space complexity. Ver
     // Time complexity: O(m+n); m=no. of rows; n=no. of cols
 
 =============================================
-37. Given a mxn grid filled with non-negative numbers, find a path from top left to bottom right which minimizes the sum of all numbers along its path.
+37.
 
-    Note: You can only move either down or right at any point in time.
 
-    public int minPathSum(int[][] grid) {
-        int numRows = grid.length, numCols=grid[0].length;
 
-        for(int i=0;i<numRows;i++) {
-            for(int j=0;j<numCols;j++) {
-                if (i==0 && j==0)
-                    // 1st row, 1st col
-                    grid[i][j] = grid[i][j];
-                else if(i==0 && j!=0)
-                    // 1st row
-                    grid[i][j] = grid[i][j] + grid[i][j-1];
-                else if(i!=0 && j==0)
-                    // 1st col
-                    grid[i][j] = grid[i][j] + grid[i-1][j];
-                else
-                    // other row and col(except 1st)
-                    grid[i][j] = grid[i][j] + Math.min(grid[i][j-1], grid[i-1][j]);
-            }
-        }
 
-        return grid[numRows-1][numCols-1];
-    }
-
-    // Time complexity: O(mn); m=no.of rows, n=no. of cols
 
 ==============================================
 
@@ -2998,62 +2901,10 @@ Note: Do not use class member/global/static variables to store states. Your seri
 
 =========================================
 
-76.  Insert Delete GetRandom O(1)
-
-    Design a data structure that supports all following operations in average O(1) time.
-
-    insert(val): Inserts an item val to the set if not already present.
-    remove(val): Removes an item val from the set if present.
-    getRandom: Returns a random element from current set of elements. Each element must have the same probability of being returned.
-
+76.
 
     public class RandomizedSet {
-        // List needed to ensure O(1) for getRandom()
-        List<Integer> nums;
-        // Map needed to ensure O(1) for insert() and remove(). Stores num and its corresponding index in nums list
-        Map<Integer, Integer> numIndex;
-        java.util.Random rand;
 
-        /** Initialize your data structure here. */
-        public RandomizedSet() {
-            nums = new ArrayList<Integer>();
-            numIndex = new HashMap<>();
-            rand = new java.util.Random();
-        }
-
-        /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
-        public boolean insert(int val) {
-            if(numIndex.containsKey(val))
-                return false;
-            numIndex.put(val, nums.size());
-            nums.add(val);
-            return true;
-        }
-
-        /** Removes a value from the set. Returns true if the set contained the specified element. */
-        public boolean remove(int val) {
-            int index, last;
-            if(!numIndex.containsKey(val))
-                return false;
-            index = numIndex.get(val);
-            if(index<nums.size()-1) {
-                // element to tbe removed is not the last element in nums list
-                // To maintain O(1) complexity for remove, swap last element and val in nums list
-                // and remove last element
-                last = nums.get(nums.size()-1);
-                nums.set(index, last); // move last element to index position
-                numIndex.put(last, index); // update the index of last element to the new one
-            }
-            nums.remove(nums.size()-1);
-            numIndex.remove(val);
-            return true;
-        }
-
-        /** Get a random element from the set. */
-        public int getRandom() {
-            int randIndex = rand.nextInt(nums.size());
-            return nums.get(randIndex);
-        }
     }
 
 ===========================================
