@@ -32,6 +32,15 @@ public class testArray {
         for(Integer elem : i2)
             System.out.println(elem);
 
+        // another diff test
+        int x1=Integer.MAX_VALUE;
+        int x2 = Integer.MIN_VALUE;
+        int diff=x1-x2; // -1 ; No overflow 
+        System.out.println(diff);
+
+
+
+
     }
 
 }
