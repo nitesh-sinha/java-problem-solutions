@@ -453,7 +453,7 @@ Given "paper", "title", return true.
 
 
 ================================================
-16. 
+16.
 
 ===================================================
 
@@ -1150,31 +1150,7 @@ Your algorithm should run in O(n) time complexity and O(1) space complexity. Ver
     // Time complexity: O(n) where n=length of nums
 
 =================================================
-36. Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:
 
-    Integers in each row are sorted in ascending from left to right.
-    Integers in each column are sorted in ascending from top to bottom.
-
-    NOTE: Solution involves searching from top right corner(almost searching like binary search => deciding the direction of
-        search based on the value of the current number)
-
-    public boolean searchMatrix(int[][] matrix, int target) {
-        // O(m+n) solution
-        int numRows=matrix.length, numCols=matrix[0].length, row=0, col=numCols-1;
-
-        // Start from the top right corner
-        while(row<=numRows-1 && col>=0) {
-            if (target==matrix[row][col])
-                return true;
-            if (target>matrix[row][col])
-                row++;
-            else
-                col--;
-        }
-        return false;
-    }
-
-    // Time complexity: O(m+n); m=no. of rows; n=no. of cols
 
 =============================================
 37.
@@ -1667,103 +1643,12 @@ Given an array where elements are sorted in ascending order, convert it to a hei
     // Worst case=4^N where N=length of input "digit" string
 
 =================================================
-50. Follow up for "Unique Paths":
+50.
 
-Now consider if some obstacles are added to the grids. How many unique paths would there be to go from top-left to bottom-right?
-
-An obstacle and empty space is marked as 1 and 0 respectively in the grid.
-
-For example,
-
-There is one obstacle in the middle of a 3x3 grid as illustrated below.
-
-[
-  [0,0,0],
-  [0,1,0],
-  [0,0,0]
-]
-
-The total number of unique paths is 2.
-
-Note: m and n will be at most 100.
-
-    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
-        int rows=obstacleGrid.length, cols=obstacleGrid[0].length;
-        if(obstacleGrid[0][0]==1 || obstacleGrid[rows-1][cols-1]==1)
-            return 0;
-
-        int[][] dp = new int[rows][cols];
-
-        // Fill 1st row
-        for(int i=0;i<cols;i++) {
-            if(obstacleGrid[0][i]==1) {
-                while(i<cols) {
-                    // Further cells in that row can't be reached(since we can only move right or down)
-                    dp[0][i]=0;
-                    i++;
-                }
-            } else if(obstacleGrid[0][i]==0) {
-                    dp[0][i]=1;
-            }
-        }
-
-        // Fill 1st col
-        for(int i=0;i<rows;i++) {
-            if(obstacleGrid[i][0]==1) {
-                while(i<rows) {
-                    // Further cells in that column can't be reached(since we can only move right or down)
-                    dp[i][0]=0;
-                    i++;
-                }
-            } else if(obstacleGrid[i][0]==0) {
-                    dp[i][0]=1;
-            }
-        }
-
-        // Fill rest of rows and cols
-        for(int i=1;i<rows;i++) {
-            for(int j=1;j<cols;j++) {
-                if(obstacleGrid[i][j]==1)
-                    dp[i][j] = 0;
-                else
-                    dp[i][j]=dp[i-1][j] + dp[i][j-1]; // We can reach this from one of the two neighboring cells(top or left)
-            }
-        }
-
-        return dp[rows-1][cols-1];
-    }
-
-    // Time complexity: O(mn) where m=no. of rows; n=no. of cols.
 
 ========================================
-51. Given a sorted array of integers, find the starting and ending position of a given target value.
+51.
 
-If the target is not found in the array, return [-1, -1].
-
-For example,
-Given [5, 7, 7, 8, 8, 10] and target value 8,
-return [3, 4].
-
-
-    // Two binary searches. Elegant solution
-    public int[] searchRange(int[] nums, int target) {
-        return helper(nums, target, 0, nums.length - 1);
-    }
-    private int[] helper(int[] nums, int target, int lo, int hi) {
-        if (nums[lo] == target && nums[hi] == target)
-            return new int[]{lo, hi};
-        if (nums[lo] <= target && nums[hi] >= target) {
-            int mid = lo + (hi - lo) / 2;
-            int[] left = helper(nums, target, lo, mid);
-            int[] right = helper(nums, target, mid + 1, hi);
-            if (left[0] == -1) return right; // Not found in left half
-            if (right[0] == -1) return left; // Not found in right half
-            return new int[]{left[0], right[1]}; // Found in both half(so choose startIndex in left half & endIndex in right half)
-        }
-        return new int[]{-1, -1};
-    }
-
-    // Time complexity: O(log n)
 
 ============================================
 
@@ -2350,66 +2235,9 @@ return ["255.255.11.135", "255.255.111.35"]. (Order does not matter)
     // Time complexity: Worst case: Inner most loop runs 3*3*3=27 times.
 =====================================================
 
-66. Word Search:  Given a 2D board and a word, find if the word exists in the grid.
-
-The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring.
-The same letter cell may not be used more than once.
-
-For example, given board =
-
-[
-  ['A','B','C','E'],
-  ['S','F','C','S'],
-  ['A','D','E','E']
-]
-
-word = "ABCCED", -> returns true,
-word = "SEE", -> returns true,
-word = "ABCB", -> returns false.
+66.
 
 
-    public class Solution {
-        boolean[][] visited;
-        public boolean exist(char[][] board, String word) {
-            int rows=board.length, cols=board[0].length;
-            visited = new boolean[rows][cols];
-            for(int i=0;i<rows;i++) {
-                for(int j=0;j<cols;j++) {
-                    // loop used to change the starting search position on the board
-                    if (exist(board, word, i, j, 0))
-                        return true;
-                }
-            }
-            return false;
-        }
-
-        private boolean exist(char[][] board, String word, int row, int col, int index) {
-            // All chars matched in the input word. So, match found
-            if(index==word.length())
-                return true;
-            // index went beyond the board. Stop searching further
-            if(row<0 || row>=board.length || col<0 || col>=board[0].length)
-                return false;
-            // This cell has been searched before. Don't search again
-            if(visited[row][col]==true)
-                return false;
-            // Char doesn't match with input word. Don't continue further
-            if(board[row][col]!=word.charAt(index))
-                return false;
-            // Current cell char matches with char at cur index in word
-            // Continue search for remaining chars in word
-            visited[row][col]=true;
-            boolean isPresent = exist(board, word, row-1, col, index+1) ||
-                                exist(board, word, row+1, col, index+1) ||
-                                exist(board, word, row, col-1, index+1) ||
-                                exist(board, word, row, col+1, index+1);
-            visited[row][col]=false;
-            return isPresent;
-        }
-    }
-
-    // Time complexity: O(m*n*4*k) where m=no. of rows in board, n=no. of cols in board, k=length of word. 4 b'coz we search for
-    // that word in all 4 neighboring directions.
 
 ========================================
 67. Remove K Digits: Given a non-negative integer num represented as a string, remove k digits from the number so that the "new" number is the smallest possible.

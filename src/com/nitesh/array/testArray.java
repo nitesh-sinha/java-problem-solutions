@@ -35,11 +35,27 @@ public class testArray {
         // another diff test
         int x1=Integer.MAX_VALUE;
         int x2 = Integer.MIN_VALUE;
-        int diff=x1-x2; // -1 ; No overflow 
+        int diff=x1-x2; // -1 ; No overflow
         System.out.println(diff);
 
+        // binary search index test
+        int[] a = {2,3,6,7,9,13,15,19};
+        int index = Arrays.binarySearch(a,10);
+        System.out.println("index = " + index);
 
-
+        // 2 D array
+//        int[][] twoD = {
+//                {1,2,3,3},
+//                {4,5,6,6},
+//                {7,8,9,9}
+//        };
+        int[][] twoD = {{1,2}};
+        //int[] firstCol = new int[5];
+        System.out.println("size = " + twoD.length + " " + twoD[0].length);
+//        for(int j=0;j<twoD.length;j++)
+//            firstCol[j] = twoD[j][0];
+//        int index1 = Arrays.binarySearch(firstCol,5);
+//        System.out.println("index1 = " + index1);
 
     }
 
