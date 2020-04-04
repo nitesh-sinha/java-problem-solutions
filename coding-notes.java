@@ -653,77 +653,12 @@ public class Solution {
 
 ============================================
 
-23. Given an array S of n integers, are there elements a, b, c, and d in S such that a + b + c + d = target?
-    Find all unique quadruplets in the array which gives the sum of target.
-
-    Note: The solution set must not contain duplicate quadruplets.
+23.
 
 
-    public List<List<Integer>> fourSum(int[] nums, int target) {
-        int len=nums.length, k,l,sum;
-        List<List<Integer>> fourSumList = new ArrayList<List<Integer>>();
-        if (nums == null || nums.length < 4)
-            return fourSumList;
 
-        Arrays.sort(nums);
 
-        // Array is now sorted, so add a guard
-        if (nums[0] * 4 > target || nums[len-1] * 4 < target)
-            return fourSumList;
 
-        for(int i=0;i<len-3;i++) {
-            // Additional guards for faster completion
-            if (nums[i] + nums[len - 1] * 3 < target) //nums[i] is too small
-                continue;
-            if (nums[i] * 4 > target) { //nums[i] is too big
-                break;
-            }
-
-            // Skip duplicates
-            if (i>0 && nums[i]==nums[i-1]) {
-                continue;
-            }
-            for(int j=i+1; j<len-2;j++) {
-                // Additional guards for faster completion
-                if (nums[i] + nums[j] + nums[len - 1] * 2 < target) //nums[j] is too small
-                    continue;
-                if (nums[i] + nums[j] * 3 > target) { //nums[j] is too big
-                    break;
-                }
-                // Skip duplicates
-                if(j>(i+1)&& nums[j]==nums[j-1]) {
-                    continue;
-                }
-                // Find other 2 nos. in O(n) time using linear search
-                k=j+1;
-                l=len-1;
-                while (k<l) {
-                    sum=nums[i]+nums[j]+nums[k]+nums[l];
-                    if(sum==target) {
-                        fourSumList.add(Arrays.asList(nums[i],nums[j],nums[k],nums[l]));
-
-                        // Skip duplicates
-                        while(k<l && nums[k]==nums[k+1])
-                            k++;
-                        while(k<l && nums[l]==nums[l-1])
-                            l--;
-
-                        k++; // Skips over the last repeating element
-                        l--; // Skips over the last repeating element
-                    }
-
-                    if(sum<target)
-                        k++;
-                    else if(sum>target)
-                        l--;
-                }
-            }
-        }
-
-        return fourSumList;
-    }
-
-    // Time complexity: O(n^3) where n=no. of elements in input array
 
 ========================================
 
@@ -1390,63 +1325,7 @@ Note: If there are several possible values for h, the maximum one is taken as th
     // Time complexity: O(n) where n=length of citations[]
 
 ==================================================
-44. Search in rotated sorted array with no duplicates:
-
-Suppose a sorted array is rotated at some pivot unknown to you beforehand.
-
-(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
-
-You are given a target value to search. If found in the array return its index, otherwise return -1.
-
-
-    // NOTE: The solution involves two algos:
-    //     1. Search for pivot index
-    //     2. Search for the target value in the sorted array
-
-
-    public int search(int[] nums, int target) {
-        int len=nums.length, low=0, high=len-1, mid, pivot;
-
-        // Search for pivot index
-        // For pivot index i, nums[i]<nums[i-1]
-        while(nums[low] > nums[high]) {
-            mid=low+(high-low)/2;
-            if(nums[mid] > nums[high])
-                low = mid+1;
-            else
-                high = mid; // Not (mid-1) since mid can also be the pivot
-        }
-
-        // "low" has the pivot index
-        // Sorted array 1: [0...pivot-1]
-        // Sorted array 2: [pivot...len-1]
-        // Binary search in one of the two sorted arrays
-        pivot=low;
-        if(pivot!=0 && target>=nums[0]) {
-            // target might be in sorted array 1
-            low=0;
-            high=pivot-1;
-        } else {
-            // target might be in sorted array 2
-            // Or input is not even rotated(if pivot is 0)
-            low=pivot;
-            high=len-1;
-        }
-        // Perform usual binary search
-        while(low<=high) {
-            mid=low+(high-low)/2;
-            if(target==nums[mid])
-                return mid;
-            if(target<nums[mid])
-                high=mid-1;
-            else
-                low=mid+1;
-        }
-        return -1;
-    }
-
-    // Time complexity: O(log n) where n=no. of elements in nums[]
-
+44.
 =======================================================
 
 45. Bitwise AND of number range: Given a range [m, n] where 0 <= m <= n <= 2147483647, return the
@@ -1831,40 +1710,7 @@ For example,
     }
 
 ========================================
-56. Jump Game:  Given an array of non-negative integers, you are initially positioned at the first index of the array.
-
-Each element in the array represents your maximum jump length at that position.
-
-Determine if you are able to reach the last index.
-
-For example:
-A = [2,3,1,1,4], return true.
-
-A = [3,2,1,0,4], return false.
-
-    /* Starting from the second to last element in the array we
-    continue to iterate towards the start of the array. Only stopping if we hit an element with a value of 0; in this
-    case we evaluate if there exist an element somewhere at the start of the array which has a jump value large enough
-    to jump over this 0 value element.
-    */
-
-    public boolean canJump(int[] nums) {
-       if(nums.length < 2) return true;
-
-       for(int curr = nums.length-2; curr>=0;curr--){
-           if(nums[curr] == 0){
-               int neededJumps = 1;
-               while(neededJumps > nums[curr]){
-                   neededJumps++;
-                   curr--;
-                   if(curr < 0) return false;
-               }
-           }
-       }
-       return true;
-    }
-
-    // Time complexity: O(n) since each element in the array in traversed exactly once.
+56.
 
 ===============================================
 Check topological sorting in graphs using DFS: http://www.geeksforgeeks.org/topological-sorting/
@@ -2144,35 +1990,7 @@ Note:
     // Time complexity: O(n) where n=length of String s.
 
 ======================================================
-63. Maximum Product Subarray:  Find the contiguous subarray within an array (containing at least one number) which has the largest product.
-
-For example, given the array [2,3,-2,4],
-the contiguous subarray [2,3] has the largest product = 6.
-
-
-    public int maxProduct(int[] A) {
-        // Logic: Similar to max-sum-subarray problem except that here we should keep track of maxTillNow and minTillNow.
-        // And use both these to multiply with the current num to see which one gives max value(Remember -ve * -ve = +ve).
-
-        if(A.length==0)
-            return 0;
-
-        int globalMax=A[0], maxTillNow, minTillNow, maxPre=A[0], minPre=A[0];
-        for(int i=1;i<A.length;i++) {
-            // max of current and previous_max*current and previous_min*current
-            maxTillNow = Math.max(Math.max(maxPre*A[i], minPre*A[i]), A[i]);
-            // min of current and previous_max*current and previous_min*current
-            minTillNow = Math.min(Math.min(maxPre*A[i], minPre*A[i]), A[i]);
-            globalMax=Math.max(maxTillNow, globalMax);
-            // Store max and min state for next iteration
-            maxPre=maxTillNow;
-            minPre=minTillNow;
-        }
-        return globalMax;
-    }
-
-    // Time complexity: O(n) where n=length of input array
-
+63.
 
 ============================================
 64. Reverse a singly linked list:
