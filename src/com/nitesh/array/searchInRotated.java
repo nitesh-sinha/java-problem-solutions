@@ -18,6 +18,9 @@
 //        Output: -1
 
 
+// Time complexity: O(log n) where n=no. of elements in nums[]
+
+
 package com.nitesh.array;
 import java.util.Arrays;
 

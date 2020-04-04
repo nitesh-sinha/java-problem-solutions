@@ -14,7 +14,7 @@ public class maxSumSubarray {
         int sumTillNow=0, maxSum=Integer.MIN_VALUE;
 
         for(int n:nums) {
-            sumTillNow+=n;
+            sumTillNow += n;
             // if current number > (sum of relevant numbers seen before+current num)
             // then ignore the numbers seen before in the maximum subarray
             sumTillNow = Math.max(sumTillNow, n);
