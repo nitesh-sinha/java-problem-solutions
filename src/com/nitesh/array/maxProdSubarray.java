@@ -11,6 +11,8 @@
 //        Output: 0
 //        Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
 
+// Time complexity: O(n) where n=length of input array
+
 package com.nitesh.array;
 
 public class maxProdSubarray {
