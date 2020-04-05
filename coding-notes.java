@@ -452,12 +452,6 @@ Given "paper", "title", return true.
     // Time complexity: O(n) where n=no. of nodes in the tree since each node is visited exactly once.
 
 
-================================================
-16.
-
-===================================================
-
-
 ==================================================
 17. Print all root to leaf paths:
 
@@ -650,14 +644,6 @@ public class Solution {
     }
 
     // Time complexity: O(nk) where n=no. of coins in input array; k=amount
-
-============================================
-
-23.
-
-
-
-
 
 
 ========================================
@@ -1084,15 +1070,6 @@ Your algorithm should run in O(n) time complexity and O(1) space complexity. Ver
 
     // Time complexity: O(n) where n=length of nums
 
-=================================================
-
-
-=============================================
-37.
-
-
-
-
 
 ==============================================
 
@@ -1324,8 +1301,6 @@ Note: If there are several possible values for h, the maximum one is taken as th
 
     // Time complexity: O(n) where n=length of citations[]
 
-==================================================
-44.
 =======================================================
 
 45. Bitwise AND of number range: Given a range [m, n] where 0 <= m <= n <= 2147483647, return the
@@ -1521,13 +1496,6 @@ Given an array where elements are sorted in ascending order, convert it to a hei
     // Time complexity: 3^N or 4^N depending on whether the digit maps to 3 char string or 4 char string.
     // Worst case=4^N where N=length of input "digit" string
 
-=================================================
-50.
-
-
-========================================
-51.
-
 
 ============================================
 
@@ -1708,9 +1676,6 @@ For example,
             }
         }
     }
-
-========================================
-56.
 
 ===============================================
 Check topological sorting in graphs using DFS: http://www.geeksforgeeks.org/topological-sorting/
@@ -1989,8 +1954,6 @@ Note:
 
     // Time complexity: O(n) where n=length of String s.
 
-======================================================
-63.
 
 ============================================
 64. Reverse a singly linked list:
@@ -2051,10 +2014,6 @@ return ["255.255.11.135", "255.255.111.35"]. (Order does not matter)
     }
 
     // Time complexity: Worst case: Inner most loop runs 3*3*3=27 times.
-=====================================================
-
-66.
-
 
 
 ========================================
@@ -2545,98 +2504,10 @@ Note: Do not use class member/global/static variables to store states. Your seri
 
     // Time complexity: O(V^2) but using a priority queue(to replace outer for loop and minDistance() fn) it can be brought down to O(E*logV)
 
-=========================================
-
-76.
-
-    public class RandomizedSet {
-
-    }
 
 ===========================================
 
-77. Same question as above but duplicates are allowed while inserting elements. getRandom: Returns a random element from
-    current collection of elements. The probability of each element being returned is linearly related to the number of same value the collection contains.
-
-    // Idea is to use a LinkedHashSet as the value in numIndex map.
-    // Using a LinkedHashSet instead of a HashSet because the set.iterator() might be costly when a number has too many
-    // duplicates. Using LinkedHashSet can be considered as O(1) if we only get the first element to remove.
-
-    public class RandomizedCollection {
-
-        List<Integer> nums;
-        HashMap<Integer, LinkedHashSet<Integer>> numIndex;
-        java.util.Random rand;
-
-        /** Initialize your data structure here. */
-        public RandomizedCollection() {
-            nums = new ArrayList<Integer>();
-            numIndex = new HashMap<Integer, LinkedHashSet<Integer>>();
-            rand = new java.util.Random();
-        }
-
-        /** Inserts a value to the collection. Returns true if the collection did not already contain the specified element. */
-        public boolean insert(int val) {
-            boolean found = numIndex.containsKey(val);
-            if(!found)
-                numIndex.put(val, new LinkedHashSet<>());
-            numIndex.get(val).add(nums.size());
-            nums.add(val);
-            return !found;
-        }
-
-        /** Removes a value from the collection. Returns true if the collection contained the specified element. */
-        public boolean remove(int val) {
-            int index, last;
-            boolean found = numIndex.containsKey(val);
-            if(!found)
-                return false;
-            index = numIndex.get(val).iterator().next(); // get the first index where val is stored in nums list
-            numIndex.get(val).remove(index); //remove the first index(from numIndex) where val is stored in nums list
-            if(index<nums.size()-1) {
-                last = nums.get(nums.size()-1);
-                nums.set(index, last);
-                numIndex.get(last).remove(nums.size()-1); // remove the old_index(last index) from the set
-                numIndex.get(last).add(index); // add the new_index(index) into the set
-            }
-            nums.remove(nums.size()-1);
-            if(numIndex.get(val).isEmpty())
-                numIndex.remove(val);
-            return true;
-        }
-
-        /** Get a random element from the collection. */
-        public int getRandom() {
-            return nums.get(rand.nextInt(nums.size()));
-        }
-    }
-
-    // Based on this question, a followup question is: how do we get a random number from a list of numbers based on the
-    // probability of their occurence. e.g.
-
-    // Generate random integers from within [1,3] with the following probabilities:
-
-    // P(1) = 0.2
-    // P(2) = 0.3
-    // P(3) = 0.5
-
-    // OPTION 1:
-    // Generate a random integer within [0,100] and do the following:
-
-    // If it is within [0,20] --> return 1.
-    // If it is within [21,50] --> return 2.
-    // If it is within [51,100] --> return 3.
-
-    // OPTION 2:
-    // Get relative probabilities of the numbers. Given
-
-    // P(1) = 0.2
-    // P(2) = 0.3
-    // P(3) = 0.5
-
-    // Their relative probabilities are 2,3 and 5. Add them to get 10.
-    // Arrange numbers as [1,1,2,2,2,3,3,3,3,3]
-    // Choose index=rand.nextInt(10). Return the number at "index" position.
+77.
 
 ==================================================
 
