@@ -17,12 +17,12 @@ import java.util.List;
 
 public class generateParenthesis {
     public List<String> generateParenthesisFn(int n) {
-        List<String> res = new ArrayList();
-        generateParenthesis(res, "", 0, 0, n);
+        List<String> res = new ArrayList<>();
+        generateParenthesisFn(res, "", 0, 0, n);
         return res;
     }
 
-    public void generateParenthesis(List<String> res, String parens, int open, int close, int n) {
+    private void generateParenthesisFn(List<String> res, String parens, int open, int close, int n) {
         // Intuition:
         // We can start an open bracket if we still have one (of n) left to place.
         // And we can start a close bracket if it would not exceed the number of open brackets.
@@ -35,10 +35,10 @@ public class generateParenthesis {
         }
 
         if (open < n) {
-            generateParenthesis(res, parens+"(", open+1, close, n);
+            generateParenthesisFn(res, parens+"(", open+1, close, n);
         }
         if (close < open) {
-            generateParenthesis(res, parens+")", open, close+1, n);
+            generateParenthesisFn(res, parens+")", open, close+1, n);
         }
     }
 }
