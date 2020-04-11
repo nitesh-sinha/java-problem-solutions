@@ -4,10 +4,13 @@ import com.nitesh.stack.*;
 import com.nitesh.string.*;
 
 import java.io.*;
+import java.util.List;
 
 public class Solution {
 
     public static void main(String[] args) {
+        testString x = new testString();
+        x.testStringFn();
         // testMap x = new testMap();
 //        moveZeroes x = new moveZeroes();
 //        int[] a = {0,1,0,3,12,0,0,0,0,0};
@@ -16,8 +19,10 @@ public class Solution {
 //        for(int i=0;i<a.length;i++)
 //            System.out.printf("%d ", a[i]);
 
-        testString x = new testString();
-        x.testStringFn();
+//        generateParenthesis x = new generateParenthesis();
+//        List<String> res = x.generateParenthesisFn(3);
+//        for(String s : res)
+//            System.out.println(s);
     }
 
     //--------------Below 3 functions to test canJump class ------------------------
