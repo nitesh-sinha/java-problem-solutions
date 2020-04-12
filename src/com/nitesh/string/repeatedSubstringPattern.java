@@ -20,6 +20,9 @@
 package com.nitesh.string;
 
 public class repeatedSubstringPattern {
+    // For the repeating substring sequence to hold true, the substring length should exactly divide the input string length.
+    // So, calculate divisors of input string length and for each of those divisors, get divisor length substring from start
+    // of input string. Repeat it quotient times and check if we get the input string.
     public boolean repeatedSubstringPatternFn(String s) {
         int len=s.length(), numPatternBlocks;
         StringBuilder sb;
