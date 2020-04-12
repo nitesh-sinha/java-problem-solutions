@@ -31,9 +31,6 @@ a=10111 -> result
 
 */
 
-===================================================
-
-
 
 ===================================================
 
@@ -225,11 +222,6 @@ class MyQueue {
 // Pop/Peek: O(k) where k=size of inStack. Worst case is O(n) where n= no. of elements of queue
 // empty: O(1)
 
-==========================================
-8.
-
-
-
 
 
 ===============================
@@ -294,27 +286,6 @@ https://discuss.leetcode.com/topic/3576/accepted-kmp-solution-in-java-for-refere
 
 
 =================================
-10. Longest common prefix in array of strings:
-https://leetcode.com/articles/longest-common-prefix/
-
-// Algo: Horizontal scanning. Idea is LCP(S1, ....., Sn) = LCP(LCP(....LCP(S1, S2),S3)...Sn)
-
-    public String longestCommonPrefix(String[] strs) {
-        if (strs.length == 0) return "";
-        String prefix = strs[0];
-        for (int i = 1; i < strs.length; i++) {
-            while (strs[i].indexOf(prefix) != 0) {
-                // continue until prefix string doesn't appear in current string
-                prefix = prefix.substring(0, prefix.length() - 1); // Remove last char from prefix string
-                if (prefix.isEmpty()) return "";
-            }
-        }
-        return prefix;
-    }
-
-    // Time complexity: Worst case O(S) where S is sum of all chars in all strings.
-
-=================================
 11. Palindrome linked list -> O(n) time complexity and O(1) space complexity solution.
 
 Algo:
@@ -325,44 +296,6 @@ Algo:
     4. Keep two ptrs(p1=head of original list, p2=head of reverse list). Iterate and compare for equality of elements.
     5. Return false if any comparison fails.
 
-====================================
-12. Count and Say problem(using StringBuilder):
-
-    1, 11, 21, 1211, 111221, ...
-
-    1 is read off as "one 1" or 11.
-    11 is read off as "two 1s" or 21.
-    21 is read off as "one 2, then one 1" or 1211.
-
-
-
-    public String countAndSay(int n) {
-        String element = "1";
-        for(int i=1;i<n;i++) {
-            element = getNextElement(element);
-        }
-        return element;
-    }
-
-    private String getNextElement(String element) {
-        char c = element.charAt(0);
-        int count=1;
-        StringBuilder sb = new StringBuilder();
-
-        for(int i=1;i<element.length();i++) {
-            if(element.charAt(i) == c) {
-                count++;
-            } else {
-                sb.append(count);
-                sb.append(c);
-                c=element.charAt(i);
-                count=1;
-            }
-        }
-        sb.append(count);
-        sb.append(c);
-        return sb.toString();
-    }
 
 =====================================
 
@@ -825,29 +758,6 @@ Therefore the output is 7.
 
     // Time complexity: O(nk) where n=length of nums; k=target
 
-===============================================
-
-29. Generate n pairs of balanced parantheses.
-
-    // Check this out for a DP solution to this problem: https://rekinyz.wordpress.com/2015/02/13/generate-parentheses/
-
-    public List<String> generateParenthesis(int n) {
-        List<String> result = new ArrayList<>();
-        getAllPairs("", n, n, result);
-        return result;
-    }
-
-    private void getAllPairs(String current, int open, int close, List<String> res) {
-        if (close==0)
-            res.add(current);
-
-        if(open>0)
-            // Put open bracket until we've exhausted all open brackets
-            getAllPairs(current+"(", open-1, close, res);
-        if(close>open)
-            // Put close bracket only if there is a corresponding open bracket
-            getAllPairs(current+")", open, close-1, res);
-    }
 
 ===============================================
 
@@ -922,10 +832,6 @@ Therefore the output is 7.
             }
         }
     }
-
-==============================================
-
-32.
 
 
 ============================================
@@ -1462,40 +1368,6 @@ Given an array where elements are sorted in ascending order, convert it to a hei
 
     // Time complexity: O(n) where n=size of the input array since each element is visited exactly once.
 
-=============================================
-49. Letter Combinations of a Phone Number: Given a digit string, return all possible letter combinations that the number could represent.
-
-    public List<String> letterCombinations(String digits) {
-        LinkedList<String> res = new LinkedList<>();
-        String[] mapping = {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-        if(digits.length()==0)
-            return res;
-        res.add("");
-
-        for(int i=0;i<digits.length();i++) {
-            // Iterate over every digit in input
-            int d = Character.getNumericValue(digits.charAt(i));
-            while(res.peek().length()==i) {
-                // Iterate over all existing elements in the queue
-                // Existing elements are all possible combinations of
-                // i length strings for the mapping of equivalent i-length digits from input.
-                // Eg: If input string="234", queue will be filled in this order
-                // 1st iteration: [a,b,c]
-                // 2nd iteration: remove a,b,c and add [ad,ae,af,bd,be,bf,cd,ce,cf]
-                // 3rd iteration: remove existing 2 length elements and add [adg,adh,adi,aeg,aeh,aei,...cfg,cfh,cfi]
-                String t = res.remove();
-                for(char x : mapping[d].toCharArray())
-                    // Add every character in the mapping of the digit to all exisiting elements in the queue
-                    res.add(t+x);
-            }
-        }
-
-        return res;
-    }
-
-    // Time complexity: 3^N or 4^N depending on whether the digit maps to 3 char string or 4 char string.
-    // Worst case=4^N where N=length of input "digit" string
-
 
 ============================================
 
@@ -1541,141 +1413,7 @@ Given an array where elements are sorted in ascending order, convert it to a hei
 
     // Time complexity: O(n*log n)
 
-=================================================
 
-53. Given an array of strings, group anagrams together.
-
-For example, given: ["eat", "tea", "tan", "ate", "nat", "bat"],
-Return:
-
-[
-  ["ate", "eat","tea"],
-  ["nat","tan"],
-  ["bat"]
-]
-
-
-    public class Solution {
-        // Idea is to sort each string and check if it exists as key in HashMap
-        // If it exists, then add the current string as value in hashmap
-        // Else add current string as value in a new entry in hashmap
-        public List<List<String>> groupAnagrams(String[] strs) {
-            int numStrings=strs.length;
-            Map<String, List<String>> sortedStrAnagrams = new HashMap<>(); // Key=sorted string, value=anagrams
-
-            for(String str : strs) {
-               char[] eachStr = str.toCharArray();
-               Arrays.sort(eachStr);
-               String sortedStr = new String(eachStr);
-               if(sortedStrAnagrams.containsKey(sortedStr)) {
-                   List<String> existingList = sortedStrAnagrams.get(sortedStr);
-                   existingList.add(str);
-                   sortedStrAnagrams.put(sortedStr, existingList);
-               } else {
-                   List<String> newList = new ArrayList<String>();
-                   newList.add(str);
-                   sortedStrAnagrams.put(sortedStr, newList);
-               }
-            }
-
-            return new ArrayList<>(sortedStrAnagrams.values());
-        }
-    }
-
-    // Time complexity: nklog(k) where n=no. of strings in input; k=length of each string
-
-=============================================
-
-54. Combination Sum II:  Given a collection of candidate numbers (C) and a target number (T), find all unique combinations
-    in C where the candidate numbers sums to T.
-
-Each number in C may only be used once in the combination.
-
-Note:
-
-    All numbers (including target) will be positive integers.
-    The solution set must not contain duplicate combinations.
-
-For example, given candidate set [10, 1, 2, 7, 6, 1, 5] and target 8,
-A solution set is:
-
-[
-  [1, 7],
-  [1, 2, 5],
-  [2, 6],
-  [1, 1, 6]
-]
-
-
-
-    public class Solution {
-    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        int len=candidates.length, start=0;
-        List<List<Integer>> res = new ArrayList<>();
-        if(len==0)
-            return res;
-        Arrays.sort(candidates);
-        getcombinationSum2(res, new ArrayList<>(), candidates, target, start);
-        return res;
-    }
-
-    private void getcombinationSum2(List<List<Integer>> res, List<Integer> combo, int[] nums, int target, int start) {
-        if(target<0)
-            return;
-        if(target==0)
-            res.add(new ArrayList<>(combo));
-        for(int i=start;i<nums.length;i++) {
-            // With condition as (i-1>=0 && nums[i]==nums[i-1]), result will not have any duplicates within combo even if there are duplicates in input
-            // With condition as (i>start && nums[i]==nums[i-1]), result will have duplicates within combo only if there are duplicates in input
-            if(i>start && nums[i]==nums[i-1])
-                continue; // Skip duplicates in nums
-            combo.add(nums[i]);
-            getcombinationSum2(res, combo, nums, target-nums[i], i+1);
-            combo.remove(combo.size()-1);
-        }
-    }
-}
-
-=========================================
-55. Permutations II:  Given a collection of numbers that might contain duplicates, return all possible unique permutations.
-
-For example,
-[1,1,2] have the following unique permutations:
-
-[
-  [1,1,2],
-  [1,2,1],
-  [2,1,1]
-]
-
-
-
-    public class Solution {
-        public List<List<Integer>> permuteUnique(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
-        Arrays.sort(nums);
-        backtrack(res, new ArrayList<>(), nums, new boolean[nums.length]);
-        return res;
-    }
-
-        private void backtrack(List<List<Integer>> res, List<Integer> combo, int [] nums, boolean [] used){
-            if(combo.size() == nums.length){
-                res.add(new ArrayList<>(combo));
-            } else{
-                for(int i = 0; i < nums.length; i++){
-                    if(used[i] || i > 0 && nums[i] == nums[i-1] && !used[i - 1])
-                        // !used[i-1] ensures that we don't choose a duplicate as a starting number in combo
-                        // i.e. if we start with 2 and get all possible permutations with 2(this might contain another 2 in the same combo if number 2 is repeated input). But after we've got all possible permutations with first number as 2, we will skip over all remaining 2's while selecting the next number to be the first number
-                        continue;
-                    used[i] = true;
-                    combo.add(nums[i]);
-                    backtrack(res, combo, nums, used);
-                    used[i] = false;
-                    combo.remove(combo.size() - 1);
-                }
-            }
-        }
-    }
 
 ===============================================
 Check topological sorting in graphs using DFS: http://www.geeksforgeeks.org/topological-sorting/
@@ -1974,47 +1712,6 @@ Note:
     }
 
 =============================================
-65. Given a string containing only digits, restore it by returning all possible valid IP address combinations.
-
-For example:
-Given "25525511135",
-
-return ["255.255.11.135", "255.255.111.35"]. (Order does not matter)
-
-
-    public List<String> restoreIpAddresses(String s) {
-        List<String> res = new ArrayList<>();
-        String s1, s2, s3, s4;
-        int len=s.length();
-
-        // i,j and k divide the input into 4 substrings - (0,i),(i,j),(j,k),(k,len)
-        // (0,i) covers first 3 chars or less(if input size < 12)
-        // (i,j) covers next 3 characters or less(if input size < 12)
-        // (j,k) covers the next 3 chars or less(if input size < 12)
-        // (k,len) covers the remaining chars in input
-        for(int i=1;i<4 && i<len-2;i++) {
-            for(int j=i+1; j<i+4 && j<len-1;j++) {
-                for(int k=j+1; k<j+4 && k<len;k++) {
-                    s1=s.substring(0,i);
-                    s2=s.substring(i,j);
-                    s3=s.substring(j,k);
-                    s4=s.substring(k,len);
-                    if(isValid(s1) && isValid(s2) && isValid(s3) && isValid(s4))
-                        res.add(s1+"."+s2+"."+s3+"."+s4);
-                }
-            }
-        }
-        return res;
-    }
-
-    private boolean isValid(String x) {
-        if(x.length()>3 || x.length()<=0 || (x.charAt(0)=='0' && x.length()>1) || Integer.parseInt(x)>255)
-            return false;
-        return true;
-    }
-
-    // Time complexity: Worst case: Inner most loop runs 3*3*3=27 times.
-
 
 ========================================
 67. Remove K Digits: Given a non-negative integer num represented as a string, remove k digits from the number so that the "new" number is the smallest possible.
@@ -2226,40 +1923,6 @@ Return true because "leetcode" can be segmented as "leet code".
         return dp[s.length()];
     }
 
-============================================
-71. Given a non-empty string, check if it can be constructed by taking a substring of it and appending multiple copies of the substring together.
-You may assume the given string consists of lowercase English letters only and its length will not exceed 10000.
-
-Example 1:
-
-Input: "abab"
-Output: True
-Explanation: Its the substring "ab" twice.
-
-    // For the repeating substring sequence to hold true, the substring length should divide the input string length
-    // So, calculate divisors of input string length and for each of those divisors, get divisor length substring from start
-    // of input string. Repeat it quotient times and check if we get the input string.
-    public boolean repeatedSubstringPattern(String str) {
-        int len = str.length(), quot;
-        StringBuilder sb;
-        String finalStr;
-
-        for(int i=1;i<=len/2;i++) {
-            if(len%i==0) {
-                // i length string can be a potential repeating pattern
-                quot = len/i;
-                sb = new StringBuilder("");
-                // Append this substr len/i times and check if you get input string
-                for(int count=1;count<=quot;count++)
-                    sb.append(str.substring(0, i));
-                finalStr = sb.toString();
-                //System.out.println(finalStr);
-                if(finalStr.equals(str))
-                    return true;
-            }
-        }
-        return false;
-    }
 
 ==================
 
@@ -2504,10 +2167,6 @@ Note: Do not use class member/global/static variables to store states. Your seri
 
     // Time complexity: O(V^2) but using a priority queue(to replace outer for loop and minDistance() fn) it can be brought down to O(E*logV)
 
-
-===========================================
-
-77.
 
 ==================================================
 
@@ -3313,9 +2972,6 @@ You may assume k is always valid, 1 ≤ k ≤ n^2.
         }
     }
 
-===========================================
-
-91.
 
 ====================================================
 
