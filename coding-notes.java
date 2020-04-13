@@ -1644,54 +1644,6 @@ Note:
 
     // Time complexity: O(1) for sumRegion()
 
-======================================================
-
-62. Longest Substring Without Repeating Characters:
-
-    Given a string, find the length of the longest substring without repeating characters.
-
-    Examples:
-
-    Given "abcabcbb", the answer is "abc", with the length of 3.
-
-    Given "bbbbb", the answer is "b", with the length of 1.
-
-    Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
-
-
-    public int lengthOfLongestSubstring(String s) {
-        Map<Character, Integer> charLastIndexMap = new HashMap<>(); // Stores the last index where a character was seen
-        int len=s.length(), subStringstart=0, curLen=0, maxLen=0, lastIndex;
-
-        for(int i=0;i<len;i++) {
-            char c = s.charAt(i);
-            if(!charLastIndexMap.containsKey(c)) {
-                charLastIndexMap.put(c,i);
-                curLen++;
-            } else {
-                // current char seen before. Check if it is being considered in max substring
-                lastIndex = charLastIndexMap.get(c);
-                if (lastIndex>=subStringstart) {
-                    // Reset curLen since current char is one of the chars considered in curLen
-                    subStringstart=lastIndex+1; // remove this char from substring consideration
-                    curLen=i-subStringstart+1;
-                    charLastIndexMap.put(c,i);
-                } else {
-                    // Don't reset curLen since current char is not one of the chars considered in curLen
-                    // (Eg: this code path is taken when current char is the second "a" in input string abba")
-                    charLastIndexMap.put(c,i);
-                    curLen++;
-                }
-            }
-
-            if(curLen>maxLen)
-                maxLen=curLen;
-        }
-        return maxLen;
-    }
-
-    // Time complexity: O(n) where n=length of String s.
-
 
 ============================================
 64. Reverse a singly linked list:
@@ -1710,8 +1662,6 @@ Note:
         }
         return pre;
     }
-
-=============================================
 
 ========================================
 67. Remove K Digits: Given a non-negative integer num represented as a string, remove k digits from the number so that the "new" number is the smallest possible.

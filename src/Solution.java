@@ -9,10 +9,13 @@ import java.util.List;
 public class Solution {
 
     public static void main(String[] args) {
-        simplifyPath x = new simplifyPath();
+//        testString x = new testString();
+//        x.testStringFn();
 
-
-        System.out.println(x.simplifyPathFn("/a/.b/./....."));
+        compareVersion x = new compareVersion();
+        System.out.println(x.compareVersionFn("", "0.0.0"));
+//        simplifyPath x = new simplifyPath();
+////        System.out.println(x.simplifyPathFn("/a/.b/./....."));
         // testMap x = new testMap();
 //        moveZeroes x = new moveZeroes();
 //        int[] a = {0,1,0,3,12,0,0,0,0,0};
