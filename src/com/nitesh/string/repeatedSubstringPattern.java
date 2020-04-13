@@ -26,7 +26,6 @@ public class repeatedSubstringPattern {
     public boolean repeatedSubstringPatternFn(String s) {
         int len=s.length(), numPatternBlocks;
         StringBuilder sb;
-        // boolean isRepeating=false;
 
         for(int i=1; i<=len/2; i++) {
             sb = new StringBuilder();
