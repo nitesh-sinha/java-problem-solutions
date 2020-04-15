@@ -2,6 +2,7 @@ import com.nitesh.array.*;
 import com.nitesh.map.*;
 import com.nitesh.stack.*;
 import com.nitesh.string.*;
+import com.nitesh.linkedList.*;
 
 import java.io.*;
 import java.util.List;
@@ -9,11 +10,14 @@ import java.util.List;
 public class Solution {
 
     public static void main(String[] args) {
-//        testString x = new testString();
-//        x.testStringFn();
+        reverseList x = new reverseList();
+        int[] inputArr = {};
+        ListNode head = ListNode.createLinkedList(inputArr);
+        ListNode newHead = x.reverseListFn(head);
+        ListNode.printLinkedList(newHead);
 
-        compareVersion x = new compareVersion();
-        System.out.println(x.compareVersionFn("", "0.0.0"));
+//        compareVersion x = new compareVersion();
+//        System.out.println(x.compareVersionFn("", "0.0.0"));
 //        simplifyPath x = new simplifyPath();
 ////        System.out.println(x.simplifyPathFn("/a/.b/./....."));
         // testMap x = new testMap();
