@@ -10,11 +10,20 @@ import java.util.List;
 public class Solution {
 
     public static void main(String[] args) {
-        reverseList x = new reverseList();
-        int[] inputArr = {};
-        ListNode head = ListNode.createLinkedList(inputArr);
-        ListNode newHead = x.reverseListFn(head);
+//        reverseList x = new reverseList();
+//        int[] inputArr = {1,2,3};
+//        ListNode head = ListNode.createLinkedList(inputArr);
+//        ListNode newHead = x.reverseListFn(head);
+//        ListNode.printLinkedList(newHead);
+
+        mergeTwoLists x = new mergeTwoLists();
+        int[] arr1 = {1,2,4};
+        int[] arr2 = {1,3,4};
+        ListNode l1 = ListNode.createLinkedList(arr1);
+        ListNode l2 = ListNode.createLinkedList(arr2);
+        ListNode newHead = x.mergeTwoListsFn(l1, l2);
         ListNode.printLinkedList(newHead);
+
 
 //        compareVersion x = new compareVersion();
 //        System.out.println(x.compareVersionFn("", "0.0.0"));
