@@ -5,10 +5,13 @@
 //        Input: 1->2->4, 1->3->4
 //        Output: 1->1->2->3->4->4
 
+// Time cimplexity: O(n1+n2) where n1=no. of nodes in l1, n2=no. of nodes in l2.
+
 package com.nitesh.linkedList;
 
 public class mergeTwoLists {
     public ListNode mergeTwoListsFn(ListNode l1, ListNode l2) {
+        // Algo uses a dummy node in front.
         ListNode dummy = new ListNode(0);
         ListNode prev = dummy;
 
