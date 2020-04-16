@@ -453,35 +453,8 @@ public class Solution {
     // Time complexity: O(n) where n=no.of nodes in linked list.
 
 ================================================
-19. Merge two sorted lists:
 
-// Algo uses a dummy node in front.
-public class Solution {
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        ListNode dummy = new ListNode(0);
-        ListNode prev = dummy;
 
-        while(l1!=null && l2!=null) {
-            if(l1.val<=l2.val) {
-                prev.next = l1;
-                l1=l1.next;
-            } else {
-                prev.next=l2;
-                l2=l2.next;
-            }
-            prev=prev.next;
-        }
-
-        // Check if any one list is non-empty
-        if(l1!=null)
-            prev.next=l1;
-        if(l2!=null)
-            prev.next=l2;
-        return dummy.next;
-    }
-}
-
-// Time cimplexity: O(n1+n2) where n1=no. of nodes in l1, n2=no. of nodes in l2.
 
 ================================================
 20. Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice.
