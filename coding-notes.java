@@ -416,46 +416,6 @@ public class Solution {
 
 // Time complexity: O(n) where n=no. of nodes in tree since each node is visited once.
 
-==================================================
-18. Swap nodes of a linked list in pairs:
-
-    public ListNode swapPairs(ListNode head) {
-        // 0 or 1 node list
-        if(head==null || head.next==null)
-            return head;
-
-        //a fake head
-        ListNode h = new ListNode(0);
-        h.next = head;
-
-        ListNode p1 = head, p2 = head.next, pre = h; // pre always points to the node before the pair being swapped
-        while(p1!=null && p2!=null) {
-            // link prev list to the current pair
-            pre.next = p2;
-
-            // swap links here
-            ListNode t = p2.next;
-            p2.next = p1;
-            p1.next = t;
-
-            // Move pre ahead
-            pre = p1;
-
-            // Move p1,p2 to next pair of 2 nodes
-            p1 = p1.next;
-            if(p1!=null)
-                p2 = p1.next;
-        }
-
-        return h.next;
-    }
-
-    // Time complexity: O(n) where n=no.of nodes in linked list.
-
-================================================
-
-
-
 ================================================
 20. Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice.
     Find the two elements that appear only once.
