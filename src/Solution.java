@@ -16,14 +16,19 @@ public class Solution {
 //        ListNode newHead = x.reverseListFn(head);
 //        ListNode.printLinkedList(newHead);
 
-        mergeTwoLists x = new mergeTwoLists();
-        int[] arr1 = {1,2,4};
-        int[] arr2 = {1,3,4};
-        ListNode l1 = ListNode.createLinkedList(arr1);
-        ListNode l2 = ListNode.createLinkedList(arr2);
-        ListNode newHead = x.mergeTwoListsFn(l1, l2);
-        ListNode.printLinkedList(newHead);
+//        mergeTwoLists x = new mergeTwoLists();
+//        int[] arr1 = {1,2,4};
+//        int[] arr2 = {1,3,4};
+//        ListNode l1 = ListNode.createLinkedList(arr1);
+//        ListNode l2 = ListNode.createLinkedList(arr2);
+//        ListNode newHead = x.mergeTwoListsFn(l1, l2);
+//        ListNode.printLinkedList(newHead);
 
+        reorderList x = new reorderList();
+        int[] arr = {};
+        ListNode l = ListNode.createLinkedList(arr);
+        ListNode newHead = x.reorderListFn(l);
+        ListNode.printLinkedList(newHead);
 
 //        compareVersion x = new compareVersion();
 //        System.out.println(x.compareVersionFn("", "0.0.0"));
