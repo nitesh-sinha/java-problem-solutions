@@ -3,6 +3,7 @@ import com.nitesh.map.*;
 import com.nitesh.stack.*;
 import com.nitesh.string.*;
 import com.nitesh.linkedList.*;
+import com.nitesh.queue.*;
 
 import java.io.*;
 import java.util.List;
@@ -24,11 +25,29 @@ public class Solution {
 //        ListNode newHead = x.mergeTwoListsFn(l1, l2);
 //        ListNode.printLinkedList(newHead);
 
-        reorderList x = new reorderList();
-        int[] arr = {};
-        ListNode l = ListNode.createLinkedList(arr);
-        ListNode newHead = x.reorderListFn(l);
-        ListNode.printLinkedList(newHead);
+//        reorderList x = new reorderList();
+//        int[] arr = {};
+//        ListNode l = ListNode.createLinkedList(arr);
+//        ListNode newHead = x.reorderListFn(l);
+//        ListNode.printLinkedList(newHead);
+
+//        lastStoneWeight x = new lastStoneWeight();
+//        int[] arr1 = {1,1,1,1,1,1};
+//        System.out.println(x.lastStoneWeightFn(arr1));
+
+          stringShift x = new stringShift();
+          int[][] shift = {
+                  {1,8},
+                  {1,4},
+                  {1,3},
+                  {1,6},
+                  {0,6},
+                  {1,4},
+                  {0,2},
+                  {0,1}
+          };
+
+        System.out.println(x.stringShiftFn("yisxjwry", shift));
 
 //        compareVersion x = new compareVersion();
 //        System.out.println(x.compareVersionFn("", "0.0.0"));
