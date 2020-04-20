@@ -173,56 +173,6 @@ public class Solution {
 
 ==============================================
 
-7. Implement queue using stacks:
-
-class MyQueue {
-    Stack<Integer> inStack = new Stack<Integer>();
-    Stack<Integer> outStack = new Stack<Integer>();
-    // Push element x to the back of queue.
-    public void push(int x) {
-        inStack.push(x);
-    }
-
-    // Removes the element from front of queue.
-    public void pop() {
-        int element;
-        if (!outStack.empty())
-            outStack.pop();
-        else {
-            while(!inStack.empty()) {
-                element = inStack.pop();
-                outStack.push(element);
-            }
-            outStack.pop();
-        }
-    }
-
-    // Get the front element.
-    public int peek() {
-        int element;
-        if (!outStack.empty())
-            return outStack.peek();
-        else {
-            while(!inStack.empty()) {
-                element = inStack.pop();
-                outStack.push(element);
-            }
-            return outStack.peek();
-        }
-    }
-
-    // Return whether the queue is empty.
-    public boolean empty() {
-        return (outStack.empty() && inStack.empty());
-    }
-}
-
-// Time complexities:
-// Push: O(1)
-// Pop/Peek: O(k) where k=size of inStack. Worst case is O(n) where n= no. of elements of queue
-// empty: O(1)
-
-
 
 ===============================
 9. implement strStr() ---> KMP algo.
