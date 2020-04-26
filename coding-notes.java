@@ -1474,70 +1474,6 @@ Note:
         return pre;
     }
 
-========================================
-67. Remove K Digits: Given a non-negative integer num represented as a string, remove k digits from the number so that the "new" number is the smallest possible.
-
-Note:
-
-    The length of num is less than 10002 and will be ≥ k.
-    The given num does not contain any leading zero.
-
-Example 1:
-
-Input: num = "1432219", k = 3
-Output: "1219"
-Explanation: Remove the three digits 4, 3, and 2 to form the "new" number 1219 which is the smallest.
-
-Example 2:
-
-Input: num = "10200", k = 1
-Output: "200"
-Explanation: Remove the leading 1 and the number is 200. Note that the output must not contain leading zeroes.
-
-Example 3:
-
-Input: num = "10", k = 2
-Output: "0"
-Explanation: Remove all the digits from the number and it is left with nothing which is 0.
-
-
-
-    public String removeKdigits(String num, int k) {
-        // Idea: Remove digit from the input if it is greater than its succeeding digit
-        int len=num.length();
-        // Corner case
-        if(k>=len)
-            return "0";
-
-        Stack<Character> s = new Stack<>();
-        StringBuilder sb = new StringBuilder();
-        for(int i=0;i<len;i++) {
-            char c = num.charAt(i);
-            // Check if any digit needs to be evicted from the stack
-            while(k>0 && !s.isEmpty() && s.peek()>c) {
-                s.pop();
-                k--;
-            }
-            // Insert the current digit into stack
-            s.push(c);
-        }
-
-        // For cases like repeating or increasing digits. eg: "22222" or "12345"
-        while(k>0) {
-            s.pop();
-            k--;
-        }
-
-        while(!s.isEmpty())
-            sb.append(s.pop());
-        sb.reverse();
-
-        // Remove any zeros at the beginning of the result
-        while(sb.length()>1 && sb.charAt(0)=='0')
-            sb.deleteCharAt(0);
-
-        return sb.toString();
-    }
 
 =======================================
 
@@ -2291,58 +2227,6 @@ connects vertices of same set.
         return res;
     }
 
-==============================================
-
-84. Binary Tree Zigzag Level Order Traversal: Given a binary tree, return the zigzag level order traversal of its nodes values.
-(ie, from left to right, then right to left for the next level and alternate between).
-
-For example:
-Given binary tree [3,9,20,null,null,15,7],
-
-    3
-   / \
-  9  20
-    /  \
-   15   7
-
-return its zigzag level order traversal as:
-
-[
-  [3],
-  [20,9],
-  [15,7]
-]
-
-
-    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        List<List<Integer>> res = new ArrayList<>();
-        if(root==null)
-            return res;
-
-        getZigZag(root, res, 0);
-        return res;
-    }
-
-    private void getZigZag(TreeNode root, List<List<Integer>> res, int level) {
-        if(root==null)
-            return;
-
-        if(res.size()<=level) {
-            // A new level is seen. Create its own level order list
-            List<Integer> innerList = new ArrayList<>();
-            res.add(innerList);
-        }
-
-        List<Integer> list = res.get(level);
-        if(level%2==0)
-            list.add(root.val); // Add at the end of the list
-        else
-            list.add(0, root.val); // Add at the front of the list
-
-        getZigZag(root.left, res, level+1);
-        getZigZag(root.right, res, level+1);
-    }
-
 ==================================================
 
 85. Lowest Common Ancestor of a Binary Tree:
@@ -2533,62 +2417,7 @@ node can be a descendant of itself according to the LCA definition.
         }
     }
 
-==================================
 
-88. Decode String:
-     Given an encoded string, return its decoded string.
-
-The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times.
-Note that k is guaranteed to be a positive integer.
-
-You may assume that the input string is always valid; No extra white spaces, square brackets are well-formed, etc.
-
-Furthermore, you may assume that the original data does not contain any digits and that digits are only for those repeat numbers, k.
-For example, there wont be input like 3a or 2[4].
-
-Examples:
-
-s = "3[a]2[bc]", return "aaabcbc".
-s = "3[a2[c]]", return "accaccacc".
-s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
-
-
-
-    public String decodeString(String s) {
-        Stack<Integer> countStack = new Stack<>();
-        Stack<String> charStack = new Stack<>();
-        String res = "";
-        int index=0, num=0, repeatCount;
-
-        while(index < s.length()) {
-            if(Character.isDigit(s.charAt(index))) {
-                while(Character.isDigit(s.charAt(index))) {
-                    num = num*10 + (s.charAt(index) - '0');
-                    index++;
-                }
-                countStack.push(num);
-                num=0;
-            } else if(s.charAt(index)=='[') {
-                charStack.push(res);
-                res="";
-                index++;
-            } else if(s.charAt(index)==']') {
-                StringBuilder temp = new StringBuilder(charStack.pop());
-                repeatCount = countStack.pop();
-                for(int i=0; i<repeatCount; i++)
-                    temp.append(res);
-
-                res = temp.toString();
-                index++;
-            } else {
-                // its a letter
-                res += s.charAt(index);
-                index++;
-            }
-        }
-
-        return res;
-    }
 
 ==========================================
 
