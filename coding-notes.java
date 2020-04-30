@@ -1456,25 +1456,6 @@ Note:
     // Time complexity: O(1) for sumRegion()
 
 
-============================================
-64. Reverse a singly linked list:
-
-    private ListNode reverse(ListNode head) {
-        if(head==null || head.next==null)
-            return head;
-
-        ListNode pre=null;
-        ListNode cur=head, after;
-        while(cur!=null) {
-            after=cur.next;
-            cur.next=pre;
-            pre=cur;
-            cur=after;
-        }
-        return pre;
-    }
-
-
 =======================================
 
 68. Count Complete Tree Nodes
@@ -2194,38 +2175,6 @@ connects vertices of same set.
         return true;
     }
 
-==============================================
-
-83. Iterative solution of postorder traversal(LEFT->RIGHT->ROOT) of binary tree:
-
-    // Algo is a little tricky because we store left->right in stack
-    // and then pop them in right->left order and add them to head of list
-    // thereby making it root->left->right
-
-    public List<Integer> postorderTraversal(TreeNode root) {
-        LinkedList<Integer> res = new LinkedList<>();
-        Stack<TreeNode> stack = new Stack<>();
-
-        if(root==null)
-            return res;
-
-        stack.push(root);
-        while(!stack.isEmpty()) {
-            TreeNode node = stack.pop();
-            res.addFirst(node.val); // This is the trick
-
-            // Since left is pushed to stack before right
-            // and we add the popped item to the head of the list,
-            // we get left->right->root order in list
-            if(node.left!=null)
-                stack.push(node.left);
-
-            if(node.right!=null)
-                stack.push(node.right);
-        }
-
-        return res;
-    }
 
 ==================================================
 
@@ -2293,7 +2242,7 @@ node can be a descendant of itself according to the LCA definition.
 
 ============================================
 
-86**. Recover Binary Search Tree:
+86. Recover Binary Search Tree:
      Two elements of a binary search tree (BST) are swapped by mistake.
 
     Recover the tree without changing its structure.
