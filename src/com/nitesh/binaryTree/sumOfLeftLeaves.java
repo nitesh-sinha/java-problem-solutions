@@ -14,7 +14,7 @@
 package com.nitesh.binaryTree;
 
 public class sumOfLeftLeaves {
-    public int sumOfLeftLeaves(TreeNode root) {
+    public int sumOfLeftLeavesFn(TreeNode root) {
         if(root==null)
             return 0;
         int doAdd=0; // 1 denotes add its value, 0 means don't add in sum
