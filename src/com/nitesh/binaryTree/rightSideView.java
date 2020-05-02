@@ -13,7 +13,8 @@
 //       9
 //
 //        You should return [1, 3, 4, 9]
-
+//
+// Time complexity: O(n) where n = no. of nodes in the tree
 
 package com.nitesh.binaryTree;
 
