@@ -145,35 +145,6 @@ public class Solution {
 
 // Time complexity: O(n) where n=no. of nodes in the tree.
 
-=================================================
-
-6. Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
-
-public class Solution {
-    public boolean isSymmetric(TreeNode root) {
-        if (root == null)
-            return true;
-        return isLeftRightSymmetric(root.left, root.right);
-    }
-
-    private boolean isLeftRightSymmetric(TreeNode left, TreeNode right) {
-        if (left == null || right==null)
-            return left==right; // true for both null
-        if (left.val!=right.val)
-            return false;
-
-        if(isLeftRightSymmetric(left.left, right.right) && isLeftRightSymmetric(left.right, right.left))
-            return true;
-        return false;
-
-    }
-}
-
-// Time complexity: O(n) where n=no. of nodes in tree. Since each node is visited once.
-
-==============================================
-
-
 ===============================
 9. implement strStr() ---> KMP algo.
 
@@ -334,37 +305,6 @@ Given "paper", "title", return true.
 
     // Time complexity: O(n) where n=no. of nodes in the tree since each node is visited exactly once.
 
-
-==================================================
-17. Print all root to leaf paths:
-
-public class Solution {
-    private List<String> paths = new ArrayList<>();
-
-    public List<String> binaryTreePaths(TreeNode root) {
-        String s = "";
-        getPaths(root, s);
-        return paths;
-    }
-
-    private void getPaths(TreeNode root, String s) {
-        if (root==null)
-            return;
-
-        s += String.valueOf(root.val);
-        // Check for leafnode
-        if(root.left==null && root.right==null) {
-            paths.add(s);
-            return;
-        }
-        // For non-leaf nodes
-        s += "->";
-        getPaths(root.left, s);
-        getPaths(root.right, s);
-    }
-}
-
-// Time complexity: O(n) where n=no. of nodes in tree since each node is visited once.
 
 ================================================
 20. Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice.
@@ -715,58 +655,6 @@ Therefore the output is 7.
             }
         }
     }
-
-
-============================================
-
-33. Binary tree right side view: Given a binary tree, imagine yourself standing on the right side of it,
-    return the values of the nodes you can see ordered from top to bottom.
-
-For example:
-Given the following binary tree,
-
-   1            <---
- /   \
-2     3         <---
- \     \
-  5     4       <---
-
-You should return [1, 3, 4]
-
-
-    public class Solution {
-        int maxHeight;
-        public List<Integer> rightSideView(TreeNode root) {
-            List<Integer> result = new ArrayList<>();
-            // Empty tree
-            if(root==null)
-                return result;
-
-            // Atleast 1 node tree
-            int curHeight=0;
-            maxHeight=0;
-
-            traverseTree(root, curHeight, result);
-            return result;
-        }
-
-        private void traverseTree(TreeNode root, int curHeight, List<Integer> result) {
-            if(root==null)
-                return;
-            curHeight++;
-
-            if(curHeight>maxHeight) {
-                result.add(root.val);
-                maxHeight=curHeight;
-            }
-
-            traverseTree(root.right, curHeight, result);
-            traverseTree(root.left, curHeight, result);
-
-        }
-    }
-
-    // Time complexity: O(n) where n=no. of nodes in the tree
 
 ==============================================
 
@@ -1151,33 +1039,6 @@ Given a singly linked list where elements are sorted in ascending order, convert
     }
 
     // Time complexity: O(n) where n=size of the linked list since each node is visited exactly once.
-
-===========================================
- 48. Convert Sorted Array to Binary Search Tree(Remember preorder Traversal??)
-Given an array where elements are sorted in ascending order, convert it to a height balanced BST.
-
-    // Very similar to a binary search solution
-    public class Solution {
-        public TreeNode sortedArrayToBST(int[] nums) {
-            return createBST(nums, 0, nums.length-1);
-        }
-
-        private TreeNode createBST(int[] nums, int start, int end) {
-            if (start>end)
-                return null;
-            int mid = start + (end-start)/2;
-            // ROOT
-            TreeNode node = new TreeNode(nums[mid]);
-            // LEFT
-            node.left = createBST(nums, start, mid-1);
-            // RIGHT
-            node.right = createBST(nums, mid+1, end);
-
-            return node;
-        }
-    }
-
-    // Time complexity: O(n) where n=size of the input array since each element is visited exactly once.
 
 
 ============================================
@@ -2175,70 +2036,6 @@ connects vertices of same set.
         return true;
     }
 
-
-==================================================
-
-85. Lowest Common Ancestor of a Binary Tree:
-
-     Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
-
-According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes v and w as the lowest
-node in T that has both v and w as descendants (where we allow a node to be a descendant of itself).”
-
-        _______3______
-       /              \
-    ___5__          ___1__
-   /      \        /      \
-   6      _2       0       8
-         /  \
-         7   4
-
-For example, the lowest common ancestor (LCA) of nodes 5 and 1 is 3. Another example is LCA of nodes 5 and 4 is 5, since a
-node can be a descendant of itself according to the LCA definition.
-
-
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        List<TreeNode> listP = new ArrayList<TreeNode>();
-        List<TreeNode> listQ = new ArrayList<TreeNode>();
-        int i;
-
-        // null tree input
-        if(root==null)
-            return null;
-
-        // if both inputs are same
-        if(p==q)
-            return p;
-
-        // either one or both p and q not found in the tree
-        if(!isFound(root, p, listP) || !isFound(root, q, listQ))
-            return null;
-
-        // both nodes found in the tree. Get the first unequal node in the lists
-        for(i=0; i<listP.size() && i<listQ.size(); i++) {
-            if(listP.get(i).val != listQ.get(i).val)
-                break;
-        }
-
-        return listP.get(i-1);
-    }
-
-    private boolean isFound(TreeNode root, TreeNode x, List<TreeNode> list) {
-        if(root==null)
-            return false;
-
-        list.add(root);
-        if(root==x)
-            return true;
-
-        if(isFound(root.left, x, list) || isFound(root.right, x, list))
-            return true;
-
-        list.remove(root);
-        return false;
-    }
-
-    // Time complexity(worst case): O(n) where n=no. of nodes in tree
 
 ============================================
 
