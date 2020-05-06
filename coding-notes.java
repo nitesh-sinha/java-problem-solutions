@@ -656,66 +656,6 @@ Therefore the output is 7.
         }
     }
 
-==============================================
-
-34.  Given a binary tree:
-
-Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
-
-Initially, all next pointers are set to NULL. Eg:
-
-Given the following perfect binary tree,
-
-         1
-       /  \
-      2    3
-     / \  / \
-    4  5  6  7
-
-
-After calling your function, the tree should look like:
-
-         1 -> NULL
-       /  \
-      2 -> 3 -> NULL
-     / \  / \
-    4->5->6->7 -> NULL
-
-
-Very elegant solution(If you consider the list in one level as a linked list while iterating it, the solution is very obvious).
-
-
-    /**
-     * Definition for binary tree with next pointer.
-     * public class TreeLinkNode {
-     *     int val;
-     *     TreeLinkNode left, right, next;
-     *     TreeLinkNode(int x) { val = x; }
-     * }
-     */
-    public class Solution {
-        public void connect(TreeLinkNode root) {
-            if(root==null)
-                return;
-
-            TreeLinkNode depth=root, level=null;
-            while(depth.left!=null) {
-                // depth ptr to iterate from top to bottom
-                level=depth;
-                while(level!=null) {
-                    // level ptr to iterate over all nodes at same level
-                    level.left.next=level.right;
-                    if(level.next!=null)
-                        level.right.next=level.next.left;
-                    level=level.next;
-                }
-                depth=depth.left;
-            }
-        }
-    }
-
-    // Time complexity: O(n) where n=no. of nodes in the tree
-
 ================================================
 35.  Given an unsorted array return whether an increasing subsequence of length 3 exists in the array or not.
 
@@ -1881,88 +1821,9 @@ Challenge: Perform all these in O(1) time complexity.
             return "";
         }
     }
-
-===================================
-
-79. Delete Node in a BST:
-
-Given a root node reference of a BST and a key, delete the node with the given key in the BST. Return the root node reference (possibly updated) of the BST.
-
-Basically, the deletion can be divided into two stages:
-
-    Search for a node to remove.
-    If the node is found, delete the node.
-
-Example:
-
-root = [5,3,6,2,4,null,7]
-key = 3
-
-    5
-   / \
-  3   6
- / \   \
-2   4   7
-
-Given key to delete is 3. So we find the node with value 3 and delete it.
-
-One valid answer is [5,4,6,2,null,null,7], shown in the following BST.
-
-    5
-   / \
-  4   6
- /     \
-2       7
-
-Another valid answer is [5,2,6,null,4,null,7].
-
-    5
-   / \
-  2   6
-   \   \
-    4   7
-
-    // This solution implements the first valid answer(described above)
-    // So always replaces the key node with its inorder successor if
-    // both left and right child for the key node exist
-
-    public class Solution {
-        public TreeNode deleteNode(TreeNode root, int key) {
-            if(root==null)
-                return null;
-            if(key < root.val) {
-                root.left = deleteNode(root.left, key);
-            } else if (key > root.val) {
-                root.right = deleteNode(root.right, key);
-            } else {
-                // found node to be deleted
-                // Case 1: no left child or leaf node
-                if(root.left==null)
-                    return root.right;
-                // Case 2: no right child
-                else if(root.right==null)
-                    return root.left;
-                // Case 3: both left and right child exist
-                // Get the smallest successor of key Node
-                TreeNode minNode = findMin(root);
-                // Swap key Node with minNode
-                root.val = minNode.val;
-                // Delete the minNode
-                root.right = deleteNode(root.right, minNode.val);
-            }
-            return root;
-        }
-
-        private TreeNode findMin(TreeNode root) {
-            TreeNode res = root.right;
-            while(res.left!=null) {
-                res = res.left;
-            }
-            return res;
-        }
-    }
-
-    // Time complexity: O(height of tree).
+===============================
+79. Graph question:        https://leetcode.com/problems/course-schedule/
+        https://leetcode.com/problems/course-schedule-ii/
 
 ===========================================
 
