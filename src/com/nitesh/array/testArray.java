@@ -6,26 +6,31 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class testArray {
-    private void deleteFn(List<Integer> l2) {
-        l2.remove(0);
-        System.out.println("size inside after delete = " + l2.size());
-        for(Integer elem : l2)
-            System.out.println(elem);
-        System.out.println("=========");
-    }
+//    private void deleteFn(List<Integer> l2) {
+//        l2.remove(0);
+//        System.out.println("size inside after delete = " + l2.size());
+//        for(Integer elem : l2)
+//            System.out.println(elem);
+//        System.out.println("=========");
+//    }
 
     public void testfn() {
-        LinkedList<Integer> l1 = new LinkedList<>();
-        l1.add(1);
-        l1.add(2);
-        l1.add(3);
+        int[] arr1 = {1,2,3,4,5};
+        int[] arr2;
+        arr2 = Arrays.copyOfRange(arr1, 0, arr1.length-1);
+        System.out.println("Size of arr2 = " + arr2.length);
 
-        System.out.println("size outside before delete = " + l1.size());
-        deleteFn(l1);
-        System.out.println("size outside after delete = " + l1.size());
-
-        for(Integer elem : l1)
-            System.out.println(elem);
+//        LinkedList<Integer> l1 = new LinkedList<>();
+//        l1.add(1);
+//        l1.add(2);
+//        l1.add(3);
+//
+//        System.out.println("size outside before delete = " + l1.size());
+//        deleteFn(l1);
+//        System.out.println("size outside after delete = " + l1.size());
+//
+//        for(Integer elem : l1)
+//            System.out.println(elem);
 
 //        System.out.println(l1.pop());
 //        System.out.println("num at index 1 is " + l1.get(1));
