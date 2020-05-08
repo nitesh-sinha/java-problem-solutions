@@ -4,6 +4,7 @@ import com.nitesh.stack.*;
 import com.nitesh.string.*;
 import com.nitesh.linkedList.*;
 import com.nitesh.queue.*;
+import com.nitesh.binaryTree.*;
 
 import java.io.*;
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 public class Solution {
 
     public static void main(String[] args) {
+          testBTree x = new testBTree();
+          x.testBTreeFn();
 //        reverseList x = new reverseList();
 //        int[] inputArr = {1,2,3};
 //        ListNode head = ListNode.createLinkedList(inputArr);
@@ -35,19 +38,19 @@ public class Solution {
 //        int[] arr1 = {1,1,1,1,1,1};
 //        System.out.println(x.lastStoneWeightFn(arr1));
 
-          stringShift x = new stringShift();
-          int[][] shift = {
-                  {1,8},
-                  {1,4},
-                  {1,3},
-                  {1,6},
-                  {0,6},
-                  {1,4},
-                  {0,2},
-                  {0,1}
-          };
-
-        System.out.println(x.stringShiftFn("yisxjwry", shift));
+//          stringShift x = new stringShift();
+//          int[][] shift = {
+//                  {1,8},
+//                  {1,4},
+//                  {1,3},
+//                  {1,6},
+//                  {0,6},
+//                  {1,4},
+//                  {0,2},
+//                  {0,1}
+//          };
+//
+//        System.out.println(x.stringShiftFn("yisxjwry", shift));
 
 //        compareVersion x = new compareVersion();
 //        System.out.println(x.compareVersionFn("", "0.0.0"));
