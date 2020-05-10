@@ -276,36 +276,6 @@ Given "paper", "title", return true.
 
  // Time complexity: O(k) where k=no.of set bits in n. Worst case: All bits are set. O(32)
 
- =============================================
-
- 15. Find the min depth of a binary tree: The minimum depth is the number of nodes along the shortest path from the root node
-     down to the nearest leaf node.
-
-  public int minDepth(TreeNode root) {
-        if (root==null)
-            return 0;
-
-        int leftDepth = minDepth(root.left);
-        int rightDepth = minDepth(root.right);
-
-        // Dont consider the path whose depth is zero
-        // Eg: root=1, leftchild=2, no rightchild.
-        // Output should be 2 and not 1.
-        if (leftDepth==0)
-            return 1+rightDepth;
-
-        if (rightDepth==0)
-            return 1+leftDepth;
-
-        // Compare depths only when both of them are non-zero
-        if (leftDepth<rightDepth)
-            return 1 + leftDepth;
-        return 1 + rightDepth;
-    }
-
-    // Time complexity: O(n) where n=no. of nodes in the tree since each node is visited exactly once.
-
-
 ================================================
 20. Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice.
     Find the two elements that appear only once.
@@ -441,34 +411,6 @@ Check my solution for using various methods of iterating over Map etc.
     }
 
     // Time complexity: O(kn) where n=length of nums in maxHeap; k=input k.
-========================================
-
-25. Break an integer N into two or more positive integers such that they sum upto N.
-    Return the maximum product of those positive integers you can get.
-
-
-    public int integerBreak(int n) {
-        // 2<=n<=58
-        int[] dp = new int[n+1]; // dp[i] stores the max product of two or more integers adding up to 'i'
-        int max;
-        dp[0]=0;
-        dp[1]=0;
-        dp[2]=1;
-
-        // For every i, go upto i/2(since after j=i/2, the pair j & (i-j) start to repeat)
-        for(int i=3;i<=n;i++) {
-            dp[i]=Integer.MIN_VALUE; // Start with MIN_VALUE since we've to find the max product
-            for(int j=1;j<=i/2;j++) {
-                // Inner Math.max() needed so that we pick max of either the number or the parts which make up that number.
-                // Eg: If number=2 then dp[2]=1. If 2 is one of the +ve integers that makes up N, then we should select 2
-                // i.e. (i-j) when considering the parts of N and not dp[i-j] i.e.dp[2]=1
-                dp[i]=Math.max(dp[i], j*Math.max(i-j, dp[i-j]));
-            }
-        }
-        return dp[n];
-    }
-
-    // Time complexity: O(n^2)
 
 ========================================
 
@@ -554,7 +496,7 @@ Therefore the output is 7.
     }
 
     // Time complexity: O(nk) where n=length of nums; k=target
-        
+
 ===============================================
 31. Generate permutations of a given set of numbers:
 
