@@ -470,32 +470,6 @@ Check my solution for using various methods of iterating over Map etc.
 
     // Time complexity: O(n^2)
 
-=======================================
-
-26. House robber when you can only rob alternate houses. Houses are in a straight line. Get max money while robbing tonight.
-
-    public int rob(int[] nums) {
-        // zero house
-        int len=nums.length;
-        if(len==0)
-            return 0;
-
-        // more than 0 house
-        int[] maxMoney = new int[len]; // maxMoney[i] is the max money that can be robbed if i'th house is the last house in the row of houses
-        if(len>1) {
-            maxMoney[0] = nums[0];
-            maxMoney[1] = Math.max(nums[0], nums[1]);
-            for(int i=2;i<len;i++) {
-                // since we accumulate sum in maxMoney array as we iterate
-                // to get max money select max of previous or (previous-1 + current)
-                maxMoney[i] = Math.max(maxMoney[i-2]+nums[i], maxMoney[i-1]);
-            }
-        }
-        return maxMoney[len-1];
-    }
-
-    // Time complexity: O(n) where n=no. of houses
-
 ========================================
 
 27. Given a string array words, find the maximum value of length(word[i]) * length(word[j]) where the two words do not share common letters.
@@ -580,33 +554,7 @@ Therefore the output is 7.
     }
 
     // Time complexity: O(nk) where n=length of nums; k=target
-
-
-===============================================
-
-30. Given n, how many structurally unique BSTs (binary search trees) that store values 1...n?
-
-    public int numTrees(int n) {
-        /**
-         * To build a tree that contains {1,2,3,4,5}. First we pick 1 as root; for the left sub tree,
-         * there are no numbers; for the right sub tree, we need to count how many possible trees can be
-         * constructed from {2,3,4,5}, apparently it's the same number as {1,2,3,4}. So the total number
-         * of trees under "1" picked as root is dp[0] * dp[4] = 14. (assume dp[0]=1). Similarly, root 2
-         * has dp[1]*dp[3] = 5 trees. root 3 has dp[2]*dp[2] = 4, root 4 has dp[3]*dp[1]= 5 and root 5 has
-         * dp[4]*dp[0] = 14. Finally sum them up and it's done.
-         **/
-
-        int[] dp = new int[n+1]; // dp[i] is the number of unique BST's possible with i nodes
-        dp[0]=1;
-        for(int i=1;i<=n;i++) {
-            for(int j=0;j<=i-1;j++) {
-                dp[i] += dp[j] * dp[i-j-1];
-            }
-        }
-        return dp[n];
-
-    }
-
+        
 ===============================================
 31. Generate permutations of a given set of numbers:
 
@@ -1824,52 +1772,6 @@ connects vertices of same set.
         // If we reach here, then all adjacent vertices can
         //  be colored with alternate color
         return true;
-    }
-
-
-============================================
-
-86. Recover Binary Search Tree:
-     Two elements of a binary search tree (BST) are swapped by mistake.
-
-    Recover the tree without changing its structure.
-    Note:
-    A solution using O(n) space is pretty straight forward. Could you devise a constant space solution?
-
-
-    public class Solution {
-        TreeNode firstNode = null, secondNode=null;
-        TreeNode prevNode = new TreeNode(Integer.MIN_VALUE);
-
-        public void recoverTree(TreeNode root) {
-            if(root==null)
-                return;
-
-            traverseInorder(root);
-
-            // swap firstNode and secondNode
-            int temp=firstNode.val;
-            firstNode.val=secondNode.val;
-            secondNode.val=temp;
-        }
-
-        private void traverseInorder(TreeNode root) {
-            if(root==null)
-                return;
-
-            traverseInorder(root.left);
-
-            // Consider example: 6,3,4,5,2. Out of order nodes is 6 and 2.
-            if(firstNode==null && root.val <= prevNode.val)
-                firstNode = prevNode; // for the first time, previous node is the one out of order
-
-            if(firstNode!=null && root.val<prevNode.val)
-                secondNode = root; // for the second time, current node is the one out of order
-
-            prevNode=root; // Assign current node to prevNode for next iteration
-
-            traverseInorder(root.right);
-        }
     }
 
 =======================================
