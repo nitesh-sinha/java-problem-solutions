@@ -14,6 +14,8 @@
 //          /  \
 //         15   7
 //        return its minimum depth = 2.
+//
+// Time complexity: O(n) where n=no. of nodes in the tree since each node is visited exactly once.
 
 package com.nitesh.binaryTree;
 
