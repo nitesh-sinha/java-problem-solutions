@@ -1,4 +1,5 @@
-//        Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sums to target.
+//        Given a collection of candidate numbers (candidates) and a target number (target),
+//        find all unique combinations in candidates where the candidate numbers sums to target.
 //
 //        Each number in candidates may only be used once in the combination.
 //
@@ -47,6 +48,10 @@ public class combinationSum2 {
         else if(target>0) {
             for(int i=start; i<candidates.length;i++) {
                 if(i>start && candidates[i]==candidates[i-1])
+                    // Choose a number(say 1) from candidates array(say [10,1,2,7,6,1,5]) as a starting number of a subset(say [1,7])
+                    // and obtain all possible subsets([1,7], [1,2,5], [1,1,6]). If there are more numbers in candidates
+                    // array which are same as this starting number(i.e. there is another 1 in candidates), then dont use the same number
+                    // as starting number of a subset again.
                     continue;
                 tempList.add(candidates[i]);
                 getSubsets(res, tempList, candidates, target-candidates[i], i+1);
