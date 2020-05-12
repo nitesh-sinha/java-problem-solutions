@@ -15,10 +15,14 @@ public class testArray {
 //    }
 
     public void testfn() {
-        int[] arr1 = {1,2,3,4,5};
-        int[] arr2;
-        arr2 = Arrays.copyOfRange(arr1, 0, arr1.length-1);
-        System.out.println("Size of arr2 = " + arr2.length);
+        int[] a1 = new int[10];
+        for(int x : a1)
+            System.out.println(x);
+
+//        int[] arr1 = {1,2,3,4,5};
+//        int[] arr2;
+//        arr2 = Arrays.copyOfRange(arr1, 0, arr1.length-1);
+//        System.out.println("Size of arr2 = " + arr2.length);
 
 //        LinkedList<Integer> l1 = new LinkedList<>();
 //        l1.add(1);
