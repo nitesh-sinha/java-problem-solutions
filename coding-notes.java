@@ -304,36 +304,6 @@ Given "paper", "title", return true.
 
     // Time complexity: O(n) where n=no. fo elements in nums
 
-================================================
-21. Find the minimum number of squares whose sum gives a certain number.
-    // For more info: http://www.geeksforgeeks.org/minimum-number-of-squares-whose-sum-equals-to-given-number-n/
-    // Dynamic programming solution is a lot faster for n>50
-
-    public int numSquares(int n) {
-        // All numbers can be obtained from sum of perfect squares
-        // in worst case, n = (1*1 + 1*1 + ....n times)
-        if (n<=3)
-            return n;
-
-        // For n>=4
-        int[] dp = new int[n+1]; // dp[i] is the no. of squares which gives i.
-        // For n<=3, result=n
-        dp[0]=0;
-        dp[1]=1;
-        dp[2]=2;
-        dp[3]=3;
-
-        for(int j=4;j<=n;j++) {
-            dp[j]=j; // Assuming worst case scenario(addition of all 1*1)
-            for (int i=1;i*i<=j;i++) {
-                dp[j] = Math.min(dp[j], 1 + dp[j-i*i]); // Adding 1 here to consider i*i that we are subtracting from j here
-            }
-        }
-        return dp[n];
-    }
-
-    // Time complexity: O(nk) where n= input number; k=no. of squares below n
-
 =================================================
 
 22. Coin change problem: Min. no. of coins to obtain a certain amount.
@@ -452,51 +422,6 @@ You may assume that each word will contain only lower case letters. If no such t
 
     // Time complexity: O(n) + O(k^2) where n=no. of all chars in all words; k=no. of words
 
-========================================
-
-28.  Given an integer array with all positive numbers and no duplicates, find the number of possible combinations that add
-     up to a positive integer target.
-
-Example:
-
-nums = [1, 2, 3]
-target = 4
-
-The possible combinations are:
-(1, 1, 1, 1)
-(1, 1, 2)
-(1, 2, 1)
-(1, 3)
-(2, 1, 1)
-(2, 2)
-(3, 1)
-
-Note that different sequences are counted as different combinations.
-
-Therefore the output is 7.
-
-
-    DP solution:
-    -------------
-    public int combinationSum4(int[] nums, int target) {
-        int[] result = new int[target+1];
-        Arrays.sort(nums);
-        for(int i=1;i<=target;i++) {
-            result[i] = 0; // result[i] is the no. of different sequences where each sequence adds up to 'i'
-            for(int num : nums) {
-                if (num > i)
-                    break;
-                else if(num==i)
-                    result[i]++;
-                else
-                    result[i] += result[i-num];
-            }
-        }
-        return result[target];
-    }
-
-    // Time complexity: O(nk) where n=length of nums; k=target
-
 ===============================================
 31. Generate permutations of a given set of numbers:
 
@@ -577,49 +502,8 @@ Your algorithm should run in O(n) time complexity and O(1) space complexity. Ver
 
     // Time complexity: O(n) where n=length of nums
 
-
-==============================================
-
-38. Longest Increasing Subsequence(Very important question):
-
-Given an unsorted array of integers, find the length of longest increasing subsequence.
-
-For example,
-Given [10, 9, 2, 5, 3, 7, 101, 18],
-The longest increasing subsequence is [2, 3, 7, 101], therefore the length is 4.
-Note that there may be more than one LIS combination, it is only necessary for you to return the length.
-
-
-    public int lengthOfLIS(int[] nums) {
-        int len=nums.length, max;
-        if(len==0)
-            return 0;
-
-        int[] lis = new int[len]; // lis[i] is the length of LIS with num[i] as the last number in LIS
-
-        // prepopulate lis with all 1's(Assuming input in decreasing order)
-        for(int i=0;i<len;i++)
-            lis[i]=1;
-
-        for(int i=1;i<len;i++) {
-            for(int j=0;j<i;j++) {
-                if (nums[i]>nums[j] && lis[i]<lis[j]+1)
-                    // multiple LIS might be possible when considering array ending with nums at i'th postion;
-                    // so (lis[i]<lis[j]+1) condition ensures that we select the LIS which has the maximum number of numbers
-                    lis[i]=lis[j]+1;
-            }
-        }
-
-        // Pick max in the lis array
-        max=lis[0];
-        for(int i=1;i<len;i++)
-            if(lis[i]>max)
-                max=lis[i];
-
-        return max;
-    }
-
-    // Time complexity: O(n^2)
+=====================================
+39. Minimax problem:        https://leetcode.com/problems/guess-number-higher-or-lower-ii/
 
 =====================================
 
@@ -629,71 +513,6 @@ Note that there may be more than one LIS combination, it is only necessary for y
 
     /** My solution: https://leetcode.com/problems/peeking-iterator/
     **/
-=======================================
-
-41. Wiggle Subsequence: A sequence of numbers is called a wiggle sequence if the differences between successive numbers strictly
-    alternate between positive and negative. The first difference (if one exists) may be either positive or negative. A sequence with
-    fewer than two elements is trivially a wiggle sequence.
-
-For example, [1,7,4,9,2,5] is a wiggle sequence because the differences (6,-3,5,-7,3) are alternately positive and negative.
-In contrast, [1,4,7,2,5] and [1,7,4,5,5] are not wiggle sequences, the first because its first two differences are positive and
-the second because its last difference is zero.
-
-Given a sequence of integers, return the length of the longest subsequence that is a wiggle sequence. A subsequence is obtained by
-deleting some number of elements (eventually, also zero) from the original sequence, leaving the remaining elements in their original
-order.
-
-Examples:
-
-Input: [1,7,4,9,2,5]
-Output: 6
-The entire sequence is a wiggle sequence.
-
-Input: [1,17,5,10,13,15,10,5,16,8]
-Output: 7
-There are several subsequences that achieve this length. One is [1,17,10,13,10,16,8].
-
-Input: [1,2,3,4,5,6,7,8,9]
-Output: 2
-
-
-    public int wiggleMaxLength(int[] nums) {
-        int len=nums.length, maxLength=1, prev, startIndex=1;
-        boolean needHigher;
-
-        if(len<2)
-            return len;
-
-        // Skip over same elements from start
-        while(startIndex<len && nums[startIndex]==nums[startIndex-1])
-            startIndex++;
-
-        if(startIndex==len)
-            // All elements in nums are repeating
-            return 1;
-
-        // Atleast two unique elements in nums
-        needHigher = nums[startIndex]>nums[startIndex-1];
-        for(int i=startIndex;i<len;i++) {
-            if(needHigher) {
-                if(nums[i]>nums[i-1]) {
-                    // Needed higher and got higher
-                    maxLength++;
-                    needHigher = !needHigher;
-
-                }
-            } else {
-                if(nums[i]<nums[i-1]) {
-                    // Needed lower and got lower
-                    maxLength++;
-                    needHigher = !needHigher;
-                }
-            }
-        }
-        return maxLength;
-    }
-
-    // Time complexity: O(n) where n= no. of elements in num
 
  ================================================
  42. A general approach to backtracking questions in Java (Subsets, Permutations, Combination Sum, Palindrome Partitioning)
@@ -1261,37 +1080,6 @@ Return ["JFK","NRT","JFK","KUL"]
     }
 
     // Time complexity: O(V+E) where V=no. of vertices; E=no. of edges
-
-==============================================
-
-70. Word Break:  Given a string s and a dictionary of words dict, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
-
-For example, given
-s = "leetcode",
-dict = ["leet", "code"].
-
-Return true because "leetcode" can be segmented as "leet code".
-
-
-    public boolean wordBreak(String s, Set<String> wordDict) {
-        // dp[i] denotes whether substring(0,i) can be broken using input dict
-        boolean[] dp = new boolean[s.length()+1];
-        dp[0]=true;
-
-        for(int i=1;i<=s.length();i++) {
-            for(int j=0;j<i;j++) {
-                if(dp[j] && wordDict.contains(s.substring(j,i))) {
-                    // if dp[j] is true => substring(0,j) can be broken down using input dict
-                    // Now if substring(j,i) is contained in input dict, this implies substring(0,i) can be broken down too
-                    dp[i] = true;
-                    break;
-                }
-            }
-        }
-
-        return dp[s.length()];
-    }
-
 
 ==================
 
@@ -1937,7 +1725,7 @@ You may assume k is always valid, 1 ≤ k ≤ n^2.
         }
     }
 
-    Time complexity: O(n) where n = no. of nodes of the input tree
+    // Time complexity: O(n) where n = no. of nodes of the input tree
 
 ============================================
 
