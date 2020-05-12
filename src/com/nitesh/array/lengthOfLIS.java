@@ -16,6 +16,7 @@ package com.nitesh.array;
 
 public class lengthOfLIS {
     public int lengthOfLIS(int[] nums) {
+        // Dynamic programming solution
         int len=nums.length, max;
         if(len==0)
             return 0;
