@@ -13,6 +13,8 @@
 //        Output : 6
 //        The longest common substring is "abcdez" and is of length 6.
 
+// Time complexity: O(m*n) where m=length of text1, n = length of text2
+
 package com.nitesh.string;
 
 public class longestCommonSubstring {

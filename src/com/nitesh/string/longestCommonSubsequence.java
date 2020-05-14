@@ -29,6 +29,7 @@
 //        1 <= text2.length <= 1000
 //        The input strings consist of lowercase English characters only.
 
+// Time complexity: O(m*n) where m=length of text1, n = length of text2
 
 package com.nitesh.string;
 
