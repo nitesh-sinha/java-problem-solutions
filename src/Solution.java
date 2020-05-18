@@ -12,8 +12,10 @@ import java.util.List;
 public class Solution {
 
     public static void main(String[] args) {
-        longestCommonSubstring x = new longestCommonSubstring();
-        System.out.println(x.longestCommonSubstringFn("blahsforGeeks", "Geeksquiz"));
+        testString x = new testString();
+        x.testStringFn();
+//        longestCommonSubstring x = new longestCommonSubstring();
+//        System.out.println(x.longestCommonSubstringFn("blahsforGeeks", "Geeksquiz"));
 //          testBTree x = new testBTree();
 //          x.testBTreeFn();
 //        reverseList x = new reverseList();
