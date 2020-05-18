@@ -16,6 +16,8 @@
 //
 // Note:
 // The input prerequisites is a Graph represented by a list of edges, not adjacency matrices.
+// You may assume that there are no duplicate edges in the input prerequisites.
+//        1 <= numCourses <= 10^5
 
 package com.nitesh.graph;
 
@@ -24,14 +26,13 @@ import java.util.Queue;
 
 public class courseSchedule {
     // Algo implements Kahn's algorithm(for Topological sorting using BFS)
-
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
+    public boolean courseScheduleFn(int numCourses, int[][] prerequisites) {
         int[][] adjMatrix = new int[numCourses][numCourses]; // numCourses = num of vertices in the graph
         int[] indegree = new int[numCourses]; // stores the no. of incoming edges for every vertex in the graph
         int src, dst, visitedCount=0;
-        Queue<Integer> queue = new LinkedList<>();
+        Queue<Integer> zeroIndegreeNodes = new LinkedList<>();
 
-        // Create adjacency matrix and indegree array from given input
+        // Create adjacency matrix and indegree array from given edge list input
         for(int i=0;i<prerequisites.length;i++) {
             dst = prerequisites[i][0];
             src = prerequisites[i][1];
@@ -43,21 +44,23 @@ public class courseSchedule {
         // Add all vertices with indegree of zero to the queue
         for(int i=0;i<numCourses;i++) {
             if(indegree[i]==0)
-                queue.add(i);
+                zeroIndegreeNodes.add(i);
         }
 
         // Iterate over queue until it is empty
         // Keep track of visitedCount
         // Remove edges of the current node and reduce its neighbours indegree by 1
         // Add those neighbors to queue whose indegree is now 0
-        while(!queue.isEmpty()) {
-            Integer node = queue.remove();
+        while(!zeroIndegreeNodes.isEmpty()) {
+            Integer node = zeroIndegreeNodes.remove();
             visitedCount++;
 
             for(int i=0;i<numCourses;i++) {
-                if(adjMatrix[node][i]!=0) {
-                    if(--indegree[i]==0) {
-                        queue.add(i);
+                if(adjMatrix[node][i] != 0) {
+                    // reduce indegree for this node's neighbours by 1
+                    if(--indegree[i] == 0) {
+                        // add i'th node to queue since its indegree is now zero
+                        zeroIndegreeNodes.add(i);
                     }
                 }
             }
