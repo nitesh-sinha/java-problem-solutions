@@ -304,44 +304,6 @@ Given "paper", "title", return true.
 
     // Time complexity: O(n) where n=no. fo elements in nums
 
-=================================================
-
-22. Coin change problem: Min. no. of coins to obtain a certain amount.
-
-    public int coinChange(int[] coins, int amount) {
-        int len=coins.length;
-
-        if (amount<0)
-            return -1;
-
-        if (amount==0)
-            return 0;
-
-        int[] dp = new int[amount+1]; // dp[i] is the min. no. of coins to obtain amount i
-        dp[0]=0;
-        for(int j=1;j<=amount;j++) {
-            dp[j]=Integer.MAX_VALUE;
-            for(int i=0;i<len;i++) {
-                // Pick every coin and subtract it from current amount(that we're working with)
-                // Check if no. of coins needed with this coin is less than the current obtained number
-                // If so, store this new min value. Else continue with the next coin value
-                if (coins[i] <= j) {
-                    // This coin value can be considered valid for our current amount
-                    int subResult = dp[j-coins[i]];
-                    if (subResult != Integer.MAX_VALUE && subResult+1 < dp[j])
-                        dp[j] = 1+subResult;
-                }
-            }
-        }
-
-        if (dp[amount]==Integer.MAX_VALUE)
-            return -1; // Not possible with the current set of coin values
-        return dp[amount];
-    }
-
-    // Time complexity: O(nk) where n=no. of coins in input array; k=amount
-
-
 ========================================
 
 24. Top K Frequent numbers in an array. Solution should have time complexity better than O(NlogN).
@@ -734,51 +696,6 @@ Given a singly linked list where elements are sorted in ascending order, convert
 
     // Time complexity: O(n*log n)
 
-
-
-===============================================
-Check topological sorting in graphs using DFS: http://www.geeksforgeeks.org/topological-sorting/
-
-==============================================
-58. Maximal Square:  Given a 2D binary matrix filled with 0's and 1's, find the largest square containing only 1s and return its area.
-
-For example, given the following matrix:
-
-1 0 1 0 0
-1 0 1 1 1
-1 1 1 1 1
-1 0 0 1 0
-
-Return 4.
-
-
-    public class Solution {
-        // Logic: dp[i][j] is the length of the side of the square with bottom-right corner at cell (i,j)
-        // If current element in original matrix is zero, no square possible with bottom-right corner at current element. So Skip
-        // Else check if top,left and top-left of current element are all 1's(i.e. a square is formed with bottom-right corner ar current element).
-        // Side of square formed is 1 + min(top,left,top-left values).
-        public int maximalSquare(char[][] matrix) {
-            if(matrix==null || matrix.length==0)
-                return 0;
-            int rows=matrix.length, cols=matrix[0].length, squareSide=0;
-            int[][] dp = new int[rows+1][cols+1];
-
-            for(int i=1;i<=rows;i++) {
-                for(int j=1;j<=cols;j++) {
-                    if(matrix[i-1][j-1]=='1') {
-                        // Find min of top, left and top-left cells of dp and add 1
-                        dp[i][j] = Math.min(Math.min(dp[i-1][j-1], dp[i-1][j]), dp[i][j-1]) + 1;
-                        squareSide = Math.max(squareSide, dp[i][j]);
-                    }
-                }
-            }
-
-            return squareSide * squareSide;
-        }
-    }
-
-    // Time complexity: O(mn) where m=no. of rows; n=no. of cols
-
 ====================================================
 59. Implement trie data structure(Assuming input is only lowercase letters).
 
@@ -911,61 +828,6 @@ Note: The result may be very large, so you need to return a string instead of an
 
     // Time complexity: O(nlogn) where n=length of input array
 
-=====================================
-
-61. Given a 2D matrix, find the sum of the elements inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
-
-Example:
-
-Given matrix = [
-  [3, 0, 1, 4, 2],
-  [5, 6, 3, 2, 1],
-  [1, 2, 0, 1, 5],
-  [4, 1, 0, 1, 7],
-  [1, 0, 3, 0, 5]
-]
-
-sumRegion(2, 1, 4, 3) -> 8
-sumRegion(1, 1, 2, 2) -> 11
-sumRegion(1, 2, 2, 4) -> 12
-
-Note:
-
-    You may assume that the matrix does not change.
-    There are many calls to sumRegion function.
-    You may assume that row1 ≤ row2 and col1 ≤ col2.
-
-
-    public class NumMatrix {
-        int[][] dp;
-        public NumMatrix(int[][] matrix) {
-            if(matrix==null || matrix.length==0 || matrix[0].length==0)
-                return;
-            int rows=matrix.length, cols=matrix[0].length;
-            dp = new int[1+rows][1+cols]; // dp[i][j] is the sum of all elements contained in rectangle with topleft corner at (0,0) at bottom-right corner at (i,j)
-
-            // Populate dp matrix
-            for(int i=1;i<=rows;i++) {
-                for(int j=1;j<=cols;j++) {
-                    dp[i][j] = dp[i][j-1] + dp[i-1][j] - dp[i-1][j-1] + matrix[i-1][j-1]; // cell (i,j) for dp matrix is equivalent to cell (i-1,j-1) for input matrix
-                }
-            }
-        }
-
-        public int sumRegion(int row1, int col1, int row2, int col2) {
-            // Assuming row1<=rows and col1<=col2
-            return dp[1+row2][1+col2] - dp[1+row2][col1] - dp[row1][1+col2] + dp[row1][col1]; // adding the intersection of two areas which were subtracted twice
-        }
-    }
-
-    // Your NumMatrix object will be instantiated and called as such:
-    // NumMatrix numMatrix = new NumMatrix(matrix);
-    // numMatrix.sumRegion(0, 1, 2, 3);
-    // numMatrix.sumRegion(1, 2, 3, 4);
-
-    // Time complexity: O(1) for sumRegion()
-
-
 =======================================
 
 68. Count Complete Tree Nodes
@@ -1024,63 +886,7 @@ Since I halve the tree in every recursive step, I have O(log(n)) steps. Finding 
             isCompleteUtil(root.right, 2*index+2, number_nodes);
 
     }
-
-===================================================
-
-69. Reconstruct Itinerary:
-    Given a list of airline tickets represented by pairs of departure and arrival airports [from, to], reconstruct the itinerary in order.
-    All of the tickets belong to a man who departs from JFK. Thus, the itinerary must begin with JFK.
-
-Note:
-
-    If there are multiple valid itineraries, you should return the itinerary that has the smallest lexical order when read as a single string.
-    For example, the itinerary ["JFK", "LGA"] has a smaller lexical order than ["JFK", "LGB"].
-    All airports are represented by three capital letters (IATA code).
-    You may assume all tickets form at least one valid itinerary.
-
-Example 1:
-tickets = [["MUC", "LHR"], ["JFK", "MUC"], ["SFO", "SJC"], ["LHR", "SFO"]]
-Return ["JFK", "MUC", "LHR", "SFO", "SJC"].
-
-Example 2:
-tickets = [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]
-Return ["JFK","ATL","JFK","SFO","ATL","SFO"].
-Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","SFO"]. But it is larger in lexical order.
-
-Example 3:
-tickets = [["JFK","KUL"],["JFK","NRT"],["NRT","JFK"]]
-Return ["JFK","NRT","JFK","KUL"]
-
-
-
-    public List<String> findItinerary(String[][] tickets) {
-        // Eulerian path for a directed graph??
-
-        // PriorityQueue is implemented as a minHeap which means Type's(String here) default comparator
-        // will ensure that PriorityQueue.poll() will return destinations in sorted(lexicographic) order
-        Map<String, PriorityQueue<String>> targets = new HashMap<>();
-        for (String[] ticket : tickets)
-            targets.computeIfAbsent(ticket[0], k -> new PriorityQueue()).add(ticket[1]);
-        List<String> route = new LinkedList();
-        Stack<String> stack = new Stack<>();
-        stack.push("JFK");
-        while (!stack.empty()) {
-            // Continue until all edges have been visited once
-            while (targets.containsKey(stack.peek()) && !targets.get(stack.peek()).isEmpty()) {
-                // Follow a path and push all nodes to stack until we hit a deadend
-                String s = targets.get(stack.peek()).poll();
-                stack.push(s);
-            }
-            // Deadend hit. Add last node(deadend node) to result
-            // Backtrack by one node(i.e. go to node before deadend node) and follow a different path
-            // until the next deadend is hit. Rinse and repeat
-            route.add(0, stack.pop());
-        }
-        return route;
-    }
-
-    // Time complexity: O(V+E) where V=no. of vertices; E=no. of edges
-
+    
 ==================
 
 72. Given a 2D array of friends containing Y or N indicating whether a person is a friend of another person or not.
