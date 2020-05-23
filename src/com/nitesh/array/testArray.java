@@ -14,9 +14,12 @@ public class testArray {
 //        System.out.println("=========");
 //    }
 
+    private int[] returnFn() {
+        int[] x = {1,2,3,4};
+        return x;
+    }
     public void testfn() {
-        int[] a1 = new int[10];
-        for(int x : a1)
+        for(int x : returnFn())
             System.out.println(x);
 
 //        int[] arr1 = {1,2,3,4,5};

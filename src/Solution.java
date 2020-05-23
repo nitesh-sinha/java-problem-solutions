@@ -12,12 +12,14 @@ import java.util.List;
 public class Solution {
 
     public static void main(String[] args) {
+        testArray x = new testArray();
+        x.testfn();
 //        testString x = new testString();
 //        x.testStringFn();
 //        longestCommonSubstring x = new longestCommonSubstring();
 //        System.out.println(x.longestCommonSubstringFn("blahsforGeeks", "Geeksquiz"));
-          testBTree x = new testBTree();
-          x.testBTreeFn();
+//          testBTree x = new testBTree();
+//          x.testBTreeFn();
 //        reverseList x = new reverseList();
 //        int[] inputArr = {1,2,3};
 //        ListNode head = ListNode.createLinkedList(inputArr);
