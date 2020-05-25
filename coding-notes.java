@@ -1002,64 +1002,6 @@ Since I halve the tree in every recursive step, I have O(log(n)) steps. Finding 
         }
     }
 
-==========================================
-
-75. Djikstra shortest path first algorithm:
-
-    // For explanation see the geeksforgeeks page:
-    http://www.geeksforgeeks.org/greedy-algorithms-set-6-dijkstras-shortest-path-algorithm/
-
-    // Funtion that implements Dijkstra's single source shortest path
-    // algorithm for a graph represented using adjacency matrix
-    // representation
-    void dijkstra(int graph[][], int src)
-    {
-        int dist[] = new int[V]; // The output array. dist[i] will hold
-                                 // the shortest distance from src to i
-
-        // sptSet[i] will be true if shortest distance from src to i is finalized
-        Boolean sptSet[] = new Boolean[V];
-
-        // Initialize all distances as INFINITE and stpSet[] as false
-        for (int i = 0; i < V; i++)
-        {
-            dist[i] = Integer.MAX_VALUE;
-            sptSet[i] = false;
-        }
-
-        // Distance of source vertex from itself is always 0
-        dist[src] = 0;
-
-        // Find shortest path for all vertices
-        for (int count = 0; count < V-1; count++) {
-            // Pick the minimum distance vertex from the set of vertices
-            // not yet processed. u is always equal to src in first
-            // iteration.
-            int u = minDistance(dist, sptSet);
-
-            // Mark the picked vertex as processed
-            sptSet[u] = true;
-
-            // Update dist value of the adjacent vertices of the
-            // picked vertex.
-            for (int v = 0; v < V; v++)
-
-                // Update dist[v] only if is not in sptSet, there is an
-                // edge from u to v, and total weight of path from src to
-                // v through u is smaller than current value of dist[v]
-                if (!sptSet[v] && graph[u][v]!=0 &&
-                        dist[u] != Integer.MAX_VALUE &&
-                        dist[u]+graph[u][v] < dist[v])
-                    dist[v] = dist[u] + graph[u][v];
-        }
-
-        // print the constructed distance array
-        printSolution(dist, V);
-    }
-
-    // Time complexity: O(V^2) but using a priority queue(to replace outer for loop and minDistance() fn) it can be brought down to O(E*logV)
-
-
 ==================================================
 
 78. All O(1) Data Structure:
@@ -1234,81 +1176,6 @@ Challenge: Perform all these in O(1) time complexity.
             return "";
         }
     }
-===============================
-79. Graph question:        https://leetcode.com/problems/course-schedule/
-        https://leetcode.com/problems/course-schedule-ii/
-
-===========================================
-
-80. Check whether a graph is bipartite or not.
-
-A Bipartite Graph is a graph whose vertices can be divided into two independent
-sets, U and V such that every edge (u, v) either connects a vertex from U to V or a vertex from V to U. In other words, for
-every edge (u, v), either u belongs to U and v to V, or u belongs to V and v to U. We can also say that there is no edge that
-connects vertices of same set.
-
-    /**
-    Following is a simple algorithm to find out whether a given graph is Birpartite or not using Breadth First Search (BFS).
-1. Assign RED color to the source vertex (putting into set U).
-2. Color all the neighbors with BLUE color (putting into set V).
-3. Color all neighbor’s neighbor with RED color (putting into set U).
-4. This way, assign color to all vertices such that it satisfies all the constraints of m way coloring problem where m = 2.
-5. While assigning colors, if we find a neighbor which is colored with same color as current vertex, then the graph cannot be colored with 2 vertices (or graph is not Bipartite)
-
-    **/
-
-
-    // Input graph is in adj matix form. So, time complexity is O(V^2).
-    // FOr O(V+E) time complexity, use input as adj list format.
-    // This function returns true if graph G[V][V] is Bipartite, else false
-    boolean isBipartite(int G[][],int src)
-    {
-        // Create a color array to store colors assigned to all veritces.
-        // Vertex number is used as index in this array. The value '-1'
-        // of  colorArr[i] is used to indicate that no color is assigned
-        // to vertex 'i'.  The value 1 is used to indicate first color
-        // is assigned and value 0 indicates second color is assigned.
-        int colorArr[] = new int[V];
-        for (int i=0; i<V; ++i)
-            colorArr[i] = -1;
-
-        // Assign first color to source
-        colorArr[src] = 1;
-
-        // Create a queue (FIFO) of vertex numbers and enqueue
-        // source vertex for BFS traversal
-        LinkedList<Integer>q = new LinkedList<Integer>();
-        q.add(src);
-
-        // Run while there are vertices in queue (Similar to BFS)
-        while (q.size() != 0)
-        {
-
-            // Dequeue a vertex from queue
-            int u = q.poll();
-
-            // Find all non-colored adjacent vertices
-            for (int v=0; v<V; ++v)
-            {
-                // An edge from u to v exists and destination v is
-                // not colored
-                if (G[u][v]==1 && colorArr[v]==-1)
-                {
-                    // Assign alternate color to this adjacent v of u
-                    colorArr[v] = 1-colorArr[u];
-                    q.add(v);
-                }
-
-                // An edge from u to v exists and destination v is
-                // colored with same color as u
-                else if (G[u][v]==1 && colorArr[v]==colorArr[u])
-                    return false;
-            }
-        }
-        // If we reach here, then all adjacent vertices can
-        //  be colored with alternate color
-        return true;
-    }
 
 =======================================
 
@@ -1479,59 +1346,6 @@ You may assume k is always valid, 1 ≤ k ≤ n^2.
             return c.val;
         }
     }
-
-
-====================================================
-
-92. Implement a method to count the number of unival subtrees. A unival subtree is a subtree within a tree with root node and all its
-    children nodes(upto the leaf node) have the same value. NOte that all leaf nodes are considered unival subtrees.
-
-
-    Eg:
-            5
-           / \
-          5   5
-            /  \
-           5    4
-
-    The above binary tree has five unival subtrees namely:
-    1. Three leaf nodes
-    2. The right subtree with root at 5(at level 1) and its two child leaf nodes as 5
-    3. Entire binary tree rooted at 5(at level 0)
-
-
-
-    public class Solution {
-        private int count = 0;
-
-        public int countUnivalSubtrees(TreeNode root) {
-            countUnivalSubtreesHelper(root);
-            return count;
-        }
-
-        private boolean countUnivalSubtreesHelper(TreeNode root) {
-            if(root==null)
-                return true;
-
-            boolean isLeftUnival = countUnivalSubtreesHelper(root.left);
-            boolean isRightUnival = countUnivalSubtreesHelper(root.right);
-
-            if(isLeftUnival && isRightUnival) {
-                if(root.right!=null && root.val != root.right.val)
-                    return false;
-
-                if(root.left!=null && root.val != root.left.val)
-                    return false;
-
-                count++;
-                return true;
-            }
-
-            return false;
-        }
-    }
-
-    // Time complexity: O(n) where n = no. of nodes of the input tree
 
 ============================================
 
