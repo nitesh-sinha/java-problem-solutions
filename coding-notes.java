@@ -828,45 +828,7 @@ Note: The result may be very large, so you need to return a string instead of an
 
     // Time complexity: O(nlogn) where n=length of input array
 
-=======================================
-
-68. Count Complete Tree Nodes
-
-Given a complete binary tree, count the number of nodes.
-
-Definition of a complete binary tree from Wikipedia:
-In a complete binary tree, every level, except possibly the last, is completely filled, and all nodes in
-the last level are as far left as possible. It can have between 1 and 2^h nodes inclusive at the last level h.
-
-
-    Explanation:
-
-The height of a tree can be found by just going left. Let a single node tree have height 0. Find the height "h" of the whole tree.
-If the whole tree is empty, i.e., has height -1, there are 0 nodes.
-
-Otherwise check whether the height of the right subtree is just one less than that of the whole tree, meaning left and right subtree have the same height.
-
-    If yes, then the last node on the last tree row is in the right subtree and the left subtree is a full tree of height h-1.
-        So we take the 2^h-1 nodes of the left subtree plus the 1 root node plus recursively the number of nodes in the right subtree.
-    If no, then the last node on the last tree row is in the left subtree and the right subtree is a full tree of height h-2.
-        So we take the 2^(h-1)-1 nodes of the right subtree plus the 1 root node plus recursively the number of nodes in the left subtree.
-
-Since I halve the tree in every recursive step, I have O(log(n)) steps. Finding a height costs O(log(n)). So overall O(log(n)^2).
-
-
-    class Solution {
-        private int height(TreeNode root) {
-            return root == null ? -1 : 1 + height(root.left);
-        }
-        public int countNodes(TreeNode root) {
-            int h = height(root);
-            return h < 0 ? 0 :
-                   height(root.right) == h-1 ? (1 << h) + countNodes(root.right)
-                                             : (1 << h-1) + countNodes(root.left);
-        }
-    }
-
-
+=============================
 
     Alternative solution to check if the tree is a complete tree:
 
@@ -886,50 +848,6 @@ Since I halve the tree in every recursive step, I have O(log(n)) steps. Finding 
             isCompleteUtil(root.right, 2*index+2, number_nodes);
 
     }
-    
-==================
-
-72. Given a 2D array of friends containing Y or N indicating whether a person is a friend of another person or not.
-  Find out how many distinct friend circles exist. Note that a person is his own friend.
-
-  // Assuming char[][] friends = {"YYNN".toCharArray(), "YYYN".toCharArray(), "NYYN".toCharArray(), "NNNY".toCharArray()};
-  // numCircles = 2 i.e. circle1={0,1,2} and circle2={3}
-
-    public static int getFriendCircles(char[][] friends) {
-
-        if (friends == null || friends.length < 1)
-            return 0;
-
-        int noOfCircles = 0;
-
-        boolean visited[] = new boolean[friends.length];
-
-        for (int i = 0; i < visited.length; i++)
-            visited[i] = false;
-
-        for (int i = 0; i < friends.length; i++) {
-            if (!visited[i]) {
-                noOfCircles++;
-                visited[i] = true;
-                findFriends(friends, visited, i);
-            }
-        }
-
-        return noOfCircles;
-    }
-
-    // This function is just used to update visited[]
-    public static void findFriends(char[][] friends, boolean[] visited, int id) {
-
-        for (int i = 0; i < friends.length; i++) {
-            if (!visited[i] && 'Y' == friends[id][i]) {
-                visited[i] = true;
-                findFriends(friends, visited, i);
-            }
-        }
-    }
-
-    // Worst case time complexity: O(N^2) where N=no. of friends
 
 ======================================
 
@@ -1285,67 +1203,6 @@ Output: {"iah", "ir"}
 
 Very nice explanation about visualizing the problem in the form of a tree.
 http://www.geeksforgeeks.org/find-all-possible-interpretations/
-
-============================================
-
-90. Kth Smallest Element in a Sorted Matrix:
-
-    Given a n x n matrix where each of the rows and columns are sorted in ascending order, find the kth smallest element in the matrix.
-
-Note that it is the kth smallest element in the sorted order, not the kth distinct element.
-
-Example:
-
-matrix = [
-   [ 1,  5,  9],
-   [10, 11, 13],
-   [12, 13, 15]
-],
-k = 8,
-
-return 13.
-Note:
-You may assume k is always valid, 1 ≤ k ≤ n^2.
-
-
-
-    public class Solution {
-        class Cell implements Comparable<Cell> {
-            int row, col, val; // Stores row num, col num and value of a matrix cell
-
-            public Cell(){}
-
-            public Cell(int r, int c, int v) {
-                row = r;
-                col = c;
-                val = v;
-            }
-
-            @Override
-            public int compareTo(Cell that) {
-                return (this.val - that.val);
-            }
-        }
-
-
-        public int kthSmallest(int[][] matrix, int k) {
-            int numRows = matrix.length;
-            Cell c = new Cell();
-            PriorityQueue<Cell> pq = new PriorityQueue<>();
-
-            // Add all numbers in first column to pq
-            for(int i=0; i<numRows; i++)
-                pq.add(new Cell(i, 0, matrix[i][0]));
-
-            for(int j=0;j<k;j++) {
-                c = pq.poll(); // Pick the lowest value
-                if(c.col==numRows-1)
-                    continue; // exhausted all elements in that row
-                pq.add(new Cell(c.row, c.col+1, matrix[c.row][c.col+1])); // add the value in the next col for this particular row
-            }
-            return c.val;
-        }
-    }
 
 ============================================
 
