@@ -1,6 +1,8 @@
 package com.nitesh.binaryTree;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class testBTree {
     public void testBTreeFn() {
@@ -26,10 +28,15 @@ public class testBTree {
 
 
         // count unival subtrees
-         String preOrderserialzedTree = "5,5,N,N,5,5,N,N,N";
-         TreeNode root = codec.deserialize(preOrderserialzedTree);
-         BTreePrinter.printNode(root);  // TODO: Printer crashes if the preorder serialized input is not right. Update it to fail with meaningful error msg
-         countUnivalSubtrees x = new countUnivalSubtrees();
-        System.out.println("Number of unival subtrees = " + x.countUnivalSubtreesFn(root));
+//         String preOrderserialzedTree = "5,5,N,N,5,5,N,N,N";
+//         TreeNode root = codec.deserialize(preOrderserialzedTree);
+//         BTreePrinter.printNode(root);  // TODO: Printer crashes if the preorder serialized input is not right. Update it to fail with meaningful error msg
+//         countUnivalSubtrees x = new countUnivalSubtrees();
+//        System.out.println("Number of unival subtrees = " + x.countUnivalSubtreesFn(root));
+
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(null);
+        System.out.println(q.size());
     }
 }
