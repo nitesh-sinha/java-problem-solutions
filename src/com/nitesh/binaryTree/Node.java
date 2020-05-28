@@ -1,6 +1,7 @@
 package com.nitesh.binaryTree;
 
 public class Node {
+    // A special type of node in a binary tree with a next pointer pointing to the node on its right(at the same level), if any.
     public int val;
     public Node left;
     public Node right;
