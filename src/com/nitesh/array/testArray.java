@@ -21,11 +21,13 @@ public class testArray {
     public void testfn() {
 //        for(int x : returnFn())
 //            System.out.println(x);
-        int[] arr1 = {5,2};
-        mergeSort x = new mergeSort();
-        x.mergeSortFn(arr1);
-        for(int num : arr1)
-            System.out.println(num);
+        int[] arr1 = {5,3,2,1};
+//        mergeSort x = new mergeSort();
+//        x.mergeSortFn(arr1);
+//        for(int num : arr1)
+//            System.out.println(num);
+        countInversions x = new countInversions();
+        System.out.println(x.countInversionsFn(arr1));
 
 //        int[] arr1 = {1,2,3,4,5};
 //        int[] arr2;

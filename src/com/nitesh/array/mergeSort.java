@@ -21,9 +21,8 @@ public class mergeSort {
 
     // Function that does the actual heavy-lifting of sorting the elements
     private void merge(int[] nums, int low, int mid, int high) {
-        int[] outBuff = new int[nums.length];
+        int[] outBuff = new int[nums.length]; // work with this array and copy it to nums at the end
         int lPtr = low, rPtr = mid+1, buffIndex = 0;
-        //System.out.println("Now merging for low = " + low + " mid = " + mid + " high = " + high);
         while(lPtr <= mid && rPtr <= high) {
             if(nums[lPtr] <= nums[rPtr])
                 outBuff[low + buffIndex] = nums[lPtr++];
@@ -43,6 +42,8 @@ public class mergeSort {
             outBuff[low + buffIndex] = nums[rPtr++];
             buffIndex++;
         }
+        // copy it ot nums so that next call of merge() can use partially updated/sorted elements
+        // instead of using the input nums(which is unsorted)
         System.arraycopy(outBuff, low, nums, low, high-low+1);
     }
 }
