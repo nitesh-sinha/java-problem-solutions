@@ -14,13 +14,18 @@ public class testArray {
 //        System.out.println("=========");
 //    }
 
-    private int[] returnFn() {
-        int[] x = {1,2,3,4};
-        return x;
-    }
+//    private int[] returnFn() {
+//        int[] x = {1,2,3,4};
+//        return x;
+//    }
     public void testfn() {
-        for(int x : returnFn())
-            System.out.println(x);
+//        for(int x : returnFn())
+//            System.out.println(x);
+        int[] arr1 = {5,2};
+        mergeSort x = new mergeSort();
+        x.mergeSortFn(arr1);
+        for(int num : arr1)
+            System.out.println(num);
 
 //        int[] arr1 = {1,2,3,4,5};
 //        int[] arr2;
