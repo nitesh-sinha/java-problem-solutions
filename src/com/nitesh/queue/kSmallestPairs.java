@@ -59,7 +59,7 @@ public class kSmallestPairs {
     }
 
 
-    public List<int[]> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+    public List<int[]> kSmallestPairsFn(int[] nums1, int[] nums2, int k) {
         int len1=nums1.length, len2=nums2.length;
         List<int[]> res = new ArrayList<>();
         PriorityQueue<Pair> pq = new PriorityQueue<>();

@@ -22,7 +22,7 @@ import java.util.PriorityQueue;
 
 public class kthSmallest {
     // User defined data structure - allows us to compare elements and add next element to priority queue
-    private class Cell implements Comparable<Cell> {
+    class Cell implements Comparable<Cell> {
         int val;
         int row;
         int col;
