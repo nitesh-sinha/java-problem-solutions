@@ -12,10 +12,10 @@ import java.util.List;
 public class Solution {
 
     public static void main(String[] args) {
-        testArray x = new testArray();
-        x.testfn();
-//        testString x = new testString();
-//        x.testStringFn();
+//        testArray x = new testArray();
+//        x.testfn();
+        testString x = new testString();
+        x.testStringFn();
 //        longestCommonSubstring x = new longestCommonSubstring();
 //        System.out.println(x.longestCommonSubstringFn("blahsforGeeks", "Geeksquiz"));
 //          testBTree x = new testBTree();
