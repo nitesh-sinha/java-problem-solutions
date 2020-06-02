@@ -21,7 +21,7 @@ public class testArray {
     public void testfn() {
 //        for(int x : returnFn())
 //            System.out.println(x);
-        int[] arr1 = {1,2,3,4,5,1,2,4,2,7,9,2,3,4,1,2,3,5,5,5,5,5,5,5,2,2,2,2,2,5,3,2,1};
+        int[] arr1 = {9,7,6,5,4,3,2,3,3,4};
 //        mergeSort x = new mergeSort();
 //        x.mergeSortFn(arr1);
 //        for(int num : arr1)
@@ -29,10 +29,14 @@ public class testArray {
 //        countInversions x = new countInversions();
 //        System.out.println(x.countInversionsFn(arr1));
 
-        topKFrequent x = new topKFrequent();
-        List<Integer> res = x.topKFrequentFn(arr1, 10);
-        for(Integer i : res)
-            System.out.println(i);
+//        topKFrequent x = new topKFrequent();
+//        List<Integer> res = x.topKFrequentFn(arr1, 10);
+//        for(Integer i : res)
+//            System.out.println(i);
+
+        increasingTriplet x = new increasingTriplet();
+        System.out.println(x.increasingTripletFn(arr1));
+
 
 //        int[] arr1 = {1,2,3,4,5};
 //        int[] arr2;
