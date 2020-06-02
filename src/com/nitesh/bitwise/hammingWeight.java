@@ -4,6 +4,8 @@
 //              Input: n = 25
 //              Output: 3
 //              Explanation: 24 = Since there are 3 bits set in binary representation of 25 which is 11001
+//
+// Time complexity: O(k) where k = number of set bits in input number
 
 package com.nitesh.bitwise;
 
