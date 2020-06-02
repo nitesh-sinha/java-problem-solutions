@@ -5,6 +5,7 @@ import com.nitesh.string.*;
 import com.nitesh.linkedList.*;
 import com.nitesh.queue.*;
 import com.nitesh.binaryTree.*;
+import com.nitesh.bitwise.*;
 
 import java.io.*;
 import java.util.List;
@@ -12,8 +13,10 @@ import java.util.List;
 public class Solution {
 
     public static void main(String[] args) {
-        testArray x = new testArray();
+        testBitwise x = new testBitwise();
         x.testfn();
+//        testArray x = new testArray();
+//        x.testfn();
 //        testString x = new testString();
 //        x.testStringFn();
 //        longestCommonSubstring x = new longestCommonSubstring();
