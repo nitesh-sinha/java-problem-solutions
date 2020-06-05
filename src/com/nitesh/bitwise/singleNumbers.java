@@ -6,8 +6,6 @@
 //            Explanation: Since elements 1 and 9 appear only once. Other elements appear twice.
 
 
-
-
 package com.nitesh.bitwise;
 
 public class singleNumbers {

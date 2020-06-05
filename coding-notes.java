@@ -1,36 +1,5 @@
 Start date: Aug 1st week, 2016
 Author: Nitesh
------------------------------------------------------------------------------------
-
-1.  Sum of two integers without using + or -
-
-public class Solution {
-    public int getSum(int a, int b) {
-        int sum = a;
-        while(b != 0) {
-            // continue adding until there is no carry generated from previous sum
-            sum = a ^ b; // add w/o carry
-            b = (a & b) << 1; // (a&b) gives carry. Shift carry left by 1
-            a = sum;
-        }
-        return sum;
-    }
-}
-
-/*
-a=1010
-b=1101
-
-sum=1010 ^ 1101 = 0111
-b=10000
-a=0111
-
-sum=00111 ^ 10000 = 10111
-b=0
-a=10111 -> result
-
-*/
-
 
 ===================================================
 
@@ -75,33 +44,6 @@ public class Solution {
 }
 
 // Time complexity: O(n1 * log(n2)) where n1=length of nums1 and n2=length of nums2
-
-==========================================================
-
-4. Delete node in a linked list(given just the node to delete):
-
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
-public class Solution {
-    public void deleteNode(ListNode node) {
-        if (node == null)
-            return;
-        // copy values from next nodes to prev nodes
-        if (node != null && node.next != null) {
-            node.val = node.next.val;
-            node.next = node.next.next;
-            node = node.next;
-        }
-    }
-}
-
-// Time Complexity: O(1)
 
 ===========================================================
 
@@ -217,89 +159,6 @@ Algo:
     4. Keep two ptrs(p1=head of original list, p2=head of reverse list). Iterate and compare for equality of elements.
     5. Return false if any comparison fails.
 
-==============================================
-
-14. Number of set bits: (faster method. loop runs as many times as the number of set bits)
-
-
- public int hammingWeight(int n) {
-        int count;
-        for(count=0; n!=0; count++) {
-            n = n&(n-1); // clears the rightmost set bit in n
-        }
-        return count;
- }
-
- // Time complexity: O(k) where k=no.of set bits in n. Worst case: All bits are set. O(32)
-
-================================================
-20. Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice.
-    Find the two elements that appear only once.
-
-     public int[] singleNumber(int[] nums) {
-        int xor=0, oneGrp=0, otherGrp=0;
-        for (int num : nums)
-            xor = xor ^ num;
-
-        // Nullify all bits except the rightmost bit in xor number
-        xor = xor & ~(xor-1);
-
-        // Bitwise AND "xor" with all nums
-        // and divide into two groups(based on 0 and non-zero values)
-        // distinct nums should now be in two groups
-        // xor nums in both grps to get the distinct nums
-        for(int num : nums) {
-            if ((xor&num)==0)
-                oneGrp = oneGrp ^ num;
-            else
-                otherGrp = otherGrp ^ num;
-        }
-        int[] result={oneGrp, otherGrp};
-        return result;
-    }
-
-    // Time complexity: O(n) where n=no. fo elements in nums
-
-========================================
-
-24. Top K Frequent numbers in an array. Solution should have time complexity better than O(NlogN).
-
-Check my solution for using various methods of iterating over Map etc.
-
-    public List<Integer> topKFrequent(int[] nums, int k) {
-        int count, cur=0;
-        if (nums.length==0)
-            return null;
-
-        Map<Integer, Integer> countMap = new HashMap<>();
-        List<Integer> result = new ArrayList<>();
-
-        // Create map of num to its count
-        for(int num : nums) {
-            count = countMap.getOrDefault(num, 0);
-            countMap.put(num, count+1);
-        }
-
-
-        // Alternate logic: Create a maxHeap of number to its count
-        // Arrange maxHeap based on count values
-        // Pick k elements from maxheap
-        // Time complexity of alternate solution: O(k * log(n)) where n=length of nums in maxHeap; k=input k.
-        while(cur<k) {
-            Map.Entry<Integer, Integer> maxEntry = null;
-            for(Map.Entry<Integer, Integer> entry : countMap.entrySet()) {
-                if (maxEntry==null || entry.getValue().compareTo(maxEntry.getValue()) > 0)
-                    maxEntry = entry;
-            }
-            result.add(maxEntry.getKey());
-            maxEntry.setValue(Integer.MIN_VALUE);
-            cur++;
-        }
-        return result;
-    }
-
-    // Time complexity: O(kn) where n=length of nums in maxHeap; k=input k.
-
 ========================================
 
 27. Given a string array words, find the maximum value of length(word[i]) * length(word[j]) where the two words do not share common letters.
@@ -388,37 +247,6 @@ You may assume that each word will contain only lower case letters. If no such t
             }
         }
     }
-
-================================================
-35.  Given an unsorted array return whether an increasing subsequence of length 3 exists in the array or not.
-
-Formally the function should:
-
-    Return true if there exists i, j, k
-    such that arr[i] < arr[j] < arr[k] given 0 ≤ i < j < k ≤ n-1 else return false.
-
-Your algorithm should run in O(n) time complexity and O(1) space complexity. Very clever solution!!
-
-
-    public boolean increasingTriplet(int[] nums) {
-        if(nums.length<3)
-            return false;
-
-        int small=Integer.MAX_VALUE, middle=Integer.MAX_VALUE;
-        for(int num : nums) {
-            if (num>middle)
-                return true; // because middle is guaranteed to be greater than small
-
-            if(num>small && num<middle)
-                middle=num;
-
-            if(num<small)
-                small=num;
-        }
-        return false;
-    }
-
-    // Time complexity: O(n) where n=length of nums
 
 =====================================
 39. Minimax problem:        https://leetcode.com/problems/guess-number-higher-or-lower-ii/
