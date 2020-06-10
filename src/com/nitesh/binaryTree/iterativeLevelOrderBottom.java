@@ -14,6 +14,9 @@
 //        [3]
 //        ]
 
+// Time complexity: O(n) where n=no. of nodes in the tree.
+// Space complexity: O(n)
+
 package com.nitesh.binaryTree;
 
 import java.util.*;
