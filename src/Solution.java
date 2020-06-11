@@ -13,12 +13,12 @@ import java.util.List;
 public class Solution {
 
     public static void main(String[] args) {
-        int[] inputArr = {1,2,3,2};
-        ListNode head = ListNode.createLinkedList(inputArr);
-        checkPalindrome x = new checkPalindrome();
-        System.out.println(x.checkPalindromeFn(head));
-//        testBitwise x = new testBitwise();
-//        x.testfn();
+//        int[] inputArr = {1,2,3,2};
+//        ListNode head = ListNode.createLinkedList(inputArr);
+//        checkPalindrome x = new checkPalindrome();
+//        System.out.println(x.checkPalindromeFn(head));
+        testBitwise x = new testBitwise();
+        x.testfn();
 //        testArray x = new testArray();
 //        x.testfn();
 //        testString x = new testString();
