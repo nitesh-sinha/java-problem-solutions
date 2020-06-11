@@ -1,92 +1,6 @@
 Start date: Aug 1st week, 2016
 Author: Nitesh
 
-===================================================
-
-3. Intersection of two arrays:
-
-public class Solution {
-    int prev = -1; // null equivalent
-    int numResult = 0;
-    public int[] intersection(int[] nums1, int[] nums2) {
-        List<Integer> resultList = new ArrayList<Integer>();
-        Arrays.sort(nums1);
-        Arrays.sort(nums2);
-
-        for(int i=0; i< nums1.length; i++) {
-            // compare only new nums in nums1 with nums2 array
-            // except first num in num1(which you always compare)
-            int searchResIndex = Arrays.binarySearch(nums2, nums1[i]);
-            if (!seenBefore(nums1, i) && searchResIndex >= 0) {
-                resultList.add(nums1[i]);
-            }
-        }
-
-        // Convert List<Integer> to int[]
-        int[] result = new int[resultList.size()];
-        for(int i=0; i< result.length; i++) {
-            result[i] = resultList.get(i).intValue();
-        }
-        return result;
-    }
-
-    private boolean seenBefore(int[] nums, int index) {
-        if (index == 0) {
-            // set prev for the first time
-            prev = nums[index];
-            return false;
-        }
-        if (nums[index] == prev)
-            return true;
-        prev = nums[index];
-        return false;
-    }
-}
-
-// Time complexity: O(n1 * log(n2)) where n1=length of nums1 and n2=length of nums2
-
-===========================================================
-
-5. Reverse level order traversal(since return type is List<List<Integer>>, it is almost impossible to use
-    recursive solution. hence using iterative solution):
-
-
-public class Solution {
-    public List<List<Integer>> levelOrderBottom(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
-
-        if(root==null){
-            return result;
-        }
-        Stack<List> stack = new Stack<List>();
-        Queue<TreeNode> queue = new LinkedList<TreeNode>();
-        queue.add(root);
-        while(!queue.isEmpty()){
-            ArrayList <Integer> list =new ArrayList<Integer>();
-            int n=queue.size();
-            for(int i=0; i<n; i++){
-                // one entire level of nodes
-                TreeNode node=queue.remove();
-                list.add(node.val);
-                if(node.left!=null){
-                    queue.add(node.left);
-                }
-                if(node.right!=null){
-                    queue.add(node.right);
-                }
-            }
-            stack.push(list);
-        }
-        while(!stack.isEmpty()){
-            result.add(stack.pop());
-        }
-        return result;
-
-    }
-}
-
-// Time complexity: O(n) where n=no. of nodes in the tree.
-
 ===============================
 9. implement strStr() ---> KMP algo.
 
@@ -146,58 +60,6 @@ Pre-processing algo: Eg: needle = "aabaabaaa"
     Now use this output array to search needle in haystack.
 
 https://discuss.leetcode.com/topic/3576/accepted-kmp-solution-in-java-for-reference
-
-
-=================================
-11. Palindrome linked list -> O(n) time complexity and O(1) space complexity solution.
-
-Algo:
-    1. Keep slow and fast ptrs.
-    2. Move slowptr by 1 and fast by 2 until (fast.next!=null && fast.next.next!=null)
-    3. Reverse linked list starting from node after the slowptr node. i.e. now the second half of
-        linked list should be reverse.
-    4. Keep two ptrs(p1=head of original list, p2=head of reverse list). Iterate and compare for equality of elements.
-    5. Return false if any comparison fails.
-
-========================================
-
-27. Given a string array words, find the maximum value of length(word[i]) * length(word[j]) where the two words do not share common letters.
-You may assume that each word will contain only lower case letters. If no such two words exist, return 0.
-
-// The algo uses a very intelligent logic of calculating duplicate letters across all
-// words in an array.
-// CAUTION: This algo considers duplicate letters in the same word as a single occurrence of that letter.
-
-    public int maxProduct(String[] words) {
-        if(words==null || words.length==0)
-            return 0;
-
-        int len=words.length, maxProduct=0;
-        // letterBitSet[i] stores a number whose binary equivalent has set bits at position per the order of that
-        // letter in English lang for word[i].
-        // Eg: if word="abc", then binary
-        // equivalent of corresponding number is 0000....111
-        int[] letterBitSet = new int[len];
-
-        for(int i=0;i<len;i++) {
-            String word = words[i];
-            for(int j=0;j<word.length();j++) {
-               letterBitSet[i] |= (1<<word.charAt(j)-'a');
-            }
-        }
-
-        for(int i=0;i<len;i++) {
-            for(int j=i+1;j<len;j++) {
-                // No letter should be the same and product of lengths should be max
-                if((letterBitSet[i] & letterBitSet[j])==0 && words[i].length() * words[j].length() > maxProduct)
-                    maxProduct = words[i].length() * words[j].length();
-            }
-        }
-
-        return maxProduct;
-    }
-
-    // Time complexity: O(n) + O(k^2) where n=no. of all chars in all words; k=no. of words
 
 ===============================================
 31. Generate permutations of a given set of numbers:
@@ -300,29 +162,6 @@ Note: If there are several possible values for h, the maximum one is taken as th
     }
 
     // Time complexity: O(n) where n=length of citations[]
-
-=======================================================
-
-45. Bitwise AND of number range: Given a range [m, n] where 0 <= m <= n <= 2147483647, return the
-bitwise AND of all numbers in this range, inclusive.
-
-    public int rangeBitwiseAnd(int m, int n) {
-        if(m == 0){
-            return 0;
-        }
-        int numRightShifts = 0;
-        // Keep shifting m and n by 1 bit position to right
-        // until both are equal
-        while(m != n){
-            m >>= 1;
-            n >>= 1;
-            numRightShifts++;
-        }
-        // Shift m left by number of times it was shifted right before
-        return m * (int)Math.pow(2, numRightShifts);
-    }
-
-    // Time complexity: O(32) or O(64) in worst case scenario for 32/64 bit int size.
 
 ================================================
 46. Longest Substring with At Least K Repeating Characters: Find the length of the longest substring T of a
