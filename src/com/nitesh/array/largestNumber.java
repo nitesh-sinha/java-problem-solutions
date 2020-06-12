@@ -4,6 +4,8 @@
 //
 //        Note: The result may be very large, so you need to return a string instead of an integer.
 
+// Time complexity: O(n* log(n)) where n = length of input array
+
 package com.nitesh.array;
 
 import java.util.Arrays;
