@@ -21,7 +21,7 @@ public class testArray {
     public void testfn() {
 //        for(int x : returnFn())
 //            System.out.println(x);
-        int[] arr1 = {9,7,6,5,4,3,2,3,3,4};
+        int[] arr1 = {3,30,34,0,10, 5,9};
 //        mergeSort x = new mergeSort();
 //        x.mergeSortFn(arr1);
 //        for(int num : arr1)
@@ -34,8 +34,11 @@ public class testArray {
 //        for(Integer i : res)
 //            System.out.println(i);
 
-        increasingTriplet x = new increasingTriplet();
-        System.out.println(x.increasingTripletFn(arr1));
+//        increasingTriplet x = new increasingTriplet();
+//        System.out.println(x.increasingTripletFn(arr1));
+
+        largestNumber x = new largestNumber();
+        System.out.println(x.largestNumberFn(arr1));
 
 
 //        int[] arr1 = {1,2,3,4,5};
