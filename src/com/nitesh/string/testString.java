@@ -80,7 +80,10 @@ public class testString {
 //        for(String str : res)
 //            System.out.println(str);
 
-        isIsomorphic x = new isIsomorphic();
-        System.out.println(x.isIsomorphicFn("egg", "add"));
+//        isIsomorphic x = new isIsomorphic();
+////        System.out.println(x.isIsomorphicFn("egg", "add"));
+
+        longestSubstring x = new longestSubstring();
+        System.out.println(x.longestSubstringFn("xyzwaaaa", 4));
     }
 }

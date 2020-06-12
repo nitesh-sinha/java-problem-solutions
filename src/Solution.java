@@ -17,12 +17,12 @@ public class Solution {
 //        ListNode head = ListNode.createLinkedList(inputArr);
 //        checkPalindrome x = new checkPalindrome();
 //        System.out.println(x.checkPalindromeFn(head));
-        testBitwise x = new testBitwise();
-        x.testfn();
+//        testBitwise x = new testBitwise();
+//        x.testfn();
 //        testArray x = new testArray();
 //        x.testfn();
-//        testString x = new testString();
-//        x.testStringFn();
+        testString x = new testString();
+        x.testStringFn();
 //        longestCommonSubstring x = new longestCommonSubstring();
 //        System.out.println(x.longestCommonSubstringFn("blahsforGeeks", "Geeksquiz"));
 //          testBTree x = new testBTree();
