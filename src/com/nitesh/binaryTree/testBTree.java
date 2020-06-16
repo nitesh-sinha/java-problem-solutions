@@ -35,8 +35,12 @@ public class testBTree {
 //        System.out.println("Number of unival subtrees = " + x.countUnivalSubtreesFn(root));
 
 
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(null);
-        System.out.println(q.size());
+//        Queue<TreeNode> q = new LinkedList<>();
+//        q.add(null);
+//        System.out.println(q.size());
+
+        int[] arr = {9,1,8};
+        codingSystem x = new codingSystem();
+        x.codingSystemFn(arr);
     }
 }

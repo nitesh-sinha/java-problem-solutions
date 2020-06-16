@@ -19,8 +19,10 @@ public class Solution {
 //        System.out.println(x.checkPalindromeFn(head));
 //        testBitwise x = new testBitwise();
 //        x.testfn();
-        testArray x = new testArray();
-        x.testfn();
+//        testArray x = new testArray();
+//        x.testfn();
+        testBTree x = new testBTree();
+        x.testBTreeFn();
 //        testString x = new testString();
 //        x.testStringFn();
 //        longestCommonSubstring x = new longestCommonSubstring();
