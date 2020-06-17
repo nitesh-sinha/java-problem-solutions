@@ -6,6 +6,7 @@ import com.nitesh.linkedList.*;
 import com.nitesh.queue.*;
 import com.nitesh.binaryTree.*;
 import com.nitesh.bitwise.*;
+import com.nitesh.customDataStruct.*;
 
 import java.io.*;
 import java.util.List;
@@ -21,8 +22,10 @@ public class Solution {
 //        x.testfn();
 //        testArray x = new testArray();
 //        x.testfn();
-        testBTree x = new testBTree();
-        x.testBTreeFn();
+//        testBTree x = new testBTree();
+//        x.testBTreeFn();
+        testCustomDS x = new testCustomDS();
+        x.testCustomDSFn();
 //        testString x = new testString();
 //        x.testStringFn();
 //        longestCommonSubstring x = new longestCommonSubstring();
