@@ -47,7 +47,7 @@ public class LRUCache {
         maxSize = size;
     }
 
-    // Lookup cache using a key value
+    // Lookup cache using a key
     public int get(int key) throws Exception {
         if(cacheMap.containsKey(key)) {
             cacheNode node = cacheMap.get(key);
