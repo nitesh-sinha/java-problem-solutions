@@ -1,4 +1,6 @@
-// Testing to ensure that values in ArrayList are held when returning back from a recursive function call.
+// Testing to ensure that changes made to ArrayList values are not lost when returning back from a recursive function call.
+// Eg: If tempList = [1,2] and a recursive function is called whcih updates it to [1,2,3]
+// Then upon returning from that recursive function back to the caller function, tempList will still be [1,2,3]
 
 
 package com.nitesh.array;
