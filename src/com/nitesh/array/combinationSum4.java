@@ -1,4 +1,5 @@
-//        Given an integer array with all positive numbers and no duplicates, find the number of possible combinations that add up to a positive integer target.
+//        Given an integer array with all positive numbers and no duplicates, find the number of possible combinations
+//        that add up to a positive integer target.
 //
 //        Example:
 //
@@ -29,7 +30,7 @@ public class combinationSum4 {
         // Dynamic programming solution
         if(target <= 0)
             return 0;
-        int sumRemainder;
+        int remainingTarget;
 
         Arrays.sort(nums);
 
@@ -39,8 +40,8 @@ public class combinationSum4 {
         for(int i = 1; i<= target; i++) {
             numCombo[i] = 0;
             for(int j = 0; j<nums.length && nums[j] <= i; j++) {
-                sumRemainder = i-nums[j];
-                numCombo[i] += numCombo[sumRemainder];
+                remainingTarget = i-nums[j];
+                numCombo[i] += numCombo[remainingTarget];
             }
         }
         return numCombo[target];
