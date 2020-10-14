@@ -11,6 +11,8 @@
 //        Input: nums = [1,2,3,1]
 //        Output: 2
 //        Explanation: 3 is a peak element and your function should return the index number 2.
+//
+//
 //        Example 2:
 //
 //        Input: nums = [1,2,1,3,5,6,4]
@@ -33,7 +35,7 @@ public class findPeakElement {
         // https://www.youtube.com/watch?v=HtSuA80QTyo&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&index=2&t=0s
         while (l < r) {
             int mid = (l + r) / 2;
-            if (nums[mid] > nums[mid + 1])
+            if (nums[mid] > nums[mid + 1]) // compare last element in left half with first element in right half
                 // consider mid also while looking to its left for peak
                 // since mid can be the peak element as well
                 r = mid;

@@ -13,7 +13,7 @@
 package com.nitesh.array;
 
 public class countInversions {
-    int count=0;
+    private int count=0;
     public int countInversionsFn(int[] nums) {
         if(nums.length <= 1)
             return 0;
@@ -59,8 +59,8 @@ public class countInversions {
             outBuff[low + buffIndex] = nums[rPtr++];
             buffIndex++;
         }
-        // copy it ot nums so that next call of merge() can use partially updated/sorted elements
-        // instead of using the input nums(which is unsorted)
+        // copy it to nums so that it gets partially sorted and next call to merge()
+        // can use that partially sorted elements instead of using the input nums(which is unsorted)
         System.arraycopy(outBuff, low, nums, low, high-low+1);
     }
 }

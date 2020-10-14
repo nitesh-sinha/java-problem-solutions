@@ -4,6 +4,8 @@
 //
 //        Input: nums1 = [1,2,2,1], nums2 = [2,2]
 //        Output: [2]
+//
+//
 //        Example 2:
 //
 //        Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
@@ -26,7 +28,6 @@ import java.util.List;
 public class intersection {
     public int[] intersectionFn(int[] nums1, int[] nums2) {
         List<Integer> resList = new ArrayList<>();
-        int count = 0;
         if(nums1.length==0 || nums2.length==0)
             return new int[0];
 

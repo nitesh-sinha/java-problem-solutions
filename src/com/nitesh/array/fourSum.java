@@ -64,11 +64,10 @@ public class fourSum {
 
                         k++; // Skips over the last repeating element
                         l--; // Skips over the last repeating element
-                    }
-
-                    if(sum<target)
+                    } else if(sum<target)
                         k++;
-                    else if(sum>target)
+                    else
+                        // sum > target
                         l--;
                 }
             }

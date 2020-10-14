@@ -1,6 +1,8 @@
-//        Given an array of integers that is already sorted in ascending order, find two numbers such that they add up to a specific target number.
+//        Given an array of integers that is already sorted in ascending order, find two numbers such that they add up
+//        to a specific target number.
 //
-//        The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2.
+//        The function twoSumFn() should return indices of the two numbers such that they add up to the target,
+//        where index1 must be less than index2.
 //
 //        Note:
 //
@@ -32,5 +34,7 @@ public class twoSumII {
         }
         return new int[] {i+1, searchIndx+1};
     }
-
 }
+
+// Time complexity: O(n * log*n)) where n=length of array numbers
+
