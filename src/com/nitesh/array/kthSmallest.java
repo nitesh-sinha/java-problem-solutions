@@ -38,6 +38,7 @@ public class kthSmallest {
 
         @Override
         public int compareTo(Cell that) {
+            // implements functionality for minHeap data struct
             return this.val - that.val;
         }
     }
@@ -54,7 +55,7 @@ public class kthSmallest {
         // For every iteration, remove smallest element "c" from queue.
         // and add element(in same row but next column of "c") to queue
         while(count < k) {
-            c = minCellHeap.poll(); // Pick the lowest value
+            c = minCellHeap.poll(); // remove lowest valued cell from heap
             if(c.col == numRows-1)
                 // No more elements present in this row to add to queue
                 continue;

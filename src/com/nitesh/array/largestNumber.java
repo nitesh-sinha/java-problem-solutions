@@ -37,7 +37,9 @@ public class largestNumber {
             public int compare(String s1, String s2) {
                 String s3 = s1 + s2; // Assuming s1=3, s2=91 => s3 = 391
                 String s4 = s2 + s1; // Assuming s1=3, s2=91 => s4 = 913
-                return s4.compareTo(s3); // reverse the order of comparison since our intention is to get opposite of the lexicographic order of s1 and s2
+                // reverse the order of comparison since our intention is to get opposite of
+                // the lexicographic order of s1 and s2
+                return s4.compareTo(s3);
             }
         };
         // Solution overrides comparator used during sorting of strings thereby achieving the goal.

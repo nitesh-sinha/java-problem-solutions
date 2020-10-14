@@ -1,6 +1,7 @@
 //        Word Search:  Given a 2D board and a word, find if the word exists in the grid.
 //
-//        The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring.
+//        The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those
+//        horizontally or vertically neighboring.
 //        The same letter cell may not be used more than once.
 //
 //        For example, given board =
@@ -15,8 +16,8 @@
 //        word = "SEE", -> returns true,
 //        word = "ABCB", -> returns false.
 
-// Time complexity: O(m*n*4*k) where m=no. of rows in board, n=no. of cols in board, k=length of word. 4 b'coz we search for
-// that word in all 4 neighboring directions??
+// Time complexity: O(m*n*4*k) where m=no. of rows in board, n=no. of cols in board, k=length of word. 4 b'coz we
+// search for that word in all 4 neighboring directions??
 
 package com.nitesh.array;
 

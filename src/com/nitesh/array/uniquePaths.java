@@ -1,4 +1,5 @@
-//        A robot is located at the top-left corner of a m x n grid. The robot can only move either down or right at any point in time.
+//        A robot is located at the top-left corner of an m x n grid.
+//        The robot can only move either down or right at any point in time.
 //        The robot is trying to reach the bottom-right corner of the grid.(1<=m,n<=100)
 //
 //        How many possible unique paths are there?
@@ -14,6 +15,8 @@ import java.math.BigInteger;
 
 public class uniquePaths {
     public int uniquePathsFn(int m, int n) {
+        // A classic example of permutation with repetition problem(essentially in how many ways can we arrange
+        // m+n-2 items where m-1 items are similar and remaining n-1 items are similar.
         // Result = (m-1+n-1)! / ((m-1)! * (n-1)!)
         BigInteger[] fact = new BigInteger[m+n];
         BigInteger res;

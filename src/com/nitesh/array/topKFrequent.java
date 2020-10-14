@@ -7,7 +7,7 @@
 //                2
 //      Explanation: 1 has the maximum frequency(of 6) in arr1, followed by 2 which has the second highest frequency(of 3).
 //
-// Time complexity of alternate solution: O(k * log(n)) where n=length of nums in maxHeap; k=input k
+// Time complexity of alternate solution: O(k * log(n)) where n=length of nums in maxHeap; k=input k(<N)
 
 package com.nitesh.array;
 

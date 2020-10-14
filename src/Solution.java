@@ -20,8 +20,13 @@ public class Solution {
 //        System.out.println(x.checkPalindromeFn(head));
 //        testBitwise x = new testBitwise();
 //        x.testfn();
+        long startTime, endTime;
+        startTime = System.nanoTime();
         testArray x = new testArray();
         x.testfn();
+        endTime = System.nanoTime();
+        System.out.println("Time elapsed during execution: " + (endTime-startTime)/1000 + " microsec");
+
 //        testBTree x = new testBTree();
 //        x.testBTreeFn();
 //        testCustomDS x = new testCustomDS();

@@ -8,7 +8,7 @@
 //        Note:
 //
 //        There may be more than one LIS combination, it is only necessary for you to return the length.
-//        Your algorithm should run in O(n2) complexity.
+//        Your algorithm should run in O(n^2) complexity.
 
 // Time complexity: O(n^2)
 
@@ -31,7 +31,8 @@ public class lengthOfLIS {
             for(int j=0;j<i;j++) {
                 if (nums[i]>nums[j] && lis[i]<lis[j]+1)
                     // multiple LIS might be possible when considering array ending with nums at i'th postion;
-                    // so (lis[i]<lis[j]+1) condition ensures that we select the LIS which has the maximum number of numbers
+                    // so (lis[i]<lis[j]+1) condition ensures that we select the LIS which has the maximum
+                    // number of numbers
                     lis[i]=lis[j]+1;
             }
         }

@@ -21,7 +21,7 @@ public class testArray {
     public void testfn() {
 //        for(int x : returnFn())
 //            System.out.println(x);
-        int[] arr1 = {1,2,2,3};
+        //int[] arr1 = {1,2,2,3};
 //        mergeSort x = new mergeSort();
 //        x.mergeSortFn(arr1);
 //        for(int num : arr1)
@@ -37,8 +37,8 @@ public class testArray {
 //        increasingTriplet x = new increasingTriplet();
 //        System.out.println(x.increasingTripletFn(arr1));
 
-        allPossibleSubsetsWithDups x = new allPossibleSubsetsWithDups();
-        System.out.println(x.allPossibleSubsetsWithDupsFn(arr1));
+        isHappy x = new isHappy();
+        System.out.println(x.isHappyFn(1911234123));
 
 
 //        int[] arr1 = {1,2,3,4,5};
