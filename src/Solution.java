@@ -7,6 +7,7 @@ import com.nitesh.queue.*;
 import com.nitesh.binaryTree.*;
 import com.nitesh.bitwise.*;
 import com.nitesh.customDataStruct.*;
+import com.nitesh.multi.*;
 
 import java.io.*;
 import java.util.List;
@@ -14,18 +15,25 @@ import java.util.List;
 public class Solution {
 
     public static void main(String[] args) {
+        ProducerConsumerExample x = new ProducerConsumerExample();
+        try {
+            x.PCTester();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
 //        int[] inputArr = {1,2,3,2};
 //        ListNode head = ListNode.createLinkedList(inputArr);
 //        checkPalindrome x = new checkPalindrome();
 //        System.out.println(x.checkPalindromeFn(head));
 //        testBitwise x = new testBitwise();
 //        x.testfn();
-        long startTime, endTime;
-        startTime = System.nanoTime();
-        testArray x = new testArray();
-        x.testfn();
-        endTime = System.nanoTime();
-        System.out.println("Time elapsed during execution: " + (endTime-startTime)/1000 + " microsec");
+//        long startTime, endTime;
+//        startTime = System.nanoTime();
+//        testArray x = new testArray();
+//        x.testfn();
+//        endTime = System.nanoTime();
+//        System.out.println("Time elapsed during execution: " + (endTime-startTime)/1000 + " microsec");
 
 //        testBTree x = new testBTree();
 //        x.testBTreeFn();
