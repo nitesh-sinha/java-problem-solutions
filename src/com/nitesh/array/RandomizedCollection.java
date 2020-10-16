@@ -4,7 +4,9 @@
 //
 //        insert(val): Inserts an item val to the collection.
 //        remove(val): Removes an item val from the collection if present.
-//        getRandom: Returns a random element from current collection of elements. The probability of each element being returned is linearly related to the number of same value the collection contains.
+//        getRandom: Returns a random element from current collection of elements.
+//                   The probability of each element being returned is linearly related to the number of same value
+//                   the collection contains.
 //        Example:
 //
 //// Init an empty collection.
@@ -40,14 +42,14 @@ public class RandomizedCollection {
         private HashMap<Integer, LinkedHashSet<Integer>> numIndex;
         private java.util.Random rand;
 
-        /** Initialize your data structure here. */
         public RandomizedCollection() {
             nums = new ArrayList<Integer>();
             numIndex = new HashMap<Integer, LinkedHashSet<Integer>>();
             rand = new java.util.Random();
         }
 
-        /** Inserts a value to the collection. Returns true if the collection did not already contain the specified element. */
+        /** Inserts a value to the collection.
+         * Returns true if the collection did not already contain the specified element. */
         public boolean insert(int val) {
             boolean found = numIndex.containsKey(val);
             if(!found)

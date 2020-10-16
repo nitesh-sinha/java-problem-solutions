@@ -1,10 +1,13 @@
-//        Given a positive integer n, find the least number of perfect square numbers (for example, 1, 4, 9, 16, ...) which sum to n.
+//        Given a positive integer n, find the least number of perfect square numbers (for example, 1, 4, 9, 16, ...)
+//        which sum to n.
 //
 //        Example 1:
 //
 //        Input: n = 12
 //        Output: 3
 //        Explanation: 12 = 4 + 4 + 4.
+//
+//
 //        Example 2:
 //
 //        Input: n = 13
@@ -30,7 +33,8 @@ public class numSquares {
         for(int i=2 ; i<= n; i++) {
             numPerfectSq[i] = Integer.MAX_VALUE;
             for(int j=1; j*j <= i; j++)
-                numPerfectSq[i] = Math.min(numPerfectSq[i], 1 + numPerfectSq[i-j*j]); // Adding 1 here to consider the term (j*j) that we subtract from i here
+                // Adding 1 here to consider the term (j*j) that we subtract from i here
+                numPerfectSq[i] = Math.min(numPerfectSq[i], 1 + numPerfectSq[i-j*j]);
         }
         return numPerfectSq[n];
     }

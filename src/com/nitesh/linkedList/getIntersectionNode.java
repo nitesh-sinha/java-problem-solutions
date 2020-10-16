@@ -10,20 +10,20 @@
 //        You may assume there are no cycles anywhere in the entire linked structure.
 //        Your code should preferably run in O(n) time and use only O(1) memory.
 
+// Time complexity: O(n) where n=size of the larger length list
+
 package com.nitesh.linkedList;
 
 public class getIntersectionNode {
     public ListNode getIntersectionNodeFn(ListNode headA, ListNode headB) {
         int numNodesA, numNodesB, diffLength;
-        ListNode ptrLong, ptrShort;
+        ListNode ptrLong=headA, ptrShort=headB; // start with this assumption
 
         numNodesA = getNumNodes(headA);
         numNodesB = getNumNodes(headB);
 
-        if (numNodesA>numNodesB) {
-            ptrLong = headA;
-            ptrShort = headB;
-        } else {
+        if (numNodesA<numNodesB) {
+            // correct the initial assumption
             ptrLong = headB;
             ptrShort = headA;
         }

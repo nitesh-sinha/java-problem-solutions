@@ -4,7 +4,8 @@
 //
 //        insert(val): Inserts an item val to the set if not already present.
 //        remove(val): Removes an item val from the set if present.
-//        getRandom: Returns a random element from current set of elements. Each element must have the same probability of being returned.
+//        getRandom: Returns a random element from current set of elements.
+//                   Each element must have the same probability of being returned.
 //
 //
 //        Example:
@@ -49,7 +50,6 @@ public class RandomizedSet {
     private Map<Integer, Integer> numIndex;
     private java.util.Random rand;
 
-    /** Initialize your data structure here. */
     public RandomizedSet() {
         nums = new ArrayList<Integer>();
         numIndex = new HashMap<>();

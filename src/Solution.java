@@ -15,12 +15,14 @@ import java.util.List;
 public class Solution {
 
     public static void main(String[] args) {
-        ProducerConsumerExample x = new ProducerConsumerExample();
-        try {
-            x.PCTester();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+//        ProducerConsumerExample x = new ProducerConsumerExample();
+//        try {
+//            x.PCTester();
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+        testLinkedList x = new testLinkedList();
+        x.testfn();
 
 //        int[] inputArr = {1,2,3,2};
 //        ListNode head = ListNode.createLinkedList(inputArr);

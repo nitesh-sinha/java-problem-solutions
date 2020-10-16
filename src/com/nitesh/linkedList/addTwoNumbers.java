@@ -1,4 +1,6 @@
-//        You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+//        You are given two non-empty linked lists representing two non-negative integers. The digits are stored in
+//        reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked
+//        list.
 //
 //        You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 //
@@ -11,7 +13,7 @@
 package com.nitesh.linkedList;
 
 public class addTwoNumbers {
-    public ListNode addTwoNumberFns(ListNode l1, ListNode l2) {
+    public ListNode addTwoNumberFn(ListNode l1, ListNode l2) {
         ListNode dummy = new ListNode(0);
         ListNode temp, resPtr=dummy;
         int firstNumDigit, secondNumDigit, carry=0, sum;

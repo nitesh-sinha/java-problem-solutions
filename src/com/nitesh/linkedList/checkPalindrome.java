@@ -1,4 +1,4 @@
-// Given a linkedlist of characters which form a  string, check whether the string is palindrome.
+// Given a linkedlist of characters which form a string, check whether the string is palindrome.
 //
 //  Example 1: Input: s -> w -> a -> w -> s
 //             Output: true
