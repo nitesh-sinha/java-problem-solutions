@@ -45,9 +45,10 @@
 package com.nitesh.binaryTree;
 
 public class recoverTree {
-    // there are two out of order nodes(first and secoond)
+    // there are two out of order nodes(first and second)
     private TreeNode first=null, second=null;
-    private TreeNode prevNode = new TreeNode(Integer.MIN_VALUE); // we need to hold the prev node value across recursive calls during inorder traversal
+    // we need to hold the prev node value across recursive calls during inorder traversal
+    private TreeNode prevNode = new TreeNode(Integer.MIN_VALUE);
 
     public void recoverTreeFn(TreeNode root) {
         if(root==null)

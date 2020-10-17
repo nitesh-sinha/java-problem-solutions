@@ -1,6 +1,7 @@
 //        Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
 //
-//        For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
+//        For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two
+//        subtrees of every node never differ by more than 1.
 //
 //        Example:
 //
@@ -39,7 +40,7 @@ public class sortedListToBST {
 
     // Create BST by traversing from start to end of "sorted" list, thereby picking
     // each node from list and creating the BST as we traverse in-order. In-order traversal
-    // because thats the inherent nature of adding sorted numbers to BST
+    // because that is the inherent nature of adding sorted numbers to BST
     private TreeNode createBSTinOrder(int lo, int high) {
         if(lo > high)
             return null;
