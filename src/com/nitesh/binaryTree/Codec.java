@@ -58,7 +58,8 @@ public class Codec {
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
         String[] dataParts = data.split(",");
-        // index, on JVM's heap, acting like a global variable to retain value across recursive calls of doPreOrderDeserialization()
+        // index, on JVM's heap, acting like a global variable to retain value across recursive calls of
+        // doPreOrderDeserialization()
         int[] index = new int[]{0}; // one element integer array initialized to 0
         return doPreOrderDeserialization(dataParts, index);
     }

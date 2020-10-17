@@ -1,4 +1,5 @@
-//        Given a binary tree, flatten it to a linked list in-place. Essentially nodes are flattened in root->left->right manner.
+//        Given a binary tree, flatten it to a linked list in-place. Essentially nodes are flattened
+//        in root->left->right manner.
 //
 //        For example, given the following tree:
 //

@@ -1,5 +1,6 @@
-//        Implement a method to count the number of unival subtrees. A unival subtree is a subtree within a tree with root node and all its
-//        children nodes(upto the leaf node) have the same value. Note that all leaf nodes are considered unival subtrees.
+//        Implement a method to count the number of unival subtrees. A unival subtree is a subtree within a tree
+//        with root node and all its children nodes(upto the leaf node) have the same value. Note that all leaf nodes
+//        are considered unival subtrees.
 //
 //
 //        Eg:

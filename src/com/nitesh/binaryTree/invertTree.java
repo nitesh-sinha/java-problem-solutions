@@ -25,11 +25,11 @@ public class invertTree {
         if(root==null)
             return null;
 
-        TreeNode lefttree = invertTreeFn(root.left);
-        TreeNode righttree = invertTreeFn(root.right);
+        TreeNode invertedLeftTree = invertTreeFn(root.left);
+        TreeNode invertedRightTree = invertTreeFn(root.right);
 
-        root.left = righttree;
-        root.right = lefttree;
+        root.left = invertedRightTree;
+        root.right = invertedLeftTree;
         return root;
     }
 }

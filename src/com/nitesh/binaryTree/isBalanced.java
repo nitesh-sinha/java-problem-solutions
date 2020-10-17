@@ -28,7 +28,6 @@
 //     4   4
 //        Return false.
 
-
 package com.nitesh.binaryTree;
 
 public class isBalanced {
