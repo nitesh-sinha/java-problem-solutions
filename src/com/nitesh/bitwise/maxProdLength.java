@@ -1,9 +1,11 @@
-//        Given a string array words, find the maximum value of length(word[i]) * length(word[j]) where the two words do not share common letters.
+//        Given a string array words, find the maximum value of length(word[i]) * length(word[j])
+//        where the two words do not share common letters.
 //        You may assume that each word will contain only lower case letters. If no such two words exist, return 0.
 //
 //   Example 1: Input: words = {"abc", "def", "adfg", "dira"}
 //              Output: 9
-//              Explanation: "abc" and "def" are the only words which do not contain common letters. Hence product of their lengths = 3*3 = 9
+//              Explanation: "abc" and "def" are the only words which do not contain common letters.
+//              Hence product of their lengths = 3*3 = 9
 
 // Time complexity: O(n) + O(k^2) = O(k^2), where n = no. of all chars in all words; k = no. of words
 
@@ -30,8 +32,8 @@ public class maxProdLength {
 
         // Now calculate max product length
         // bitset array will help determine if two words contain same character in O(1) time.
-        for(int i=0; i < numWords-2; i++) {
-            for(int j=i+1; j< numWords-1; j++)
+        for(int i=0; i < numWords-1; i++) {
+            for(int j=i+1; j< numWords; j++)
                 if((bitSetWord[i] & bitSetWord[j]) == 0 && (words[i].length() * words[j].length()) > maxProdLen)
                     // No common letter in both words and product of lengths is greater than max
                     maxProdLen = words[i].length() * words[j].length();
