@@ -1,4 +1,5 @@
-//        Given a non-negative integer num represented as a string, remove k digits from the number so that the new number is the smallest possible.
+//        Given a non-negative integer num represented as a string, remove k digits from the number so that the
+//        new number is the smallest possible.
 //        Digits can be removed from any position i.e. removal need not always be of consecutive digits.
 //
 //        Note:
@@ -37,9 +38,9 @@ public class removeKdigits {
 
         // Idea: Delete digits from num in this order of preference:-
         // Case 1. Delete those digits which are larger than its immediate next digit. During this deletion,
-        //         new number formed after deleting a digit should go through step 1 again.
+        //         new number formed after deleting a digit should go through this step again.
         // Case 2. If k is still positive, then the resultant number has digits either equal or in increasing
-        //         order when read from left to right. Now start to delete those digits from the right until k>0.
+        //         order when read from left to right. Now start to delete digits from the right until k>0.
 
         if(k >= num.length())
             return "0";
@@ -62,7 +63,7 @@ public class removeKdigits {
 
         // Create resultant number
         while(!digitStack.isEmpty())
-            res.append(digitStack.pop()); // append at the beginning
+            res.append(digitStack.pop());
         res.reverse();
 
         // Remove leading zeros from result, if any

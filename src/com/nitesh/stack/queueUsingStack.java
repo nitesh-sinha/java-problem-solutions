@@ -6,7 +6,7 @@
 //        empty() -- Return whether the queue is empty.
 //        Example:
 //
-//        MyQueue queue = new MyQueue();
+//        MyQueue queue = new queueUsingStack();
 //
 //        queue.push(1);
 //        queue.push(2);
@@ -15,9 +15,12 @@
 //        queue.empty(); // returns false
 //        Notes:
 //
-//        You must use only standard operations of a stack -- which means only push to top, peek/pop from top, size, and is empty operations are valid.
-//        Depending on your language, stack may not be supported natively. You may simulate a stack by using a list or deque (double-ended queue), as long as you use only standard operations of a stack.
-//        You may assume that all operations are valid (for example, no pop or peek operations will be called on an empty queue).
+//        You must use only standard operations of a stack -- which means only push to top, peek/pop from top, size,
+//        and is empty operations are valid.
+//        Depending on your language, stack may not be supported natively. You may simulate a stack by using a list or
+//        deque (double-ended queue), as long as you use only standard operations of a stack.
+//        You may assume that all operations are valid (for example, no pop or peek operations will be called on an
+//        empty queue).
 
 // Time complexity:
 // Push: O(1)
@@ -33,7 +36,7 @@ import java.util.Stack;
 public class queueUsingStack {
     private Stack<Integer> inStack = new Stack<Integer>();
     private Stack<Integer> outStack = new Stack<Integer>();
-    private int front; // keeps track of first element in inStack
+    private int front; // keeps track of first element in queue
 
     // Push element x to the back of queue.
     public void push(int x) {

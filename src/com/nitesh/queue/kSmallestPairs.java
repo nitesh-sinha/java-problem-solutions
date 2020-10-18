@@ -68,7 +68,8 @@ public class kSmallestPairs {
         if(nums1==null || len1==0 || nums2==null || len2==0)
             return res;
 
-        // Add k(or len1 whichever is smaller) pairs by always taking first element from nums2[] and all elements from nums1[]
+        // Add k(or len1 whichever is smaller) pairs by always taking first element from nums2[] and
+        // all elements from nums1[]
         for(int i=0; i<k && i<len1; i++) {
             pq.add(new Pair(nums1[i], nums2[0], 0));
         }
