@@ -21,7 +21,9 @@ public class Solution {
 //        } catch (Exception e) {
 //            System.out.println(e.getMessage());
 //        }
-        testLinkedList x = new testLinkedList();
+//        testLinkedList x = new testLinkedList();
+//        x.testfn();
+        testBitwise x = new testBitwise();
         x.testfn();
 
 //        int[] inputArr = {1,2,3,2};

@@ -12,7 +12,7 @@ public class testBitwise {
 //        for(int r : res)
 //            System.out.println(r);
 
-        String[] words = {"abcxxxx", "def", "stuv", "dira"};
+        String[] words = {"abcxxxx", "def", "stuv", "dirggl"};
         maxProdLength x = new maxProdLength();
         System.out.println(x.maxProdLengthFn(words));
     }
